@@ -1,10 +1,15 @@
 (function () {
   "use strict";
 
-  const PROTOTYPE_VERSION = "continuity-web-prototype-v0.3";
+  const PROTOTYPE_VERSION = "continuity-web-prototype-v0.4";
   const SCHEMA_VERSION = "atlas-unmoderated-v2";
   const PRIVACY_VERSION = "2026-07-18-v2";
-  const COLLECTOR_URL = String(window.ATLAS_COLLECTOR_URL || "").replace(/\/$/, "");
+  const configuredCollectorUrls = Array.isArray(window.ATLAS_COLLECTOR_URLS)
+    ? window.ATLAS_COLLECTOR_URLS
+    : [window.ATLAS_COLLECTOR_URL];
+  const COLLECTOR_URLS = [...new Set(configuredCollectorUrls.map((value) => String(value || "").replace(/\/$/, "")).filter(Boolean))];
+  const PRIMARY_COLLECTOR_URL = COLLECTOR_URLS[0] || "";
+  const REQUEST_TIMEOUT_MS = 10000;
   const TASK_ORDER = ["followup", "memory", "timeline", "model"];
 
   const messages = {
@@ -46,6 +51,8 @@
       assistant_followup: "Yesterday you wanted a concise opening. Would you like to draft the first two sentences now?",
       draft_with_me: "Draft with me",
       already_finished: "I already finished it",
+      draft_response: "Here’s a concise opening: “Today I’ll show the problem, what we learned, and the next decision we need to make.” You can adjust the wording before using it.",
+      finished_response: "Got it. I’ll mark this topic complete and won’t follow up on it again.",
       your_boundary: "YOUR BOUNDARY",
       proactive_followups: "Proactive follow-ups",
       boundary_copy: "Ask once about unfinished topics. Never repeat a skipped reminder.",
@@ -175,8 +182,12 @@
       upload_duplicate: "Result already received",
       upload_duplicate_copy: "This session was already stored; no duplicate record was created.",
       upload_failed: "Automatic upload did not finish",
-      upload_failed_copy: "Your result remains in this browser. Retry now, or use the result code as a backup.",
+      upload_failed_copy: "Your result remains in this browser. If this network cannot reach the collector, download the report or copy the result code and send it to the researcher.",
+      upload_timeout_copy: "The collector did not respond within 10 seconds. Test the connection below, then retry or download the report.",
+      upload_network_copy: "The browser could not connect to the collector. Test the connection below, then retry or download the report.",
+      upload_rejected_copy: "The collector was reached but rejected this result. Download the report and send it to the researcher for review.",
       collector_not_configured: "The result collector is not configured on this deployment.",
+      collector_connection_test: "Open collector connection test",
       receipt_copy: "Save the receipt if you may want to delete this result later.",
       preview_data: "Preview result data",
       copy_result: "Copy result code",
@@ -188,6 +199,8 @@
       deleted_success_copy: "The stored result has been deleted and will be removed by the retention job.",
       delete_failed: "Deletion request did not finish. Keep the downloaded receipt and try again later.",
       toast_followup_continue: "Yesterday’s topic is ready to continue.",
+      toast_followup_draft: "A concise opening draft is ready.",
+      toast_followup_finished: "Topic completed. Atlas will not follow up again.",
       toast_followup_skip: "Skipped. Atlas will not repeat this reminder.",
       toast_followup_on: "Proactive follow-ups are on.",
       toast_followup_off: "Proactive follow-ups are off.",
@@ -243,6 +256,8 @@
       assistant_followup: "昨天你希望开场简洁一些。现在要一起起草开头两句话吗？",
       draft_with_me: "一起起草",
       already_finished: "我已经完成了",
+      draft_response: "可以这样简洁开场：“今天我会说明问题、我们获得的结论，以及接下来需要作出的决定。” 使用前你仍可以调整措辞。",
+      finished_response: "知道了。我会把这个话题标记为已完成，不再继续跟进。",
       your_boundary: "你的互动边界",
       proactive_followups: "主动跟进",
       boundary_copy: "未完成话题只询问一次；跳过后不再重复提醒。",
@@ -372,8 +387,12 @@
       upload_duplicate: "结果已收到",
       upload_duplicate_copy: "该测试会话此前已经保存，没有生成重复记录。",
       upload_failed: "自动上传未完成",
-      upload_failed_copy: "结果仍保留在当前浏览器中。你可以立即重试，或使用结果码作为备用。",
+      upload_failed_copy: "结果仍保留在当前浏览器中。如果当前网络无法连接接收端，请下载报告或复制结果码并发送给研究人员。",
+      upload_timeout_copy: "接收端在10秒内没有响应。请先打开下方连接测试，再重试或下载报告。",
+      upload_network_copy: "浏览器无法连接结果接收端。请先打开下方连接测试，再重试或下载报告。",
+      upload_rejected_copy: "已经连接到接收端，但结果被拒绝。请下载报告并发送给研究人员复核。",
       collector_not_configured: "当前部署尚未配置结果接收端。",
+      collector_connection_test: "打开接收端连接测试",
       receipt_copy: "如果以后可能需要删除结果，请保存此凭证。",
       preview_data: "预览结果数据",
       copy_result: "复制结果码",
@@ -385,6 +404,8 @@
       deleted_success_copy: "已存结果已标记删除，并会由清理任务彻底移除。",
       delete_failed: "删除请求未完成。请保留下载的凭证，稍后重试。",
       toast_followup_continue: "已准备好继续昨天的话题。",
+      toast_followup_draft: "简洁的开场草稿已生成。",
+      toast_followup_finished: "话题已完成，Atlas 不会再次跟进。",
       toast_followup_skip: "已跳过，Atlas 不会重复提醒。",
       toast_followup_on: "主动跟进已开启。",
       toast_followup_off: "主动跟进已关闭。",
@@ -418,6 +439,7 @@
     uploadConsentAt: null,
     deletionToken: createDeletionToken(),
     uploadReceipt: null,
+    uploadEndpoint: null,
     uploadStatus: "idle",
     uploadDetail: "",
     uploadInFlight: false,
@@ -675,6 +697,7 @@
     const copyElement = document.querySelector("#upload-status-copy");
     const retryButton = document.querySelector("#retry-upload-button");
     const deleteButton = document.querySelector("#delete-upload-button");
+    const healthLink = document.querySelector("#collector-health-link");
     panel.classList.remove("is-submitting", "is-success", "is-error", "is-deleted");
     const visualStatus = { stored: "success", duplicate: "success", failed: "error", delete_failed: "error" }[status] || status;
     panel.classList.add(`is-${visualStatus}`);
@@ -691,40 +714,75 @@
     copyElement.textContent = content[1] in messages[state.locale] ? t(content[1]) : content[1];
     retryButton.hidden = status !== "failed";
     deleteButton.hidden = !["stored", "duplicate", "delete_failed"].includes(status);
+    healthLink.hidden = !["failed", "delete_failed"].includes(status) || !PRIMARY_COLLECTOR_URL;
+    if (PRIMARY_COLLECTOR_URL) healthLink.href = `${PRIMARY_COLLECTOR_URL}/health`;
+  }
+
+  async function requestWithTimeout(url, options) {
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+    try {
+      return await fetch(url, { ...options, signal: controller.signal });
+    } finally {
+      window.clearTimeout(timeout);
+    }
   }
 
   async function submitResult() {
     if (!state.result || state.uploadInFlight) return;
     state.uploadInFlight = true;
     setUploadStatus("submitting");
-    if (!COLLECTOR_URL) {
+    if (!COLLECTOR_URLS.length) {
       setUploadStatus("failed", "collector_not_configured");
       state.uploadInFlight = false;
       return;
     }
 
+    const body = JSON.stringify({
+      result: state.result,
+      deletion_token: state.deletionToken,
+      upload_consent: {
+        confirmed: true,
+        privacy_version: PRIVACY_VERSION,
+        confirmed_at: state.uploadConsentAt,
+      },
+    });
+
     try {
-      const response = await fetch(`${COLLECTOR_URL}/v1/results`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          result: state.result,
-          deletion_token: state.deletionToken,
-          upload_consent: {
-            confirmed: true,
-            privacy_version: PRIVACY_VERSION,
-            confirmed_at: state.uploadConsentAt,
-          },
-        }),
-      });
-      const receipt = await response.json().catch(() => ({}));
-      if (!response.ok || !["stored", "duplicate"].includes(receipt.status)) throw new Error(receipt.error || `http_${response.status}`);
-      state.uploadReceipt = receipt;
-      document.querySelector("#receipt-id").textContent = `session: ${receipt.session_id}`;
+      let delivered = null;
+      let failureDetail = "upload_network_copy";
+      for (const endpoint of COLLECTOR_URLS) {
+        try {
+          const response = await requestWithTimeout(`${endpoint}/v1/results`, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body,
+          });
+          const receipt = await response.json().catch(() => ({}));
+          if (response.ok && ["stored", "duplicate"].includes(receipt.status)) {
+            delivered = { endpoint, receipt };
+            break;
+          }
+          if (response.status < 500) {
+            failureDetail = "upload_rejected_copy";
+            break;
+          }
+        } catch (error) {
+          failureDetail = error && error.name === "AbortError" ? "upload_timeout_copy" : "upload_network_copy";
+          /* Try the next configured collector. */
+        }
+      }
+      if (!delivered) {
+        setUploadStatus("failed", failureDetail);
+        return;
+      }
+      state.uploadEndpoint = delivered.endpoint;
+      state.uploadReceipt = delivered.receipt;
+      document.querySelector("#receipt-id").textContent = `session: ${delivered.receipt.session_id}`;
       document.querySelector("#receipt-panel").hidden = false;
-      setUploadStatus(receipt.status);
+      setUploadStatus(delivered.receipt.status);
     } catch (_error) {
-      setUploadStatus("failed");
+      setUploadStatus("failed", "upload_network_copy");
     } finally {
       state.uploadInFlight = false;
     }
@@ -749,7 +807,7 @@
       result: state.result,
       upload_receipt: state.uploadReceipt,
       deletion_token: state.deletionToken,
-      deletion_endpoint: COLLECTOR_URL ? `${COLLECTOR_URL}/v1/results/${state.sessionId}` : null,
+      deletion_endpoint: state.uploadEndpoint ? `${state.uploadEndpoint}/v1/results/${state.sessionId}` : null,
     };
     const blob = new Blob([`${JSON.stringify(bundle, null, 2)}\n`], { type: "application/json" });
     const url = URL.createObjectURL(blob);
@@ -761,12 +819,13 @@
   }
 
   async function deleteUploadedResult() {
-    if (!COLLECTOR_URL || !state.uploadReceipt) return;
+    const endpoint = state.uploadEndpoint || PRIMARY_COLLECTOR_URL;
+    if (!endpoint || !state.uploadReceipt) return;
     const button = document.querySelector("#delete-upload-button");
     button.disabled = true;
     button.textContent = t("deleting");
     try {
-      const response = await fetch(`${COLLECTOR_URL}/v1/results/${encodeURIComponent(state.sessionId)}`, {
+      const response = await requestWithTimeout(`${endpoint}/v1/results/${encodeURIComponent(state.sessionId)}`, {
         method: "DELETE",
         headers: { "x-atlas-deletion-token": state.deletionToken },
       });
@@ -815,8 +874,33 @@
 
   document.querySelector("#continue-button").addEventListener("click", () => {
     document.querySelector("#conversation-preview").hidden = false;
-    completeTask("followup", "continued_topic");
+    recordEvent("followup_opened", { task: "followup", outcome: "continued_topic" });
     showToast(t("toast_followup_continue"));
+  });
+
+  function selectFollowupReply(button, outcome, responseKey, toastKey) {
+    const buttons = document.querySelectorAll(".quick-replies button");
+    if (button.disabled) return;
+    buttons.forEach((item) => {
+      item.disabled = true;
+      item.setAttribute("aria-pressed", item === button ? "true" : "false");
+      item.classList.toggle("is-selected", item === button);
+    });
+    const response = document.querySelector("#followup-response");
+    response.dataset.i18n = responseKey;
+    response.textContent = t(responseKey);
+    response.hidden = false;
+    if (state.tasks.followup.status === "pending") completeTask("followup", outcome);
+    else recordEvent("followup_reply_selected", { task: "followup", outcome });
+    showToast(t(toastKey));
+  }
+
+  document.querySelector("#draft-button").addEventListener("click", (event) => {
+    selectFollowupReply(event.currentTarget, "drafted_opening", "draft_response", "toast_followup_draft");
+  });
+
+  document.querySelector("#finished-button").addEventListener("click", (event) => {
+    selectFollowupReply(event.currentTarget, "marked_topic_complete", "finished_response", "toast_followup_finished");
   });
 
   document.querySelector("#skip-button").addEventListener("click", () => {

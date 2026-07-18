@@ -1,6 +1,6 @@
 # Atlas Companion bilingual continuity prototype
 
-Version: `continuity-web-prototype-v0.3`
+Version: `continuity-web-prototype-v0.4`
 
 这是用于“先做再验证”的中英双语、手机尺寸 Web 可用性原型，不是正式 MVP、Android APK 或 iOS IPA，也不改变 [`ENG-001`](../../../docs/framework-edition/engineering/ENG-001.md) 冻结的 Flutter + FastAPI 正式技术栈。
 
@@ -35,7 +35,7 @@ python3 -m http.server 4173 --bind 0.0.0.0 --directory /DATA/codex_ts/atlas_os/a
 - 公开测试地址：<https://yuhaixin000.github.io/atlas-continuity-prototype/>
 - 隔离公开仓库：<https://github.com/yuhaixin000/atlas-continuity-prototype>
 - 首次发布提交：`fb949b5c321762df8e96c6a161b3d82914efb4ea`
-- 当前 v0.3 发布提交：`7d133ffe1fb8717c61b5d2b385733ad73fa28914`
+- 上一版 v0.3 发布提交：`7d133ffe1fb8717c61b5d2b385733ad73fa28914`
 
 ## 无人测试执行
 
@@ -50,4 +50,4 @@ node atlas_os/apps/companion/prototype/tests/smoke.mjs
 bash atlas_os/evidence/interviews/validation/tools/validate_validation.sh
 ```
 
-结构测试证明双语键、核心控件、自动上传/手工回退、删除入口和匿名结果边界存在；接收端另有 Origin、Schema、幂等、删除与保留期测试。它们不能证明真实可用性、需求、留存或支付。
+结构测试证明双语键、核心控件、快速回复分支、自动上传/手工回退、删除入口和匿名结果边界存在；接收端另有 Origin、Schema、幂等、删除与保留期测试。上传支持多个有序接收端、单端10秒超时、失败类型与健康检查入口；中国网络提交失败的根因确认前使用下载报告/结果码回退。它们不能证明真实可用性、需求、留存或支付。

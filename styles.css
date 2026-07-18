@@ -438,6 +438,21 @@ h3 {
   font-size: 0.82rem;
 }
 
+.quick-replies button.is-selected {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+  color: var(--brand-dark);
+}
+
+.quick-replies button:disabled:not(.is-selected) {
+  opacity: 0.55;
+}
+
+.followup-response {
+  margin-top: 12px;
+  border-left: 3px solid var(--brand);
+}
+
 .section-heading {
   align-items: flex-start;
 }
@@ -847,6 +862,12 @@ pre {
 .upload-status.is-error {
   border-color: #d8a4a0;
   background: #fff0ef;
+}
+
+.collector-health-link {
+  display: inline-block;
+  margin: -4px 0 10px;
+  font-size: 0.78rem;
 }
 
 #receipt-panel {

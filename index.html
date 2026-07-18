@@ -68,9 +68,10 @@
           <p class="card-kicker" data-i18n="conversation">CONVERSATION</p>
           <div class="message assistant-message" data-i18n="assistant_followup">Yesterday you wanted a concise opening. Would you like to draft the first two sentences now?</div>
           <div class="quick-replies">
-            <button type="button" data-i18n="draft_with_me">Draft with me</button>
-            <button type="button" data-i18n="already_finished">I already finished it</button>
+            <button id="draft-button" type="button" aria-pressed="false" data-i18n="draft_with_me">Draft with me</button>
+            <button id="finished-button" type="button" aria-pressed="false" data-i18n="already_finished">I already finished it</button>
           </div>
+          <div class="message assistant-message followup-response" id="followup-response" hidden></div>
         </article>
 
         <article class="boundary-card">
@@ -296,7 +297,7 @@
       </nav>
 
       <footer class="prototype-footer">
-        <span>continuity-web-prototype-v0.3</span>
+        <span>continuity-web-prototype-v0.4</span>
         <button class="text-button" id="privacy-button" type="button" data-i18n="privacy">Privacy & data</button>
       </footer>
     </main>
@@ -358,6 +359,7 @@
           <strong id="upload-status-title" data-i18n="upload_waiting">Preparing upload…</strong>
           <span id="upload-status-copy" data-i18n="upload_waiting_copy">Keep this window open until submission finishes.</span>
         </div>
+        <a class="text-button collector-health-link" id="collector-health-link" target="_blank" rel="noopener noreferrer" data-i18n="collector_connection_test" hidden>Open collector connection test</a>
         <details><summary data-i18n="preview_data">Preview result data</summary><pre id="result-preview"></pre></details>
         <textarea id="result-code" rows="4" readonly aria-label="Anonymous result code"></textarea>
         <div id="receipt-panel" hidden>

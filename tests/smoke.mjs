@@ -26,6 +26,9 @@ for (const control of [
   "adult-consent",
   "upload-consent",
   "continue-button",
+  "draft-button",
+  "finished-button",
+  "followup-response",
   "skip-button",
   "followup-toggle",
   "memory-dialog",
@@ -41,6 +44,7 @@ for (const control of [
   "retry-upload-button",
   "delete-upload-button",
   "upload-status",
+  "collector-health-link",
   "reset-button",
 ]) {
   assert.match(html, new RegExp(`id="${control}"`), `missing ${control}`);
@@ -67,10 +71,14 @@ assert.match(js, /不是真人/, "missing Chinese AI identity disclosure");
 assert.match(js, /ATLAS-UT2-/, "v2 anonymous result-code prefix missing");
 assert.match(js, /automatic_upload:\s*true/, "automatic-upload consent boundary missing");
 assert.match(js, /automatic_with_manual_fallback/, "automatic upload fallback mode missing");
+assert.match(js, /drafted_opening/, "draft follow-up interaction missing");
+assert.match(js, /marked_topic_complete/, "completed-topic interaction missing");
 assert.match(js, /method:\s*"POST"/, "automatic result submission missing");
 assert.match(js, /method:\s*"DELETE"/, "participant deletion request missing");
-assert.match(js, /fetch\(`\$\{COLLECTOR_URL\}\/v1\/results/, "collector endpoint must be derived from local configuration");
+assert.match(js, /COLLECTOR_URLS/, "multiple collector endpoint support missing");
+assert.match(js, /requestWithTimeout/, "collector timeout handling missing");
 assert.match(config, /window\.ATLAS_COLLECTOR_URL\s*=/, "collector configuration missing");
+assert.match(config, /window\.ATLAS_COLLECTOR_URLS\s*=/, "collector endpoint list missing");
 assert.doesNotMatch(config, /api[_-]?key|bearer|password|secret/i, "public collector configuration must not contain credentials");
 assert.match(css, /width:\s*min\(100%,\s*460px\)/, "mobile-width shell missing");
 assert.doesNotMatch(html, /https?:\/\/(?!www\.w3\.org)/, "prototype HTML must not load third-party resources");
