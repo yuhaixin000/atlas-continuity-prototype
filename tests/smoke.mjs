@@ -80,6 +80,7 @@ assert.match(js, /requestWithTimeout/, "collector timeout handling missing");
 assert.match(js, /COLLECTOR_ATTEMPTS\s*=\s*2/, "idempotent collector retry missing");
 assert.match(config, /window\.ATLAS_COLLECTOR_URL\s*=/, "collector configuration missing");
 assert.match(config, /window\.ATLAS_COLLECTOR_URLS\s*=/, "collector endpoint list missing");
+assert.match(config, /window\.location\.origin/, "same-origin collector routing missing");
 assert.doesNotMatch(config, /api[_-]?key|bearer|password|secret/i, "public collector configuration must not contain credentials");
 assert.match(css, /width:\s*min\(100%,\s*460px\)/, "mobile-width shell missing");
 assert.doesNotMatch(html, /https?:\/\/(?!www\.w3\.org)/, "prototype HTML must not load third-party resources");
