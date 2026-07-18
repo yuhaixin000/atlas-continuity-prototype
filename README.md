@@ -37,6 +37,7 @@ python3 -m http.server 4173 --bind 0.0.0.0 --directory /DATA/codex_ts/atlas_os/a
 - 隔离公开仓库：<https://github.com/yuhaixin000/atlas-continuity-prototype>
 - 首次发布提交：`fb949b5c321762df8e96c6a161b3d82914efb4ea`
 - 上一版 v0.3 发布提交：`7d133ffe1fb8717c61b5d2b385733ad73fa28914`
+- 当前 v0.4 同源就绪版提交：`46c8fe981bea2465cb19e40fd06238f6fb499143`
 
 ## 无人测试执行
 
