@@ -42,6 +42,9 @@ python3 -m http.server 4173 --bind 0.0.0.0 --directory /DATA/codex_ts/atlas_os/a
 - 首次发布提交：`fb949b5c321762df8e96c6a161b3d82914efb4ea`
 - 上一版 v0.3 发布提交：`7d133ffe1fb8717c61b5d2b385733ad73fa28914`
 - 当前 v0.4 同源就绪版提交：`46c8fe981bea2465cb19e40fd06238f6fb499143`
+- 当前 v0.5 私有交付提交：`3a006e709e3c1a3a01f9fe061ed8bc435841a70e`
+- 当前 v0.5 隔离公开提交：`f3ba43a1d39cec82000063bec021928756cbe054`
+- 当前 v0.5 Pages 部署：`f060d634.atlas-continuity-cn-test.pages.dev`（正式稳定入口仍使用上方项目域名）
 
 ## 无人测试执行
 
