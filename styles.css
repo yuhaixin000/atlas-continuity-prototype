@@ -817,6 +817,56 @@ pre {
   font-size: 0.67rem;
 }
 
+.upload-status {
+  display: grid;
+  gap: 4px;
+  margin: 14px 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-soft);
+  font-size: 0.8rem;
+}
+
+.upload-status span {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.upload-status.is-submitting {
+  border-color: #cfb795;
+  background: #fff7e8;
+}
+
+.upload-status.is-success,
+.upload-status.is-deleted {
+  border-color: #9ab4a1;
+  background: #eef7f0;
+}
+
+.upload-status.is-error {
+  border-color: #d8a4a0;
+  background: #fff0ef;
+}
+
+#receipt-panel {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border: 1px dashed #9ab4a1;
+  border-radius: 10px;
+  background: #f4faf5;
+}
+
+#receipt-panel .input-help {
+  margin-top: 0;
+}
+
+#receipt-id {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 0.72rem;
+}
+
 dialog .button-row {
   margin-top: 18px;
 }

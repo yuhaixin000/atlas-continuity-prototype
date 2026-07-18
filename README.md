@@ -1,6 +1,6 @@
 # Atlas Companion bilingual continuity prototype
 
-Version: `continuity-web-prototype-v0.2`
+Version: `continuity-web-prototype-v0.3`
 
 这是用于“先做再验证”的中英双语、手机尺寸 Web 可用性原型，不是正式 MVP、Android APK 或 iOS IPA，也不改变 [`ENG-001`](../../../docs/framework-edition/engineering/ENG-001.md) 冻结的 Flutter + FastAPI 正式技术栈。
 
@@ -12,11 +12,11 @@ Version: `continuity-web-prototype-v0.2`
 4. Model Change Preview / Restore：比较更新行为并保留恢复选择；
 5. 中英文分别完成相同的 8–12 分钟无人任务；
 6. 语言与研究地区分开记录，价格概念按 US/CN 研究地区显示；
-7. 完成后预览、复制 `ATLAS-UT1-*` 匿名结果码或下载 JSON。
+7. 明确同意后自动上传匿名结果；完成后可预览、复制 `ATLAS-UT2-*` 备用结果码、下载删除凭证或立即删除。
 
-全部产品内容是虚构的 `Alex` 场景。本目录没有账号、后端、真实 LLM、支付或生产数据。结果只保存在当前浏览器内存中，不自动上传；浏览器只在本地保存语言偏好。Memory 输入值不会进入结果，两个自由文本框明确禁止填写敏感个人信息。
+全部产品内容是虚构的 `Alex` 场景。原型没有账号、真实 LLM、支付或生产用户数据；单独的 [`prototype-collector`](../prototype-collector/README.md) 只接收同意后的研究结果并最多保存30天。应用数据库不持久保存 IP、账号、邮箱、设备指纹、真实聊天或 Memory 输入值；托管基础设施可能临时处理常规网络元数据。两个自由文本框明确禁止填写敏感个人信息，上传失败时保留本地结果码回退。
 
-产品依据：[`PRD-002`](../../../docs/framework-edition/product/PRD-002.md)、[`PRD-003`](../../../docs/framework-edition/product/PRD-003.md)、[`PRD-004`](../../../docs/framework-edition/product/PRD-004.md) 与 [`CR-008`](../../../evidence/competitive-research/CR-008-SPRINT-REPORT.md)。验证方法与交付架构见 [`DEC-001`](../../../decisions/DEC-001-mixed-method-problem-solution-validation.md) 和 [`ADR-002`](../../../decisions/ADR-002-public-prototype-delivery.md)。
+产品依据：[`PRD-002`](../../../docs/framework-edition/product/PRD-002.md)、[`PRD-003`](../../../docs/framework-edition/product/PRD-003.md)、[`PRD-004`](../../../docs/framework-edition/product/PRD-004.md) 与 [`CR-008`](../../../evidence/competitive-research/CR-008-SPRINT-REPORT.md)。验证方法与交付架构见 [`DEC-001`](../../../decisions/DEC-001-mixed-method-problem-solution-validation.md) 和 [`ADR-003`](../../../decisions/ADR-003-automatic-prototype-result-collector.md)。
 
 ## 本地运行
 
@@ -49,4 +49,4 @@ node atlas_os/apps/companion/prototype/tests/smoke.mjs
 bash atlas_os/evidence/interviews/validation/tools/validate_validation.sh
 ```
 
-结构测试证明双语键、核心控件、匿名结果边界和无网络提交存在；它不能证明真实可用性、需求、留存或支付。
+结构测试证明双语键、核心控件、自动上传/手工回退、删除入口和匿名结果边界存在；接收端另有 Origin、Schema、幂等、删除与保留期测试。它们不能证明真实可用性、需求、留存或支付。

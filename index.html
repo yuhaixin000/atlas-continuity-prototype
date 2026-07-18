@@ -296,7 +296,7 @@
       </nav>
 
       <footer class="prototype-footer">
-        <span>continuity-web-prototype-v0.2</span>
+        <span>continuity-web-prototype-v0.3</span>
         <button class="text-button" id="privacy-button" type="button" data-i18n="privacy">Privacy & data</button>
       </footer>
     </main>
@@ -305,7 +305,7 @@
       <form id="onboarding-form">
         <p class="eyebrow" data-i18n="research_test">ATLAS RESEARCH TEST</p>
         <h2 data-i18n="welcome_heading">Help test relationship continuity</h2>
-        <p data-i18n="welcome_copy">This 8–12 minute prototype uses fictional data. It has no live AI and will not automatically upload your answers.</p>
+        <p data-i18n="welcome_copy">This 8–12 minute prototype uses fictional data. It has no live AI. With your consent, the anonymous result is submitted automatically after the final survey.</p>
 
         <div class="field-grid">
           <label><span data-i18n="interface_language">Interface language</span>
@@ -318,10 +318,11 @@
 
         <ul class="consent-list">
           <li data-i18n="consent_fact_1">Only task actions and time are recorded in the result.</li>
-          <li data-i18n="consent_fact_2">No account, email, IP address, device fingerprint or real chat is collected by this page.</li>
-          <li data-i18n="consent_fact_3">You decide whether to copy or download the result at the end.</li>
+          <li data-i18n="consent_fact_2">Atlas does not persist an IP address, account, email, device fingerprint, real chat or Memory input in the result database.</li>
+          <li data-i18n="consent_fact_3">Hosting infrastructure may temporarily process standard network metadata. Stored results are deleted after 30 days.</li>
         </ul>
         <label class="consent-row"><input id="adult-consent" type="checkbox" required /><span data-i18n="adult_consent">I am 18 or older and agree to participate in this product test.</span></label>
+        <label class="consent-row"><input id="upload-consent" type="checkbox" required /><span data-i18n="upload_consent">I agree that my anonymous result will be submitted automatically and stored for up to 30 days.</span></label>
         <button class="primary-button full-button" type="submit" data-i18n="start_test">Start test</button>
       </form>
     </dialog>
@@ -345,25 +346,36 @@
     </dialog>
 
     <dialog id="privacy-dialog">
-      <form method="dialog"><p class="eyebrow" data-i18n="privacy">PRIVACY & DATA</p><h2 data-i18n="privacy_heading">Your result stays with you</h2><p data-i18n="privacy_copy">This page does not automatically send results anywhere. It stores the current test only in memory, plus your language preference in local browser storage. At the end you can preview, copy or download the result.</p><p data-i18n="privacy_warning">Do not enter real names, contact details, health information or other sensitive personal content.</p><button class="primary-button" value="close" data-i18n="done">Done</button></form>
+      <form method="dialog"><p class="eyebrow" data-i18n="privacy">PRIVACY & DATA</p><h2 data-i18n="privacy_heading">Minimal automatic submission</h2><p data-i18n="privacy_copy">After explicit consent, the final anonymous result is sent to the Atlas prototype collector and stored for up to 30 days. The application database does not persist IP addresses, accounts, email, device fingerprints, real chat or Memory input values. Hosting infrastructure may temporarily process standard request metadata.</p><p data-i18n="privacy_warning">Do not enter real names, contact details, health information or other sensitive personal content. A deletion receipt is available after successful upload.</p><button class="primary-button" value="close" data-i18n="done">Done</button></form>
     </dialog>
 
     <dialog id="result-dialog">
       <form method="dialog">
         <p class="eyebrow" data-i18n="anonymous_result">ANONYMOUS RESULT</p>
         <h2 data-i18n="result_ready">Your result is ready</h2>
-        <p data-i18n="result_copy">Send the result code to the researcher. You can preview exactly what it contains first.</p>
+        <p data-i18n="result_copy">The page will submit the anonymous result automatically. The result code remains available as a backup.</p>
+        <div class="upload-status" id="upload-status" role="status" aria-live="polite">
+          <strong id="upload-status-title" data-i18n="upload_waiting">Preparing upload…</strong>
+          <span id="upload-status-copy" data-i18n="upload_waiting_copy">Keep this window open until submission finishes.</span>
+        </div>
         <details><summary data-i18n="preview_data">Preview result data</summary><pre id="result-preview"></pre></details>
         <textarea id="result-code" rows="4" readonly aria-label="Anonymous result code"></textarea>
+        <div id="receipt-panel" hidden>
+          <p class="input-help" data-i18n="receipt_copy">Save the receipt if you may want to delete this result later.</p>
+          <code id="receipt-id"></code>
+        </div>
         <div class="stacked-actions">
           <button class="primary-button" id="copy-result-button" type="button" data-i18n="copy_result">Copy result code</button>
-          <button class="secondary-button" id="download-result-button" type="button" data-i18n="download_json">Download JSON</button>
+          <button class="secondary-button" id="download-result-button" type="button" data-i18n="download_receipt">Download result and deletion receipt</button>
+          <button class="secondary-button" id="retry-upload-button" type="button" data-i18n="retry_upload" hidden>Retry automatic upload</button>
+          <button class="danger-button" id="delete-upload-button" type="button" data-i18n="delete_uploaded" hidden>Delete uploaded result</button>
           <button class="text-button" value="close" data-i18n="close">Close</button>
         </div>
       </form>
     </dialog>
 
     <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    <script src="config.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

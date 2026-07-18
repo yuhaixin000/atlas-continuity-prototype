@@ -5,10 +5,11 @@ import path from "node:path";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
-const [html, css, js] = await Promise.all([
+const [html, css, js, config] = await Promise.all([
   readFile(path.join(root, "index.html"), "utf8"),
   readFile(path.join(root, "styles.css"), "utf8"),
   readFile(path.join(root, "app.js"), "utf8"),
+  readFile(path.join(root, "config.js"), "utf8"),
 ]);
 
 for (const screen of ["followup", "memory", "timeline", "model", "results"]) {
@@ -23,6 +24,7 @@ for (const control of [
   "locale-select",
   "market-select",
   "adult-consent",
+  "upload-consent",
   "continue-button",
   "skip-button",
   "followup-toggle",
@@ -36,6 +38,9 @@ for (const control of [
   "result-dialog",
   "copy-result-button",
   "download-result-button",
+  "retry-upload-button",
+  "delete-upload-button",
+  "upload-status",
   "reset-button",
 ]) {
   assert.match(html, new RegExp(`id="${control}"`), `missing ${control}`);
@@ -59,10 +64,16 @@ for (const key of htmlKeys) {
 
 assert.match(html, /not a human or a live AI service/i, "missing English AI identity disclosure");
 assert.match(js, /不是真人/, "missing Chinese AI identity disclosure");
-assert.match(js, /ATLAS-UT1-/, "anonymous result-code prefix missing");
-assert.match(js, /automatic_upload:\s*false/, "automatic-upload boundary missing");
+assert.match(js, /ATLAS-UT2-/, "v2 anonymous result-code prefix missing");
+assert.match(js, /automatic_upload:\s*true/, "automatic-upload consent boundary missing");
+assert.match(js, /automatic_with_manual_fallback/, "automatic upload fallback mode missing");
+assert.match(js, /method:\s*"POST"/, "automatic result submission missing");
+assert.match(js, /method:\s*"DELETE"/, "participant deletion request missing");
+assert.match(js, /fetch\(`\$\{COLLECTOR_URL\}\/v1\/results/, "collector endpoint must be derived from local configuration");
+assert.match(config, /window\.ATLAS_COLLECTOR_URL\s*=/, "collector configuration missing");
+assert.doesNotMatch(config, /api[_-]?key|bearer|password|secret/i, "public collector configuration must not contain credentials");
 assert.match(css, /width:\s*min\(100%,\s*460px\)/, "mobile-width shell missing");
 assert.doesNotMatch(html, /https?:\/\/(?!www\.w3\.org)/, "prototype HTML must not load third-party resources");
-assert.doesNotMatch(js, /fetch\s*\(|XMLHttpRequest|WebSocket|sendBeacon/, "prototype must not make network calls");
+assert.doesNotMatch(js, /XMLHttpRequest|WebSocket|sendBeacon/, "prototype must not use undeclared network channels");
 
-console.log(`Companion prototype smoke test passed: 5 screens, ${htmlKeys.size} bilingual keys, no network submission.`);
+console.log(`Companion prototype smoke test passed: 5 screens, ${htmlKeys.size} bilingual keys, automatic upload, manual fallback, and participant deletion.`);

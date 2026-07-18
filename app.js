@@ -1,8 +1,10 @@
 (function () {
   "use strict";
 
-  const PROTOTYPE_VERSION = "continuity-web-prototype-v0.2";
-  const SCHEMA_VERSION = "atlas-unmoderated-v1";
+  const PROTOTYPE_VERSION = "continuity-web-prototype-v0.3";
+  const SCHEMA_VERSION = "atlas-unmoderated-v2";
+  const PRIVACY_VERSION = "2026-07-18-v2";
+  const COLLECTOR_URL = String(window.ATLAS_COLLECTOR_URL || "").replace(/\/$/, "");
   const TASK_ORDER = ["followup", "memory", "timeline", "model"];
 
   const messages = {
@@ -135,15 +137,16 @@
       privacy: "Privacy & data",
       research_test: "ATLAS RESEARCH TEST",
       welcome_heading: "Help test relationship continuity",
-      welcome_copy: "This 8–12 minute prototype uses fictional data. It has no live AI and will not automatically upload your answers.",
+      welcome_copy: "This 8–12 minute prototype uses fictional data. It has no live AI. With your consent, the anonymous result is submitted automatically after the final survey.",
       interface_language: "Interface language",
       research_region: "Research region",
       region_us: "United States",
       region_cn: "China mainland",
       consent_fact_1: "Only task actions and time are recorded in the result.",
-      consent_fact_2: "No account, email, IP address, device fingerprint or real chat is collected by this page.",
-      consent_fact_3: "You decide whether to copy or download the result at the end.",
+      consent_fact_2: "Atlas does not persist an IP address, account, email, device fingerprint, real chat or Memory input in the result database.",
+      consent_fact_3: "Hosting infrastructure may temporarily process standard network metadata. Stored results are deleted after 30 days.",
       adult_consent: "I am 18 or older and agree to participate in this product test.",
+      upload_consent: "I agree that my anonymous result will be submitted automatically and stored for up to 30 days.",
       start_test: "Start test",
       correct_memory: "CORRECT MEMORY",
       update_detail: "Update saved detail",
@@ -159,15 +162,31 @@
       presentation_detail: "This event explains why today’s conversation refers back to the presentation opening.",
       boundary_detail: "This event explains why today’s follow-up is concise and will not repeat after you skip it.",
       done: "Done",
-      privacy_heading: "Your result stays with you",
-      privacy_copy: "This page does not automatically send results anywhere. It stores the current test only in memory, plus your language preference in local browser storage. At the end you can preview, copy or download the result.",
-      privacy_warning: "Do not enter real names, contact details, health information or other sensitive personal content.",
+      privacy_heading: "Minimal automatic submission",
+      privacy_copy: "After explicit consent, the final anonymous result is sent to the Atlas prototype collector and stored for up to 30 days. The application database does not persist IP addresses, accounts, email, device fingerprints, real chat or Memory input values. Hosting infrastructure may temporarily process standard request metadata.",
+      privacy_warning: "Do not enter real names, contact details, health information or other sensitive personal content. A deletion receipt is available after successful upload.",
       anonymous_result: "ANONYMOUS RESULT",
       result_ready: "Your result is ready",
-      result_copy: "Send the result code to the researcher. You can preview exactly what it contains first.",
+      result_copy: "The page will submit the anonymous result automatically. The result code remains available as a backup.",
+      upload_waiting: "Preparing upload…",
+      upload_waiting_copy: "Keep this window open until submission finishes.",
+      upload_success: "Result uploaded",
+      upload_success_copy: "The anonymous result was stored successfully and will be deleted automatically within 30 days.",
+      upload_duplicate: "Result already received",
+      upload_duplicate_copy: "This session was already stored; no duplicate record was created.",
+      upload_failed: "Automatic upload did not finish",
+      upload_failed_copy: "Your result remains in this browser. Retry now, or use the result code as a backup.",
+      collector_not_configured: "The result collector is not configured on this deployment.",
+      receipt_copy: "Save the receipt if you may want to delete this result later.",
       preview_data: "Preview result data",
       copy_result: "Copy result code",
-      download_json: "Download JSON",
+      download_receipt: "Download result and deletion receipt",
+      retry_upload: "Retry automatic upload",
+      delete_uploaded: "Delete uploaded result",
+      deleting: "Deleting uploaded result…",
+      deleted_success: "Deletion request completed",
+      deleted_success_copy: "The stored result has been deleted and will be removed by the retention job.",
+      delete_failed: "Deletion request did not finish. Keep the downloaded receipt and try again later.",
       toast_followup_continue: "Yesterday’s topic is ready to continue.",
       toast_followup_skip: "Skipped. Atlas will not repeat this reminder.",
       toast_followup_on: "Proactive follow-ups are on.",
@@ -315,15 +334,16 @@
       privacy: "隐私与数据",
       research_test: "ATLAS 产品研究",
       welcome_heading: "帮助测试关系连续性",
-      welcome_copy: "测试约需8–12分钟，全部使用虚构数据，没有实时 AI，也不会自动上传你的答案。",
+      welcome_copy: "测试约需8–12分钟，全部使用虚构数据，也没有实时 AI。经你同意后，最终匿名结果会在问卷完成时自动提交。",
       interface_language: "界面语言",
       research_region: "研究地区",
       region_us: "美国",
       region_cn: "中国大陆",
       consent_fact_1: "结果只记录任务操作和时间。",
-      consent_fact_2: "本页面不收集账号、邮箱、IP地址、设备指纹或真实聊天内容。",
-      consent_fact_3: "测试结束时由你决定是否复制或下载结果。",
+      consent_fact_2: "Atlas 结果数据库不会持久保存 IP 地址、账号、邮箱、设备指纹、真实聊天或记忆输入内容。",
+      consent_fact_3: "托管基础设施可能临时处理常规网络元数据；已存结果会在30天内删除。",
       adult_consent: "我已满18岁，并同意参加本次产品测试。",
+      upload_consent: "我同意自动提交匿名结果，并允许其最多保存30天。",
       start_test: "开始测试",
       correct_memory: "纠正记忆",
       update_detail: "修改已保存信息",
@@ -339,15 +359,31 @@
       presentation_detail: "这件事说明了今天的对话为什么会继续提到项目演示的开场。",
       boundary_detail: "这件事说明了为什么今天的跟进很简短，而且在你跳过后不会重复。",
       done: "完成",
-      privacy_heading: "结果由你掌控",
-      privacy_copy: "本页面不会自动发送结果。当前测试只保存在浏览器内存中，语言偏好会保存在本地浏览器。测试结束后，你可以预览、复制或下载结果。",
-      privacy_warning: "请勿输入真实姓名、联系方式、健康信息或其他敏感个人内容。",
+      privacy_heading: "最少数据自动提交",
+      privacy_copy: "经明确同意后，最终匿名结果会发送至 Atlas 原型数据接收端，并最多保存30天。应用数据库不会持久保存 IP 地址、账号、邮箱、设备指纹、真实聊天或记忆输入值；托管基础设施可能临时处理常规请求元数据。",
+      privacy_warning: "请勿输入真实姓名、联系方式、健康信息或其他敏感个人内容。上传成功后会提供删除凭证。",
       anonymous_result: "匿名结果",
       result_ready: "结果已生成",
-      result_copy: "请把结果码发给研究人员。发送前可以先预览其中的全部内容。",
+      result_copy: "页面会自动提交匿名结果，结果码仍会保留作为备用方式。",
+      upload_waiting: "正在准备上传……",
+      upload_waiting_copy: "提交完成前请保持此窗口开启。",
+      upload_success: "结果已上传",
+      upload_success_copy: "匿名结果已成功保存，并会在30天内自动删除。",
+      upload_duplicate: "结果已收到",
+      upload_duplicate_copy: "该测试会话此前已经保存，没有生成重复记录。",
+      upload_failed: "自动上传未完成",
+      upload_failed_copy: "结果仍保留在当前浏览器中。你可以立即重试，或使用结果码作为备用。",
+      collector_not_configured: "当前部署尚未配置结果接收端。",
+      receipt_copy: "如果以后可能需要删除结果，请保存此凭证。",
       preview_data: "预览结果数据",
       copy_result: "复制结果码",
-      download_json: "下载JSON",
+      download_receipt: "下载结果与删除凭证",
+      retry_upload: "重试自动上传",
+      delete_uploaded: "删除已上传结果",
+      deleting: "正在删除已上传结果……",
+      deleted_success: "删除请求已完成",
+      deleted_success_copy: "已存结果已标记删除，并会由清理任务彻底移除。",
+      delete_failed: "删除请求未完成。请保留下载的凭证，稍后重试。",
       toast_followup_continue: "已准备好继续昨天的话题。",
       toast_followup_skip: "已跳过，Atlas 不会重复提醒。",
       toast_followup_on: "主动跟进已开启。",
@@ -379,6 +415,12 @@
     deletedMemories: new Set(),
     survey: null,
     result: null,
+    uploadConsentAt: null,
+    deletionToken: createDeletionToken(),
+    uploadReceipt: null,
+    uploadStatus: "idle",
+    uploadDetail: "",
+    uploadInFlight: false,
   };
 
   let activeMemoryId = null;
@@ -403,6 +445,18 @@
       return Array.from(bytes, (value) => value.toString(16).padStart(2, "0")).join("");
     }
     return `fallback-${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+  }
+
+  function createDeletionToken() {
+    const bytes = new Uint8Array(32);
+    if (globalThis.crypto && typeof globalThis.crypto.getRandomValues === "function") {
+      globalThis.crypto.getRandomValues(bytes);
+    } else {
+      for (let index = 0; index < bytes.length; index += 1) bytes[index] = Math.floor(Math.random() * 256);
+    }
+    let binary = "";
+    for (const byte of bytes) binary += String.fromCharCode(byte);
+    return btoa(binary).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
   }
 
   function preferredLocale() {
@@ -444,6 +498,7 @@
     updateMemoryCount();
     updateGuide();
     updatePrices();
+    if (state.uploadStatus !== "idle") setUploadStatus(state.uploadStatus, state.uploadDetail);
     const activeScreen = document.querySelector("[data-screen]:not([hidden])");
     if (activeScreen) title.textContent = t(`title_${activeScreen.dataset.screen}`);
     if (shouldRecord) recordEvent("locale_changed", { locale });
@@ -562,7 +617,7 @@
     for (let index = 0; index < bytes.length; index += 8192) {
       binary += String.fromCharCode(...bytes.subarray(index, index + 8192));
     }
-    return `ATLAS-UT1-${btoa(binary).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "")}`;
+    return `ATLAS-UT2-${btoa(binary).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "")}`;
   }
 
   function buildResult(formData) {
@@ -573,7 +628,7 @@
       session_id: state.sessionId,
       locale: state.locale,
       market: state.market,
-      consent: { adult_confirmed: true, research_consent: true, automatic_upload: false },
+      consent: { adult_confirmed: true, research_consent: true, automatic_upload: true },
       timing: {
         started_at: state.startedAt,
         completed_at: completedAt,
@@ -590,10 +645,16 @@
       },
       events: state.events,
       data_boundary: {
-        automatic_upload: false,
+        automatic_upload: true,
         account_collected: false,
         contact_collected: false,
         memory_input_values_recorded: false,
+        ip_persisted: false,
+        device_fingerprint_collected: false,
+      },
+      submission: {
+        mode: "automatic_with_manual_fallback",
+        privacy_version: PRIVACY_VERSION,
       },
     };
   }
@@ -602,7 +663,71 @@
     state.result = result;
     document.querySelector("#result-preview").textContent = JSON.stringify(result, null, 2);
     document.querySelector("#result-code").value = encodeResult(result);
+    setUploadStatus("submitting");
     resultDialog.showModal();
+  }
+
+  function setUploadStatus(status, detail = "") {
+    state.uploadStatus = status;
+    state.uploadDetail = detail;
+    const panel = document.querySelector("#upload-status");
+    const titleElement = document.querySelector("#upload-status-title");
+    const copyElement = document.querySelector("#upload-status-copy");
+    const retryButton = document.querySelector("#retry-upload-button");
+    const deleteButton = document.querySelector("#delete-upload-button");
+    panel.classList.remove("is-submitting", "is-success", "is-error", "is-deleted");
+    const visualStatus = { stored: "success", duplicate: "success", failed: "error", delete_failed: "error" }[status] || status;
+    panel.classList.add(`is-${visualStatus}`);
+
+    const content = {
+      submitting: ["upload_waiting", "upload_waiting_copy"],
+      stored: ["upload_success", "upload_success_copy"],
+      duplicate: ["upload_duplicate", "upload_duplicate_copy"],
+      failed: ["upload_failed", detail || "upload_failed_copy"],
+      delete_failed: ["upload_failed", "delete_failed"],
+      deleted: ["deleted_success", "deleted_success_copy"],
+    }[status] || ["upload_waiting", "upload_waiting_copy"];
+    titleElement.textContent = t(content[0]);
+    copyElement.textContent = content[1] in messages[state.locale] ? t(content[1]) : content[1];
+    retryButton.hidden = status !== "failed";
+    deleteButton.hidden = !["stored", "duplicate", "delete_failed"].includes(status);
+  }
+
+  async function submitResult() {
+    if (!state.result || state.uploadInFlight) return;
+    state.uploadInFlight = true;
+    setUploadStatus("submitting");
+    if (!COLLECTOR_URL) {
+      setUploadStatus("failed", "collector_not_configured");
+      state.uploadInFlight = false;
+      return;
+    }
+
+    try {
+      const response = await fetch(`${COLLECTOR_URL}/v1/results`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          result: state.result,
+          deletion_token: state.deletionToken,
+          upload_consent: {
+            confirmed: true,
+            privacy_version: PRIVACY_VERSION,
+            confirmed_at: state.uploadConsentAt,
+          },
+        }),
+      });
+      const receipt = await response.json().catch(() => ({}));
+      if (!response.ok || !["stored", "duplicate"].includes(receipt.status)) throw new Error(receipt.error || `http_${response.status}`);
+      state.uploadReceipt = receipt;
+      document.querySelector("#receipt-id").textContent = `session: ${receipt.session_id}`;
+      document.querySelector("#receipt-panel").hidden = false;
+      setUploadStatus(receipt.status);
+    } catch (_error) {
+      setUploadStatus("failed");
+    } finally {
+      state.uploadInFlight = false;
+    }
   }
 
   async function copyResult() {
@@ -620,13 +745,40 @@
 
   function downloadResult() {
     if (!state.result) return;
-    const blob = new Blob([`${JSON.stringify(state.result, null, 2)}\n`], { type: "application/json" });
+    const bundle = {
+      result: state.result,
+      upload_receipt: state.uploadReceipt,
+      deletion_token: state.deletionToken,
+      deletion_endpoint: COLLECTOR_URL ? `${COLLECTOR_URL}/v1/results/${state.sessionId}` : null,
+    };
+    const blob = new Blob([`${JSON.stringify(bundle, null, 2)}\n`], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = `atlas-${state.sessionId}.json`;
+    anchor.download = `atlas-result-receipt-${state.sessionId}.json`;
     anchor.click();
     URL.revokeObjectURL(url);
+  }
+
+  async function deleteUploadedResult() {
+    if (!COLLECTOR_URL || !state.uploadReceipt) return;
+    const button = document.querySelector("#delete-upload-button");
+    button.disabled = true;
+    button.textContent = t("deleting");
+    try {
+      const response = await fetch(`${COLLECTOR_URL}/v1/results/${encodeURIComponent(state.sessionId)}`, {
+        method: "DELETE",
+        headers: { "x-atlas-deletion-token": state.deletionToken },
+      });
+      if (response.status !== 202) throw new Error(`http_${response.status}`);
+      state.uploadReceipt = { ...state.uploadReceipt, status: "deletion_processed", deletion_requested_at: new Date().toISOString() };
+      setUploadStatus("deleted");
+    } catch (_error) {
+      setUploadStatus("delete_failed");
+    } finally {
+      button.disabled = false;
+      button.textContent = t("delete_uploaded");
+    }
   }
 
   document.querySelectorAll("[data-go]").forEach((button) => {
@@ -644,6 +796,7 @@
     event.preventDefault();
     setLocale(document.querySelector("#locale-select").value, false);
     setMarket(document.querySelector("#market-select").value, false);
+    state.uploadConsentAt = new Date().toISOString();
     state.startedAt = new Date().toISOString();
     state.startedClock = performance.now();
     recordEvent("test_started", { locale: state.locale, market: state.market });
@@ -756,8 +909,9 @@
     showToast(t("toast_keep_old"));
   });
 
-  document.querySelector("#survey-form").addEventListener("submit", (event) => {
+  document.querySelector("#survey-form").addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (state.result) return;
     const formData = new FormData(event.currentTarget);
     if (!formData.get("price")) {
       showToast(t("toast_price_required"));
@@ -765,11 +919,14 @@
     }
     recordEvent("survey_completed", { choice: formData.get("price") });
     showResult(buildResult(formData));
+    await submitResult();
   });
 
   document.querySelector("#privacy-button").addEventListener("click", () => privacyDialog.showModal());
   document.querySelector("#copy-result-button").addEventListener("click", copyResult);
   document.querySelector("#download-result-button").addEventListener("click", downloadResult);
+  document.querySelector("#retry-upload-button").addEventListener("click", submitResult);
+  document.querySelector("#delete-upload-button").addEventListener("click", deleteUploadedResult);
   document.querySelector("#reset-button").addEventListener("click", () => window.location.reload());
 
   setLocale(state.locale, false);
