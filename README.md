@@ -1,24 +1,25 @@
 # Atlas Companion bilingual continuity prototype
 
-Version: `continuity-web-prototype-v0.5`
+Version: `continuity-web-prototype-v0.6`
 
 这是用于“先做再验证”的中英双语、手机尺寸 Web 可用性原型，不是正式 MVP、Android APK 或 iOS IPA，也不改变 [`ENG-001`](../../../docs/framework-edition/engineering/ENG-001.md) 冻结的 Flutter + FastAPI 正式技术栈。
 
 ## 现在可以验证什么
 
-1. Yesterday Follow-up：继续、跳过、主动跟进边界；
-2. Memory Ledger：查看、纠正、删除及下一次使用权限；
-3. Relationship Timeline：从有意义事件理解今天为什么被续接；
-4. Model Change Preview / Restore：比较更新行为并保留恢复选择；
-5. 中英文分别完成相同的 8–12 分钟无人任务；
-6. 首次体验、参与者/技术测试 Mode、AI 使用频率/工具/多日经历形成解释行为的基线；
-7. 语言与研究地区分开记录，地区必须主动选择，价格概念按 US/CN 研究地区显示；
-8. 未提示价值复述、同一 AI 续接原因、困惑点、现有方案比较、下周使用和 Beta 选择用于判断需求信号；
-9. 明确同意后自动上传匿名结果；完成后可预览、复制 `ATLAS-UT3-*` 备用结果码、下载删除凭证或立即删除。
+1. Conversation：通过脚本选项完成第一日的虚构对话，不采集真实聊天；
+2. Home / Returning：压缩进入第二天，先看到“今天为什么值得回来”，再体验来源可追溯且遵守边界的 Follow-up；
+3. Relationship：查看共同旅程，并纠正或删除 Atlas 可使用的 Context；
+4. Model Change Preview / Restore：比较同一关系时刻的两个版本并保留恢复选择；
+5. Paywall：在体验连续性后选择继续现有工具、Free 或 Plus；
+6. 中英文分别完成相同的 8–12 分钟无人任务；
+7. 首次体验、参与者/技术测试 Mode、AI 使用频率/工具/多日经历形成解释行为的基线；
+8. 语言与研究地区分开记录，地区必须主动选择，Plus 概念按 US/CN 研究地区显示；
+9. 未提示价值复述、同一 AI 续接原因、困惑点、现有方案比较、下周使用和 Beta 选择用于判断需求信号；
+10. 明确同意后自动上传匿名结果；完成后可预览、复制 `ATLAS-UT4-*` 备用结果码、下载删除凭证或立即删除。
 
-全部产品内容是虚构的 `Alex` 多日场景。原型没有账号、真实 LLM、支付或生产用户数据；单独的 [`prototype-collector`](../prototype-collector/README.md) 只接收同意后的研究结果并最多保存30天。应用数据库不持久保存 IP、账号、邮箱、设备指纹、真实聊天或 Memory 输入值；托管基础设施可能临时处理常规网络元数据。四个自由文本框明确禁止填写敏感个人信息，上传失败时保留本地结果码回退。
+全部产品内容是虚构的 `Alex` 两日压缩场景。原型没有账号、真实 LLM、支付或生产用户数据；单独的 [`prototype-collector`](../prototype-collector/README.md) 只接收同意后的研究结果并最多保存30天。应用数据库不持久保存 IP、账号、邮箱、设备指纹、真实聊天或 Context 修改值；托管基础设施可能临时处理常规网络元数据。四个自由文本框明确禁止填写敏感个人信息，上传失败时保留本地结果码回退。
 
-产品依据：[`PRD-002`](../../../docs/framework-edition/product/PRD-002.md)、[`PRD-003`](../../../docs/framework-edition/product/PRD-003.md)、[`PRD-004`](../../../docs/framework-edition/product/PRD-004.md) 与 [`CR-008`](../../../evidence/competitive-research/CR-008-SPRINT-REPORT.md)。验证方法与交付架构见 [`DEC-001`](../../../decisions/DEC-001-mixed-method-problem-solution-validation.md) 和 [`ADR-003`](../../../decisions/ADR-003-automatic-prototype-result-collector.md)。
+产品依据：[`PRD-002`](../../../docs/framework-edition/product/PRD-002.md)、[`PRD-003`](../../../docs/framework-edition/product/PRD-003.md)、[`PRD-004`](../../../docs/framework-edition/product/PRD-004.md)、[`PRD-005`](../../../docs/framework-edition/product/PRD-005.md) 与 [`CR-008`](../../../evidence/competitive-research/CR-008-SPRINT-REPORT.md)。验证方法与交付架构见 [`DEC-001`](../../../decisions/DEC-001-mixed-method-problem-solution-validation.md)、[`DEC-002`](../../../decisions/DEC-002-product-shaped-solution-validation.md) 和 [`ADR-003`](../../../decisions/ADR-003-automatic-prototype-result-collector.md)。
 
 ## 本地运行
 
@@ -59,4 +60,4 @@ node atlas_os/apps/companion/prototype/tests/smoke.mjs
 bash atlas_os/evidence/interviews/validation/tools/validate_validation.sh
 ```
 
-结构测试证明双语键、参与者/QA 分流、AI 使用基线、核心控件、正确 Timeline 判定、未提示价值问卷、自动上传/手工回退、删除入口和匿名结果边界存在；接收端另有 Origin、Schema、幂等、删除与保留期测试。上传支持多个有序接收端、每端两次幂等提交、单次10秒超时、失败类型与健康检查入口；中国网络下回执状态未确认时使用下载报告/结果码回退。它们不能证明真实可用性、需求、留存或支付；只有首次外部参与者数据可以更新 Gate。
+结构测试证明双语键、参与者/QA 分流、AI 使用基线、两日 Conversation/Relationship 路径、Context 数据边界、先预览后更新、Free/Plus、未提示价值问卷、自动上传/回退和删除入口存在；接收端另有 Origin、Schema、幂等、删除与保留期测试。它们不能证明真实可用性、需求、留存或支付；只有首次外部参与者数据可以更新 Gate。

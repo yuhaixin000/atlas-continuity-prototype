@@ -4,31 +4,29 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f5efe5" />
-    <meta name="description" content="Atlas bilingual continuity usability prototype" />
-    <title>Atlas Continuity Prototype</title>
+    <meta name="description" content="Atlas bilingual relationship continuity product prototype" />
+    <title>Atlas Relationship Prototype</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="prototype-shell" aria-label="Atlas bilingual mobile web usability prototype">
+    <main class="prototype-shell" aria-label="Atlas bilingual mobile product prototype">
       <header class="topbar">
         <div>
-          <p class="eyebrow" data-i18n="prototype_label">ATLAS · WEB PROTOTYPE</p>
-          <h1 id="screen-title" data-i18n="title_followup">Good morning, Alex</h1>
+          <p class="eyebrow" data-i18n="prototype_label">ATLAS · PRODUCT PROTOTYPE</p>
+          <h1 id="screen-title" data-i18n="title_conversation">Conversation</h1>
         </div>
         <div class="topbar-actions">
           <div class="language-switch" role="group" aria-label="Language">
             <button class="language-button is-active" type="button" data-locale="en-US">EN</button>
             <button class="language-button" type="button" data-locale="zh-CN">中文</button>
           </div>
-          <button class="icon-button" id="reset-button" type="button" data-i18n-aria="reset" title="Reset prototype data">
-            <span aria-hidden="true">↻</span>
-          </button>
+          <button class="icon-button" id="reset-button" type="button" data-i18n-aria="reset" title="Reset prototype data"><span aria-hidden="true">↻</span></button>
         </div>
       </header>
 
       <p class="prototype-notice">
         <span aria-hidden="true">◇</span>
-        <span data-i18n="identity_notice">This is an AI product concept using fictional data. It is not a human or a live AI service.</span>
+        <span data-i18n="identity_notice">This is a scripted AI product concept using fictional data. It is not a human or a live AI service.</span>
       </p>
 
       <section class="test-guide" id="test-guide" aria-labelledby="task-heading">
@@ -38,383 +36,203 @@
           <span data-i18n="about_minutes">8–12 min</span>
         </div>
         <p class="card-kicker" data-i18n="current_task">CURRENT TASK</p>
-        <h2 id="task-heading">Choose what to do with yesterday’s unfinished topic.</h2>
-        <p id="task-instruction">Use the prototype as you normally would. There is no single preferred choice.</p>
-        <div class="button-row">
-          <button class="text-button compact-button" id="cannot-complete-button" type="button" data-i18n="cannot_complete">I can’t complete this task</button>
-        </div>
+        <h2 id="task-heading" data-i18n="task_conversation_title">Have a short conversation as Alex.</h2>
+        <p id="task-instruction" data-i18n="task_conversation_copy">Choose what Alex would ask for. There is no preferred answer.</p>
+        <button class="text-button compact-button" id="cannot-complete-button" type="button" data-i18n="cannot_complete">I can’t complete this task</button>
       </section>
 
-      <section class="screen is-active" id="screen-followup" data-screen="followup" aria-labelledby="followup-heading">
+      <section class="screen is-active" id="screen-conversation" data-screen="conversation" aria-labelledby="conversation-heading">
         <div class="relationship-strip">
-          <span data-i18n="relationship_day">Relationship day 18</span>
+          <span id="relationship-day" data-i18n="relationship_day_17">Relationship day 17</span>
           <strong data-i18n="growing_together">Growing together</strong>
         </div>
 
-        <article class="hero-card">
-          <p class="card-kicker" data-i18n="from_yesterday">FROM YESTERDAY</p>
-          <h2 id="followup-heading" data-i18n="followup_heading">Ready to shape the opening?</h2>
-          <p data-i18n="followup_copy">You were preparing a short project presentation. You wanted one concise check-in today—no repeated reminders.</p>
-          <div class="source-chip" data-i18n="followup_source">Source: Yesterday’s conversation · 4:42 PM</div>
-          <div class="button-row">
-            <button class="primary-button" id="continue-button" type="button" data-i18n="continue_this">Continue this</button>
-            <button class="secondary-button" id="skip-button" type="button" data-i18n="not_now">Not now</button>
-          </div>
-          <button class="text-button" data-go="memory" type="button" data-i18n="review_memory">Review what Atlas remembered</button>
-        </article>
-
-        <article class="conversation-preview" id="conversation-preview" hidden>
-          <p class="card-kicker" data-i18n="conversation">CONVERSATION</p>
-          <div class="message assistant-message" data-i18n="assistant_followup">Yesterday you wanted a concise opening. Would you like to draft the first two sentences now?</div>
-          <div class="quick-replies">
-            <button id="draft-button" type="button" aria-pressed="false" data-i18n="draft_with_me">Draft with me</button>
-            <button id="finished-button" type="button" aria-pressed="false" data-i18n="already_finished">I already finished it</button>
-          </div>
-          <div class="message assistant-message followup-response" id="followup-response" hidden></div>
-        </article>
-
-        <article class="boundary-card">
-          <div>
-            <p class="card-kicker" data-i18n="your_boundary">YOUR BOUNDARY</p>
-            <h3 data-i18n="proactive_followups">Proactive follow-ups</h3>
-            <p data-i18n="boundary_copy">Ask once about unfinished topics. Never repeat a skipped reminder.</p>
-          </div>
-          <label class="switch">
-            <input id="followup-toggle" type="checkbox" checked />
-            <span aria-hidden="true"></span>
-            <span class="sr-only" data-i18n="allow_followups">Allow proactive follow-ups</span>
-          </label>
-        </article>
-      </section>
-
-      <section class="screen" id="screen-memory" data-screen="memory" aria-labelledby="memory-heading" hidden>
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow" data-i18n="memory_ledger">MEMORY LEDGER</p>
-            <h2 id="memory-heading" data-i18n="what_atlas_may_use">What Atlas may use</h2>
-          </div>
-          <span class="count-pill" id="memory-count">4 saved</span>
+        <div class="conversation-header">
+          <div class="atlas-mark" aria-hidden="true">A</div>
+          <div><h2 id="conversation-heading">Atlas</h2><p data-i18n="scripted_companion">Scripted companion experience</p></div>
         </div>
-        <p class="section-copy" data-i18n="memory_control_copy">You control every saved detail. Changes take effect in the next conversation.</p>
 
-        <div class="ledger" id="memory-list">
-          <article class="memory-card" data-memory-id="presentation">
-            <div class="memory-meta">
-              <span class="memory-type" data-i18n="current_goal">CURRENT GOAL</span>
-              <span class="permission allowed" data-i18n="allowed">Allowed</span>
-            </div>
-            <h3 data-i18n="project_presentation">Project presentation</h3>
-            <p class="memory-value" id="presentation-value" data-i18n="presentation_old_time">Friday at 10:00 AM</p>
-            <p class="memory-source" data-i18n="from_july_16">From your conversation on July 16</p>
-            <div class="card-actions">
-              <button class="secondary-button edit-memory" type="button" data-memory="presentation" data-i18n="correct">Correct</button>
-              <button class="danger-button delete-memory" type="button" data-memory="presentation" data-i18n="delete">Delete</button>
-            </div>
-          </article>
+        <div class="day-divider" id="day-label" data-i18n="yesterday">YESTERDAY</div>
+        <div class="chat-thread" id="day-one-thread">
+          <div class="message assistant-message" data-i18n="opening_prompt">Good to see you, Alex. What would be most useful while you prepare for Wednesday’s presentation?</div>
+          <div class="quick-replies scenario-options" id="conversation-options">
+            <button type="button" data-conversation-choice="draft" data-i18n="choice_draft">Help me make the opening sound natural</button>
+            <button type="button" data-conversation-choice="reassure" data-i18n="choice_reassure">Talk through why I’m nervous</button>
+            <button type="button" data-conversation-choice="checkin" data-i18n="choice_checkin">Ask me about it tomorrow</button>
+          </div>
+          <div id="day-one-response" hidden>
+            <div class="message user-message" id="day-one-user-message"></div>
+            <div class="message assistant-message" id="day-one-assistant-message"></div>
+          </div>
+        </div>
 
-          <article class="memory-card" data-memory-id="dog">
-            <div class="memory-meta">
-              <span class="memory-type" data-i18n="personal_context">PERSONAL CONTEXT</span>
-              <span class="permission allowed" data-i18n="allowed">Allowed</span>
-            </div>
-            <h3 data-i18n="your_dog">Your dog</h3>
-            <p class="memory-value">Comet</p>
-            <p class="memory-source" data-i18n="confirmed_july_16">Confirmed by you on July 16</p>
-            <div class="card-actions">
-              <button class="secondary-button edit-memory" type="button" data-memory="dog" data-i18n="correct">Correct</button>
-              <button class="danger-button delete-memory" type="button" data-memory="dog" data-i18n="delete">Delete</button>
-            </div>
-          </article>
+        <button class="primary-button full-button" id="return-tomorrow-button" type="button" hidden data-i18n="return_tomorrow">End today and return tomorrow</button>
 
-          <article class="memory-card" data-memory-id="style">
-            <div class="memory-meta">
-              <span class="memory-type" data-i18n="communication">COMMUNICATION</span>
-              <span class="permission allowed" data-i18n="allowed">Allowed</span>
-            </div>
-            <h3 data-i18n="checkin_style">Check-in style</h3>
-            <p class="memory-value" data-i18n="concise_style">Concise; no long motivational messages</p>
-            <p class="memory-source" data-i18n="confirmed_july_16">Confirmed by you on July 16</p>
-            <div class="card-actions">
-              <button class="secondary-button edit-memory" type="button" data-memory="style" data-i18n="correct">Correct</button>
-              <button class="danger-button delete-memory" type="button" data-memory="style" data-i18n="delete">Delete</button>
-            </div>
+        <div id="day-two-thread" hidden>
+          <div class="time-transition"><span aria-hidden="true">☀</span><strong data-i18n="next_day">THE NEXT DAY</strong><small data-i18n="context_carried">Atlas carries forward only the fictional context Alex allowed.</small></div>
+          <article class="return-home-card" id="return-home-card">
+            <p class="card-kicker" data-i18n="good_morning_alex">GOOD MORNING, ALEX</p>
+            <div class="home-relationship"><span data-i18n="relationship_day_18">Relationship day 18</span><strong data-i18n="growing_together">Growing together</strong></div>
+            <p class="card-kicker home-followup-label" data-i18n="todays_followup">TODAY’S FOLLOW-UP</p>
+            <h2 id="home-followup-heading"></h2>
+            <p id="home-followup-copy"></p>
+            <button class="primary-button full-button" id="continue-from-home-button" type="button" data-i18n="continue_conversation">Continue conversation</button>
+            <div class="home-milestone"><span data-i18n="recent_milestone">Recent milestone</span><strong data-i18n="presentation_goal">Presentation goal</strong></div>
           </article>
-
-          <article class="memory-card" data-memory-id="followup">
-            <div class="memory-meta">
-              <span class="memory-type" data-i18n="interaction_boundary">INTERACTION BOUNDARY</span>
-              <span class="permission allowed" data-i18n="allowed">Allowed</span>
+          <div id="return-conversation" hidden>
+            <div class="day-divider" data-i18n="today">TODAY</div>
+            <div class="message assistant-message" id="returning-message"></div>
+            <button class="source-link" id="followup-source-button" type="button" data-i18n="from_yesterday_source">From yesterday’s conversation · View source</button>
+            <div class="quick-replies" id="return-options">
+              <button type="button" data-return-choice="continue" data-i18n="continue_together">Continue together</button>
+              <button type="button" data-return-choice="complete" data-i18n="already_handled">I’ve handled it</button>
+              <button type="button" data-return-choice="skip" data-i18n="not_today">Not today</button>
             </div>
-            <h3 data-i18n="followup_preference">Follow-up preference</h3>
-            <p class="memory-value" data-i18n="ask_once">Ask once the next day; do not repeat</p>
-            <p class="memory-source" data-i18n="confirmed_july_16">Confirmed by you on July 16</p>
-            <div class="card-actions">
-              <button class="secondary-button edit-memory" type="button" data-memory="followup" data-i18n="correct">Correct</button>
-              <button class="danger-button delete-memory" type="button" data-memory="followup" data-i18n="delete">Delete</button>
-            </div>
-          </article>
+            <div class="message assistant-message followup-response" id="return-response" hidden></div>
+            <article class="boundary-card" id="followup-boundary" hidden>
+              <div><p class="card-kicker" data-i18n="your_boundary">YOUR BOUNDARY</p><strong data-i18n="ask_once_boundary">Ask once about unfinished topics; do not repeat a skipped reminder.</strong></div>
+              <label class="switch"><input id="followup-toggle" type="checkbox" checked /><span></span><span class="sr-only" data-i18n="allow_followups">Allow proactive follow-ups</span></label>
+            </article>
+            <button class="primary-button full-button" id="open-relationship-button" type="button" hidden data-i18n="see_relationship">See how this relationship is growing</button>
+          </div>
         </div>
       </section>
 
-      <section class="screen" id="screen-timeline" data-screen="timeline" aria-labelledby="timeline-heading" hidden>
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow" data-i18n="relationship_timeline">RELATIONSHIP TIMELINE</p>
-            <h2 id="timeline-heading" data-i18n="shared_journey">Our shared journey</h2>
+      <section class="screen" id="screen-relationship" data-screen="relationship" aria-labelledby="relationship-heading" hidden>
+        <article class="relationship-summary">
+          <p class="card-kicker" data-i18n="relationship">RELATIONSHIP</p>
+          <h2 id="relationship-heading" data-i18n="growing_together">Growing together</h2>
+          <p data-i18n="relationship_summary_copy">Atlas is learning how to support Alex while keeping important context visible and controllable.</p>
+          <div class="journey-stats"><div><strong>18</strong><span data-i18n="days_together">days together</span></div><div><strong>3</strong><span data-i18n="shared_moments">shared moments</span></div></div>
+        </article>
+
+        <div class="section-heading relationship-section-heading">
+          <div><p class="eyebrow" data-i18n="shared_journey">SHARED JOURNEY</p><h2 data-i18n="what_we_experienced">What we experienced</h2></div>
+        </div>
+        <p class="section-copy" data-i18n="journey_copy">Meaningful moments, not a transcript of every message.</p>
+        <article class="timeline-card featured-moment">
+          <p class="timeline-date" data-i18n="yesterday_day_17">YESTERDAY · DAY 17</p>
+          <h3 id="shared-moment-title" data-i18n="presentation_moment">You prepared for Wednesday’s presentation</h3>
+          <p id="shared-moment-copy" data-i18n="presentation_moment_copy">Alex asked Atlas to keep the support practical and natural.</p>
+          <button class="text-button" id="shared-moment-button" type="button" data-i18n="open_shared_moment">Open this shared moment</button>
+        </article>
+
+        <div class="section-heading relationship-section-heading context-heading">
+          <div><p class="eyebrow" data-i18n="context_control">CONTEXT CONTROL</p><h2 data-i18n="what_atlas_may_use">What Atlas may use</h2></div>
+          <span class="count-pill" data-i18n="confirmed">Confirmed</span>
+        </div>
+        <p class="section-copy" data-i18n="context_copy">The system organizes context; Alex keeps final control.</p>
+        <article class="context-card" id="presentation-context-card">
+          <div class="context-meta"><span data-i18n="current_goal">CURRENT GOAL</span><span class="permission" data-i18n="allowed">Allowed</span></div>
+          <h3 data-i18n="project_presentation">Project presentation</h3>
+          <p class="context-value" id="presentation-context-value" data-i18n="wrong_presentation_time">Friday at 10:00 AM</p>
+          <p class="memory-source" data-i18n="context_source">From yesterday’s conversation · Confirmed by Alex</p>
+          <div class="card-actions">
+            <button class="secondary-button" id="correct-context-button" type="button" data-i18n="correct_to_monday">Correct to Monday at 2:00 PM</button>
+            <button class="danger-button" id="delete-context-button" type="button" data-i18n="delete_context">Delete</button>
           </div>
-          <span class="count-pill" data-i18n="eighteen_days">18 days</span>
-        </div>
-        <p class="section-copy" data-i18n="timeline_copy">Meaningful moments—not a transcript of every message.</p>
-
-        <div class="filter-row" role="group" aria-label="Timeline filters">
-          <button class="filter-button is-selected" type="button" data-filter="all" data-i18n="all">All</button>
-          <button class="filter-button" type="button" data-filter="goal" data-i18n="goals">Goals</button>
-          <button class="filter-button" type="button" data-filter="relationship" data-i18n="relationship">Relationship</button>
-        </div>
-
-        <div class="timeline-list">
-          <article class="timeline-event" data-kind="goal">
-            <div class="timeline-marker" aria-hidden="true"></div>
-            <div class="timeline-card">
-              <p class="timeline-date" data-i18n="date_day_17">JUL 16 · DAY 17</p>
-              <h3 data-i18n="presentation_goal_began">Presentation goal began</h3>
-              <p data-i18n="presentation_goal_copy">You asked Atlas to help make the opening practical and concise.</p>
-              <button class="text-button event-detail" type="button" data-event="presentation" data-i18n="why_matters">See why this matters</button>
-            </div>
-          </article>
-          <article class="timeline-event" data-kind="relationship">
-            <div class="timeline-marker" aria-hidden="true"></div>
-            <div class="timeline-card">
-              <p class="timeline-date" data-i18n="date_day_11">JUL 10 · DAY 11</p>
-              <h3 data-i18n="boundary_event">You set a communication boundary</h3>
-              <p data-i18n="boundary_event_copy">Atlas should keep check-ins brief and avoid repeated reminders.</p>
-              <button class="text-button event-detail" type="button" data-event="boundary" data-i18n="view_source_control">View source and control</button>
-            </div>
-          </article>
-          <article class="timeline-event" data-kind="relationship">
-            <div class="timeline-marker" aria-hidden="true"></div>
-            <div class="timeline-card">
-              <p class="timeline-date" data-i18n="date_day_1">JUN 29 · DAY 1</p>
-              <h3 data-i18n="first_conversation">Your first conversation</h3>
-              <p data-i18n="first_conversation_copy">You chose practical support and user-controlled memory.</p>
-            </div>
-          </article>
-        </div>
+        </article>
+        <button class="primary-button full-button" id="review-update-button" type="button" hidden data-i18n="review_update">Review an upcoming Atlas update</button>
       </section>
 
       <section class="screen" id="screen-model" data-screen="model" aria-labelledby="model-heading" hidden>
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow" data-i18n="model_change">MODEL CHANGE</p>
-            <h2 id="model-heading" data-i18n="review_before_switching">Review before switching</h2>
-          </div>
-          <span class="count-pill warning" data-i18n="preview">Preview</span>
-        </div>
-        <p class="section-copy" data-i18n="model_change_copy">An update may change tone or recall behavior. Your memories and timeline remain yours.</p>
-
         <article class="change-card">
-          <div class="version-row">
-            <div><span class="version-label" data-i18n="current">CURRENT</span><strong>Atlas Core 1.4</strong></div>
-            <span aria-hidden="true">→</span>
-            <div><span class="version-label" data-i18n="available">AVAILABLE</span><strong>Atlas Core 1.5</strong></div>
-          </div>
-          <h3 data-i18n="what_may_change">What may feel different</h3>
-          <ul class="change-list">
-            <li data-i18n="change_shorter">Shorter opening responses</li>
-            <li data-i18n="change_confirm">Stricter confirmation before saving context</li>
-            <li data-i18n="change_memory">Existing memories remain visible and editable</li>
-          </ul>
+          <p class="version-label" data-i18n="continuity_check">CONTINUITY CHECK</p>
+          <h2 id="model-heading" data-i18n="update_without_starting_over">Update without starting over</h2>
+          <p data-i18n="model_change_copy">Atlas 1.5 may respond more directly. Alex’s approved context and shared journey will remain.</p>
+          <div class="version-row"><div><span data-i18n="current">CURRENT</span><strong>Atlas 1.4</strong></div><span>→</span><div><span data-i18n="available">AVAILABLE</span><strong>Atlas 1.5</strong></div></div>
+          <button class="primary-button full-button" id="preview-update-button" type="button" data-i18n="preview_same_moment">Preview the same moment in both versions</button>
         </article>
-
-        <article class="comparison-card">
-          <p class="card-kicker" data-i18n="same_moment">SAME MOMENT, TWO STYLES</p>
-          <p class="comparison-prompt" data-i18n="comparison_prompt">You say: “I’m nervous about the presentation.”</p>
-          <div class="response-option current-response">
-            <span data-i18n="current_response">1.4 · CURRENT</span>
-            <p data-i18n="response_14">That makes sense. Yesterday you wanted a concise opening—should we rehearse just those two lines?</p>
-          </div>
-          <div class="response-option new-response">
-            <span data-i18n="preview_response">1.5 · PREVIEW</span>
-            <p data-i18n="response_15">Let’s focus on the opening you planned yesterday. Want to rehearse the first two lines?</p>
-          </div>
-        </article>
-
-        <div class="stacked-actions" id="model-actions">
-          <button class="primary-button" id="keep-update-button" type="button" data-i18n="use_update">Use the update</button>
-          <button class="secondary-button" id="restore-button" type="button" data-i18n="keep_old_version">Keep version 1.4</button>
-          <p class="action-note" data-i18n="restore_note">You can restore the prior version for 30 days. No memories are deleted.</p>
+        <div class="comparison-card" id="update-comparison" hidden>
+          <p class="comparison-prompt" data-i18n="comparison_prompt">Alex says: “I’m nervous about the presentation.”</p>
+          <div class="response-option"><span data-i18n="current_response">1.4 · CURRENT</span><p data-i18n="response_14">That makes sense. Yesterday you wanted the opening to sound natural—should we work through those first two lines together?</p></div>
+          <div class="response-option"><span data-i18n="preview_response">1.5 · PREVIEW</span><p data-i18n="response_15">Let’s return to the natural opening you wanted yesterday. Want to rehearse the first two lines?</p></div>
+          <div class="button-row"><button class="primary-button" id="use-update-button" type="button" data-i18n="use_update">Use the update</button><button class="secondary-button" id="keep-old-button" type="button" data-i18n="keep_old_version">Keep version 1.4</button></div>
+          <p class="action-note" data-i18n="restore_note">The prior version can be restored for 30 days. Approved context is not deleted.</p>
         </div>
+        <button class="primary-button full-button" id="continue-paywall-button" type="button" hidden data-i18n="see_continuity_options">See continuity options</button>
       </section>
 
-      <section class="screen" id="screen-results" data-screen="results" aria-labelledby="results-heading" hidden>
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow" data-i18n="final_step">FINAL STEP</p>
-            <h2 id="results-heading" data-i18n="your_choice">Your choice</h2>
-          </div>
-          <span class="count-pill" data-i18n="tasks_complete">Tasks complete</span>
-        </div>
-        <p class="section-copy" data-i18n="survey_intro">These are research concepts, not a sales offer. Choose what you would do today.</p>
-
-        <form id="survey-form">
-          <label for="value-summary" data-i18n="value_summary">In one sentence, what do you think Atlas is for?</label>
-          <textarea id="value-summary" rows="3" maxlength="500" required data-i18n-placeholder="open_answer_hint"></textarea>
-
-          <label for="same-ai-reason" data-i18n="same_ai_reason">What, if anything, made this feel like the same AI Alex used yesterday?</label>
-          <textarea id="same-ai-reason" rows="3" maxlength="500" required data-i18n-placeholder="open_answer_hint"></textarea>
-
-          <label for="confusion-point" data-i18n="confusion_point">Which part was most confusing or least useful?</label>
-          <textarea id="confusion-point" rows="3" maxlength="500" required data-i18n-placeholder="open_answer_hint"></textarea>
-
-          <label for="comparison-current" data-i18n="comparison_current">Compared with the AI tools you use now, how useful was this experience?</label>
-          <select id="comparison-current" required>
-            <option value="" data-i18n="choose_one">Choose one</option>
-            <option value="much_better" data-i18n="much_better">Much better</option>
-            <option value="somewhat_better" data-i18n="somewhat_better">Somewhat better</option>
-            <option value="about_same" data-i18n="about_same">About the same</option>
-            <option value="worse" data-i18n="worse">Worse</option>
-            <option value="not_applicable" data-i18n="not_applicable">I do not currently use AI tools</option>
-          </select>
-
-          <fieldset>
-            <legend data-i18n="price_question">Which option, if any, would you choose?</legend>
-            <div class="price-grid">
-              <label class="price-card"><input type="radio" name="price" value="none" /><span><strong id="price-none">$0</strong><b data-i18n="price_none">No subscription</b><small data-i18n="price_none_copy">Keep using current tools</small></span></label>
-              <label class="price-card"><input type="radio" name="price" value="essential" /><span><strong id="price-essential">$9.99</strong><b>Essential</b><small data-i18n="price_essential_copy">Follow-up + memory controls</small></span></label>
-              <label class="price-card"><input type="radio" name="price" value="continuity" /><span><strong id="price-continuity">$14.99</strong><b>Continuity</b><small data-i18n="price_continuity_copy">Essential + timeline + update protection</small></span></label>
-              <label class="price-card"><input type="radio" name="price" value="portable" /><span><strong id="price-portable">$19.99</strong><b>Portable</b><small data-i18n="price_portable_copy">Continuity + export and migration</small></span></label>
-            </div>
-            <p class="input-help" id="price-note">US research concept · monthly · USD</p>
+      <section class="screen" id="screen-paywall" data-screen="paywall" aria-labelledby="paywall-heading" hidden>
+        <article class="paywall-hero">
+          <p class="card-kicker" data-i18n="relationship_continuity">RELATIONSHIP CONTINUITY</p>
+          <h2 id="paywall-heading" data-i18n="continue_growing">Continue growing together</h2>
+          <p data-i18n="paywall_value">Keep the conversations, shared journey and support style connected across days—with Alex in control.</p>
+        </article>
+        <form id="paywall-form">
+          <fieldset class="plan-options">
+            <legend data-i18n="choose_today">What would you choose today?</legend>
+            <label class="plan-card"><input type="radio" name="plan" value="keep_current" required /><span><b data-i18n="keep_current_tools">Keep my current tools</b><small data-i18n="keep_current_copy">Do not use Atlas</small></span><strong data-i18n="price_zero">$0</strong></label>
+            <label class="plan-card"><input type="radio" name="plan" value="free" /><span><b>Free</b><small data-i18n="free_copy">Basic conversation, relationship and recent shared moments</small></span><strong data-i18n="price_zero">$0</strong></label>
+            <label class="plan-card featured-plan"><input type="radio" name="plan" value="plus" /><span><b>Plus</b><small data-i18n="plus_copy">Full relationship history, deeper context, advanced follow-up and update protection</small></span><strong id="plus-price">$14.99</strong></label>
           </fieldset>
-
-          <label for="choice-reason" data-i18n="choice_reason">What is the main reason for your choice?</label>
-          <textarea id="choice-reason" rows="3" maxlength="500" required data-i18n-placeholder="open_answer_hint"></textarea>
-
-          <label for="would-use" data-i18n="would_use">Would you use a working version again next week?</label>
-          <select id="would-use" required>
-            <option value="" data-i18n="choose_one">Choose one</option>
-            <option value="definitely" data-i18n="definitely">Definitely</option>
-            <option value="maybe" data-i18n="maybe">Maybe</option>
-            <option value="unlikely" data-i18n="unlikely">Unlikely</option>
-          </select>
-
-          <fieldset class="radio-question">
-            <legend data-i18n="beta_interest_question">If a limited beta were available, would you apply?</legend>
-            <div class="radio-options">
-              <label><input type="radio" name="beta-interest" value="yes" required /><span data-i18n="beta_yes">Yes</span></label>
-              <label><input type="radio" name="beta-interest" value="maybe" /><span data-i18n="beta_maybe">Maybe</span></label>
-              <label><input type="radio" name="beta-interest" value="no" /><span data-i18n="beta_no">No</span></label>
-            </div>
-            <p class="input-help" data-i18n="beta_privacy_note">This records interest only; no contact information is collected.</p>
-          </fieldset>
-          <label class="consent-row"><input type="checkbox" id="confirm-safe-text" required /><span data-i18n="safe_text_confirm">I did not include real names, contact details or sensitive personal information.</span></label>
-          <button class="primary-button full-button" type="submit" data-i18n="generate_result">Submit anonymous result</button>
+          <p class="input-help" id="price-note">US research concept · monthly · USD</p>
+          <button class="primary-button full-button" type="submit" data-i18n="continue_to_feedback">Continue to feedback</button>
         </form>
       </section>
 
-      <nav class="bottom-nav" aria-label="Prototype screens">
-        <button class="nav-button is-active" data-go="followup" type="button"><span class="nav-icon" aria-hidden="true">◌</span><span data-i18n="nav_today">Today</span></button>
-        <button class="nav-button" data-go="memory" type="button"><span class="nav-icon" aria-hidden="true">▤</span><span data-i18n="nav_memory">Memory</span></button>
-        <button class="nav-button" data-go="timeline" type="button"><span class="nav-icon" aria-hidden="true">⌁</span><span data-i18n="nav_timeline">Timeline</span></button>
-        <button class="nav-button" data-go="model" type="button"><span class="nav-icon" aria-hidden="true">◇</span><span data-i18n="nav_update">Update</span></button>
+      <section class="screen" id="screen-results" data-screen="results" aria-labelledby="results-heading" hidden>
+        <div class="section-heading"><div><p class="eyebrow" data-i18n="final_step">FINAL STEP</p><h2 id="results-heading" data-i18n="tell_us_what_landed">Tell us what came through</h2></div><span class="count-pill" data-i18n="experience_complete">Experience complete</span></div>
+        <p class="section-copy" data-i18n="survey_intro">Answer in your own words. “I don’t know” and negative feedback are useful.</p>
+        <form id="survey-form">
+          <label for="value-summary" data-i18n="value_summary">In one sentence, what do you think Atlas is for?</label>
+          <textarea id="value-summary" rows="3" maxlength="500" required data-i18n-placeholder="open_answer_hint"></textarea>
+          <label for="same-ai-reason" data-i18n="same_ai_reason">What, if anything, made this feel like the same AI across the two days?</label>
+          <textarea id="same-ai-reason" rows="3" maxlength="500" required data-i18n-placeholder="open_answer_hint"></textarea>
+          <label for="strongest-moment" data-i18n="strongest_moment">Which moment best showed Atlas’s value?</label>
+          <select id="strongest-moment" required><option value="" data-i18n="choose_one">Choose one</option><option value="conversation" data-i18n="moment_conversation">The first conversation</option><option value="next_day_followup" data-i18n="moment_followup">The next-day follow-up</option><option value="relationship_growth" data-i18n="moment_relationship">The shared journey</option><option value="context_control" data-i18n="moment_context">Correcting or deleting context</option><option value="update_protection" data-i18n="moment_update">Previewing the model update</option><option value="none" data-i18n="moment_none">None of these</option></select>
+          <label for="relationship-believability" data-i18n="relationship_believability">Did the experience feel like a relationship that could grow over time?</label>
+          <select id="relationship-believability" required><option value="" data-i18n="choose_one">Choose one</option><option value="clearly" data-i18n="clearly">Clearly</option><option value="somewhat" data-i18n="somewhat">Somewhat</option><option value="not_really" data-i18n="not_really">Not really</option></select>
+          <label for="comparison-current" data-i18n="comparison_current">Compared with the AI tools you use now, how useful was this experience?</label>
+          <select id="comparison-current" required><option value="" data-i18n="choose_one">Choose one</option><option value="much_better" data-i18n="much_better">Much better</option><option value="somewhat_better" data-i18n="somewhat_better">Somewhat better</option><option value="about_same" data-i18n="about_same">About the same</option><option value="worse" data-i18n="worse">Worse</option><option value="not_applicable" data-i18n="not_applicable">I do not currently use AI tools</option></select>
+          <label for="choice-reason" data-i18n="choice_reason">What is the main reason for your plan choice?</label>
+          <textarea id="choice-reason" rows="3" maxlength="500" required data-i18n-placeholder="open_answer_hint"></textarea>
+          <label for="confusion-point" data-i18n="confusion_point">Which part was most confusing or least useful?</label>
+          <textarea id="confusion-point" rows="3" maxlength="500" required data-i18n-placeholder="confusion_hint"></textarea>
+          <label for="would-use" data-i18n="would_use">Would you use a working version again next week?</label>
+          <select id="would-use" required><option value="" data-i18n="choose_one">Choose one</option><option value="definitely" data-i18n="definitely">Definitely</option><option value="maybe" data-i18n="maybe">Maybe</option><option value="unlikely" data-i18n="unlikely">Unlikely</option></select>
+          <fieldset class="radio-question"><legend data-i18n="beta_interest_question">If a limited beta were available, would you apply?</legend><div class="radio-options"><label><input type="radio" name="beta-interest" value="yes" required /><span data-i18n="beta_yes">Yes</span></label><label><input type="radio" name="beta-interest" value="maybe" /><span data-i18n="beta_maybe">Maybe</span></label><label><input type="radio" name="beta-interest" value="no" /><span data-i18n="beta_no">No</span></label></div><p class="input-help" data-i18n="beta_privacy_note">This records interest only; no contact information is collected.</p></fieldset>
+          <label class="consent-row"><input type="checkbox" id="confirm-safe-text" required /><span data-i18n="safe_text_confirm">I did not include real names, contact details or sensitive personal information.</span></label>
+          <button class="primary-button full-button" type="submit" data-i18n="submit_result">Submit anonymous result</button>
+        </form>
+      </section>
+
+      <nav class="bottom-nav" id="product-nav" aria-label="Prototype screens">
+        <button class="nav-button is-active" data-go="conversation" type="button"><span class="nav-icon" aria-hidden="true">◌</span><span data-i18n="nav_conversation">Conversation</span></button>
+        <button class="nav-button" id="relationship-nav-button" data-go="relationship" type="button" disabled><span class="nav-icon" aria-hidden="true">⌁</span><span data-i18n="nav_relationship">Relationship</span></button>
       </nav>
 
-      <footer class="prototype-footer">
-        <span>continuity-web-prototype-v0.5</span>
-        <button class="text-button" id="privacy-button" type="button" data-i18n="privacy">Privacy & data</button>
-      </footer>
+      <footer class="prototype-footer"><span>continuity-web-prototype-v0.6</span><button class="text-button" id="privacy-button" type="button" data-i18n="privacy">Privacy & data</button></footer>
     </main>
 
     <dialog id="onboarding-dialog">
       <form id="onboarding-form">
-        <p class="eyebrow" data-i18n="research_test">ATLAS RESEARCH TEST</p>
-        <h2 data-i18n="welcome_heading">Test a multi-day AI experience</h2>
-        <p data-i18n="welcome_copy">You will play Alex, who used Atlas on several days and worked on a presentation yesterday. Today Alex returns. Use the fictional interface as you naturally would; there is no live AI.</p>
-        <p class="research-context" data-i18n="research_context">We are testing whether the interface can be understood without help—not testing you. Complete four tasks in order. If a task is unclear, choose “I can’t complete this task.”</p>
-        <div class="qa-mode-banner" id="qa-mode-banner" hidden>
-          <strong data-i18n="qa_mode_title">TECHNICAL QA MODE</strong>
-          <span data-i18n="qa_mode_copy">This submission checks the system and will be excluded from participant research gates.</span>
-        </div>
-
+        <p class="eyebrow" data-i18n="research_test">ATLAS PRODUCT RESEARCH</p>
+        <h2 data-i18n="welcome_heading">Experience two days with an AI companion</h2>
+        <p data-i18n="welcome_copy">You will play Alex in a compressed, fictional two-day experience. Use the interface naturally; all conversation choices are scripted and no live AI is connected.</p>
+        <p class="research-context" data-i18n="research_context">We are testing the product, not you. Complete four tasks without outside help. If something is unclear, choose “I can’t complete this task.”</p>
+        <div class="qa-mode-banner" id="qa-mode-banner" hidden><strong data-i18n="qa_mode_title">TECHNICAL QA MODE</strong><span data-i18n="qa_mode_copy">This submission checks the system and is excluded from participant research gates.</span></div>
         <div class="field-grid">
-          <label><span data-i18n="interface_language">Interface language</span>
-            <select id="locale-select"><option value="en-US">English</option><option value="zh-CN">简体中文</option></select>
-          </label>
-          <label><span data-i18n="research_region">Research region</span>
-            <select id="market-select" required><option value="" data-i18n="choose_market">Choose a market</option><option value="US" data-i18n="region_us">United States</option><option value="CN" data-i18n="region_cn">China mainland</option></select>
-          </label>
-          <label><span data-i18n="first_time_question">Is this your first time completing this prototype?</span>
-            <select id="first-time-select" required><option value="" data-i18n="choose_one">Choose one</option><option value="yes" data-i18n="yes">Yes</option><option value="no" data-i18n="no">No</option></select>
-          </label>
-          <label><span data-i18n="ai_use_frequency">How often do you use AI tools?</span>
-            <select id="ai-use-frequency" required><option value="" data-i18n="choose_one">Choose one</option><option value="daily" data-i18n="daily">Daily</option><option value="several_weekly" data-i18n="several_weekly">Several times a week</option><option value="occasionally" data-i18n="occasionally">Occasionally</option><option value="never" data-i18n="never">Never</option></select>
-          </label>
-          <label><span data-i18n="current_ai_type">What kind of AI tool do you mainly use?</span>
-            <select id="current-ai-type" required><option value="" data-i18n="choose_one">Choose one</option><option value="general_assistant" data-i18n="general_assistant">General AI assistant</option><option value="ai_companion" data-i18n="ai_companion">AI companion</option><option value="other_ai" data-i18n="other_ai">Another AI tool</option><option value="none" data-i18n="no_ai_tool">I do not use one</option></select>
-          </label>
-          <label><span data-i18n="multi_day_use">How often do you return to the same AI or conversation across different days?</span>
-            <select id="multi-day-use" required><option value="" data-i18n="choose_one">Choose one</option><option value="often" data-i18n="often">Often</option><option value="sometimes" data-i18n="sometimes">Sometimes</option><option value="rarely" data-i18n="rarely">Rarely</option><option value="never" data-i18n="never">Never</option></select>
-          </label>
+          <label><span data-i18n="interface_language">Interface language</span><select id="locale-select"><option value="en-US">English</option><option value="zh-CN">简体中文</option></select></label>
+          <label><span data-i18n="research_region">Where would you mainly use this product?</span><select id="market-select" required><option value="" data-i18n="choose_market">Choose a market</option><option value="US" data-i18n="region_us">United States</option><option value="CN" data-i18n="region_cn">China mainland</option></select></label>
+          <label><span data-i18n="first_time_question">Is this your first time completing this product prototype?</span><select id="first-time-select" required><option value="" data-i18n="choose_one">Choose one</option><option value="yes" data-i18n="yes">Yes</option><option value="no" data-i18n="no">No</option></select></label>
+          <label><span data-i18n="ai_use_frequency">How often do you use AI tools?</span><select id="ai-use-frequency" required><option value="" data-i18n="choose_one">Choose one</option><option value="daily" data-i18n="daily">Daily</option><option value="several_weekly" data-i18n="several_weekly">Several times a week</option><option value="occasionally" data-i18n="occasionally">Occasionally</option><option value="never" data-i18n="never">Never</option></select></label>
+          <label><span data-i18n="current_ai_type">What kind of AI tool do you mainly use?</span><select id="current-ai-type" required><option value="" data-i18n="choose_one">Choose one</option><option value="general_assistant" data-i18n="general_assistant">General AI assistant</option><option value="ai_companion" data-i18n="ai_companion">AI companion</option><option value="other_ai" data-i18n="other_ai">Another AI tool</option><option value="none" data-i18n="no_ai_tool">I do not use one</option></select></label>
+          <label><span data-i18n="multi_day_use">How often do you return to the same AI across different days?</span><select id="multi-day-use" required><option value="" data-i18n="choose_one">Choose one</option><option value="often" data-i18n="often">Often</option><option value="sometimes" data-i18n="sometimes">Sometimes</option><option value="rarely" data-i18n="rarely">Rarely</option><option value="never" data-i18n="never">Never</option></select></label>
         </div>
-
-        <ul class="consent-list">
-          <li data-i18n="consent_fact_1">The result records task actions, time, the choices above and your non-sensitive research answers.</li>
-          <li data-i18n="consent_fact_2">Atlas does not persist an IP address, account, email, device fingerprint, real chat or Memory input in the result database.</li>
-          <li data-i18n="consent_fact_3">Hosting infrastructure may temporarily process standard network metadata. Stored results are deleted after 30 days.</li>
-        </ul>
+        <ul class="consent-list"><li data-i18n="consent_fact_1">The result records task actions, time, selections and non-sensitive research answers—not the fictional Context choice value.</li><li data-i18n="consent_fact_2">Atlas does not persist an IP address, account, email, device fingerprint or real chat in the result database.</li><li data-i18n="consent_fact_3">Hosting infrastructure may temporarily process standard network metadata. Stored results are deleted within 30 days.</li></ul>
         <label class="consent-row"><input id="adult-consent" type="checkbox" required /><span data-i18n="adult_consent">I am 18 or older and agree to participate in this product test.</span></label>
         <label class="consent-row"><input id="upload-consent" type="checkbox" required /><span data-i18n="upload_consent">I agree that my anonymous result will be submitted automatically and stored for up to 30 days.</span></label>
-        <button class="primary-button full-button" type="submit" data-i18n="start_test">Start test</button>
+        <button class="primary-button full-button" type="submit" data-i18n="start_test">Start experience</button>
       </form>
     </dialog>
 
-    <dialog id="memory-dialog">
-      <form method="dialog" id="memory-form">
-        <div class="dialog-heading"><div><p class="eyebrow" data-i18n="correct_memory">CORRECT MEMORY</p><h2 id="memory-dialog-title">Update saved detail</h2></div><button class="icon-button" value="cancel" data-i18n-aria="close">×</button></div>
-        <label for="memory-input" data-i18n="what_use_next">What should Atlas use next time?</label>
-        <input id="memory-input" name="memoryValue" autocomplete="off" />
-        <p class="input-help" data-i18n="old_marked_outdated">The earlier value will be marked outdated, not silently merged.</p>
-        <div class="button-row"><button class="primary-button" id="save-memory-button" value="default" data-i18n="save_correction">Save correction</button><button class="secondary-button" value="cancel" data-i18n="cancel">Cancel</button></div>
-      </form>
-    </dialog>
+    <dialog id="source-dialog"><form method="dialog"><p class="eyebrow" data-i18n="source">SOURCE</p><h2 data-i18n="yesterday_conversation">Yesterday’s conversation</h2><p id="source-dialog-copy"></p><div class="detail-source" data-i18n="source_boundary">Fictional source · Approved for next-day follow-up · Ask once</div><button class="primary-button" value="close" data-i18n="done">Done</button></form></dialog>
+    <dialog id="moment-dialog"><form method="dialog"><p class="eyebrow" data-i18n="shared_moment">SHARED MOMENT</p><h2 id="moment-dialog-title" data-i18n="presentation_moment">You prepared for Wednesday’s presentation</h2><p id="moment-dialog-copy"></p><div class="detail-source" data-i18n="moment_not_transcript">Created from a meaningful event, not a full transcript.</div><button class="primary-button" value="close" data-i18n="done">Done</button></form></dialog>
+    <dialog id="delete-dialog"><form method="dialog"><p class="eyebrow" data-i18n="delete_context">DELETE CONTEXT</p><h2 data-i18n="stop_using_detail">Stop using this detail?</h2><p data-i18n="delete_context_copy">Atlas will not use the fictional presentation time in future conversations.</p><div class="button-row"><button class="danger-filled" id="confirm-delete-button" value="delete" data-i18n="delete">Delete</button><button class="secondary-button" value="cancel" data-i18n="cancel">Cancel</button></div></form></dialog>
+    <dialog id="privacy-dialog"><form method="dialog"><p class="eyebrow" data-i18n="privacy">PRIVACY & DATA</p><h2 data-i18n="privacy_heading">Minimal automatic submission</h2><p data-i18n="privacy_copy">After explicit consent, task actions, time, research selections and non-sensitive answers are stored for up to 30 days. The result database does not persist IP addresses, accounts, email, device fingerprints, real chat or Context input values.</p><p data-i18n="privacy_warning">Do not enter real names, contact details, health information or other sensitive personal content. A deletion receipt is available after upload.</p><button class="primary-button" value="close" data-i18n="done">Done</button></form></dialog>
 
-    <dialog id="confirm-dialog">
-      <form method="dialog"><p class="eyebrow" data-i18n="delete_memory">DELETE MEMORY</p><h2 data-i18n="stop_using">Stop using this detail?</h2><p id="delete-description"></p><div class="button-row"><button class="danger-filled" id="confirm-delete-button" value="delete" data-i18n="delete">Delete</button><button class="secondary-button" value="cancel" data-i18n="cancel">Cancel</button></div></form>
-    </dialog>
-
-    <dialog id="detail-dialog">
-      <form method="dialog"><p class="eyebrow" data-i18n="timeline_source">TIMELINE SOURCE</p><h2 id="detail-title">Presentation goal began</h2><p id="detail-copy"></p><div class="detail-source" data-i18n="detail_source">Source · July 16 conversation · Confirmed by Alex</div><button class="primary-button" value="close" data-i18n="done">Done</button></form>
-    </dialog>
-
-    <dialog id="privacy-dialog">
-      <form method="dialog"><p class="eyebrow" data-i18n="privacy">PRIVACY & DATA</p><h2 data-i18n="privacy_heading">Minimal automatic submission</h2><p data-i18n="privacy_copy">After explicit consent, the final anonymous result is sent to the Atlas prototype collector and stored for up to 30 days. The application database does not persist IP addresses, accounts, email, device fingerprints, real chat or Memory input values. Hosting infrastructure may temporarily process standard request metadata.</p><p data-i18n="privacy_warning">Do not enter real names, contact details, health information or other sensitive personal content. A deletion receipt is available after successful upload.</p><button class="primary-button" value="close" data-i18n="done">Done</button></form>
-    </dialog>
-
-    <dialog id="result-dialog">
-      <form method="dialog">
-        <p class="eyebrow" data-i18n="anonymous_result">ANONYMOUS RESULT</p>
-        <h2 data-i18n="result_ready">Your result is ready</h2>
-        <p data-i18n="result_copy">The page will submit the anonymous result automatically. The result code remains available as a backup.</p>
-        <div class="upload-status" id="upload-status" role="status" aria-live="polite">
-          <strong id="upload-status-title" data-i18n="upload_waiting">Preparing upload…</strong>
-          <span id="upload-status-copy" data-i18n="upload_waiting_copy">Keep this window open until submission finishes.</span>
-        </div>
-        <a class="text-button collector-health-link" id="collector-health-link" target="_blank" rel="noopener noreferrer" data-i18n="collector_connection_test" hidden>Open collector connection test</a>
-        <details><summary data-i18n="preview_data">Preview result data</summary><pre id="result-preview"></pre></details>
-        <textarea id="result-code" rows="4" readonly aria-label="Anonymous result code"></textarea>
-        <div id="receipt-panel" hidden>
-          <p class="input-help" data-i18n="receipt_copy">Save the receipt if you may want to delete this result later.</p>
-          <code id="receipt-id"></code>
-        </div>
-        <div class="stacked-actions">
-          <button class="primary-button" id="copy-result-button" type="button" data-i18n="copy_result">Copy result code</button>
-          <button class="secondary-button" id="download-result-button" type="button" data-i18n="download_receipt">Download result and deletion receipt</button>
-          <button class="secondary-button" id="retry-upload-button" type="button" data-i18n="retry_upload" hidden>Retry automatic upload</button>
-          <button class="danger-button" id="delete-upload-button" type="button" data-i18n="delete_uploaded" hidden>Delete uploaded result</button>
-          <button class="text-button" value="close" data-i18n="close">Close</button>
-        </div>
-      </form>
-    </dialog>
+    <dialog id="result-dialog"><form method="dialog"><p class="eyebrow" data-i18n="anonymous_result">ANONYMOUS RESULT</p><h2 data-i18n="result_ready">Your result is ready</h2><p data-i18n="result_copy">The page submits the anonymous result automatically. The result code remains available as a backup.</p><div class="upload-status" id="upload-status" role="status" aria-live="polite"><strong id="upload-status-title" data-i18n="upload_waiting">Preparing upload…</strong><span id="upload-status-copy" data-i18n="upload_waiting_copy">Keep this window open until submission finishes.</span></div><a class="text-button collector-health-link" id="collector-health-link" target="_blank" rel="noopener noreferrer" data-i18n="collector_connection_test" hidden>Open collector connection test</a><details><summary data-i18n="preview_data">Preview result data</summary><pre id="result-preview"></pre></details><textarea id="result-code" rows="4" readonly aria-label="Anonymous result code"></textarea><div id="receipt-panel" hidden><p class="input-help" data-i18n="receipt_copy">Save the receipt if you may want to delete this result later.</p><code id="receipt-id"></code></div><div class="stacked-actions"><button class="primary-button" id="copy-result-button" type="button" data-i18n="copy_result">Copy result code</button><button class="secondary-button" id="download-result-button" type="button" data-i18n="download_receipt">Download result and deletion receipt</button><button class="secondary-button" id="retry-upload-button" type="button" data-i18n="retry_upload" hidden>Retry automatic upload</button><button class="danger-button" id="delete-upload-button" type="button" data-i18n="delete_uploaded" hidden>Delete uploaded result</button><button class="text-button" value="close" data-i18n="close">Close</button></div></form></dialog>
 
     <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
     <script src="config.js"></script>
