@@ -60,6 +60,42 @@ button {
   gap: 16px;
 }
 
+.topbar {
+  align-items: flex-start;
+}
+
+.topbar-actions,
+.language-switch {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.language-switch {
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-soft);
+}
+
+.language-button {
+  min-width: 38px;
+  min-height: 34px;
+  padding: 5px 9px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 750;
+}
+
+.language-button.is-active {
+  background: var(--surface);
+  box-shadow: 0 1px 5px rgba(31, 40, 37, 0.12);
+  color: var(--brand-dark);
+}
+
 h1,
 h2,
 h3,
@@ -125,6 +161,62 @@ h3 {
   color: #40534c;
   font-size: 0.78rem;
   line-height: 1.45;
+}
+
+.test-guide {
+  margin-bottom: 20px;
+  padding: 17px;
+  border: 1px solid #d7c9b7;
+  border-radius: 18px;
+  background: #fbf5ea;
+}
+
+.test-guide h2 {
+  margin-bottom: 7px;
+  font-family: inherit;
+  font-size: 1.02rem;
+  font-weight: 760;
+  letter-spacing: 0;
+}
+
+.test-guide > p:not(.card-kicker) {
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.progress-row {
+  display: grid;
+  grid-template-columns: auto minmax(70px, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.progress-track {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e7dccd;
+}
+
+.progress-track span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--brand);
+  transition: width 180ms ease;
+}
+
+.compact-button {
+  min-height: 38px;
+  padding: 8px 12px;
+  font-size: 0.8rem;
 }
 
 .screen {
@@ -199,6 +291,11 @@ h3 {
   padding: 11px 16px;
   border-radius: 12px;
   font-weight: 700;
+}
+
+.full-button {
+  width: 100%;
+  margin-top: 18px;
 }
 
 .primary-button {
@@ -499,6 +596,112 @@ h3 {
   text-align: center;
 }
 
+#survey-form {
+  display: grid;
+  gap: 16px;
+}
+
+#survey-form fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+#survey-form legend,
+#survey-form > label,
+.field-grid label {
+  display: grid;
+  gap: 7px;
+  font-size: 0.84rem;
+  font-weight: 740;
+}
+
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 11px;
+}
+
+.price-card {
+  position: relative;
+  display: block;
+}
+
+.price-card input {
+  position: absolute;
+  opacity: 0;
+}
+
+.price-card span {
+  display: grid;
+  min-height: 132px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: var(--surface);
+  transition: border 140ms ease, background 140ms ease, transform 140ms ease;
+}
+
+.price-card strong {
+  margin-bottom: 12px;
+  color: var(--brand);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.32rem;
+}
+
+.price-card b {
+  margin-bottom: 6px;
+  font-size: 0.84rem;
+}
+
+.price-card small {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.42;
+}
+
+.price-card input:checked + span {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+  box-shadow: 0 0 0 2px rgba(29, 91, 77, 0.12);
+  transform: translateY(-1px);
+}
+
+textarea,
+select {
+  width: 100%;
+  padding: 12px 13px;
+  border: 1px solid #b8bcb8;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.consent-row {
+  display: flex !important;
+  grid-template-columns: auto 1fr;
+  align-items: flex-start;
+  gap: 10px !important;
+  color: var(--muted);
+  font-size: 0.8rem !important;
+  font-weight: 500 !important;
+  line-height: 1.45;
+}
+
+.consent-row input {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+}
+
 .bottom-nav {
   position: fixed;
   z-index: 10;
@@ -540,12 +743,14 @@ h3 {
 
 dialog {
   width: min(calc(100% - 32px), 420px);
+  max-height: calc(100vh - 32px);
   padding: 22px;
   border: 1px solid var(--line);
   border-radius: 22px;
   background: var(--surface);
   box-shadow: var(--shadow);
   color: var(--ink);
+  overflow: auto;
 }
 
 dialog::backdrop {
@@ -567,6 +772,49 @@ dialog input {
   border-radius: 10px;
   background: #fff;
   color: var(--ink);
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.consent-list {
+  padding-left: 20px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+details {
+  margin: 12px 0;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-soft);
+}
+
+summary {
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 720;
+}
+
+pre {
+  max-height: 220px;
+  margin: 12px 0 0;
+  overflow: auto;
+  font-size: 0.68rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+#result-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.67rem;
 }
 
 dialog .button-row {
@@ -592,6 +840,33 @@ dialog .button-row {
   color: #fff;
   font-size: 0.84rem;
   text-align: center;
+}
+
+.prototype-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.prototype-footer .text-button {
+  font-size: 0.72rem;
+}
+
+html[lang^="zh"] body {
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", ui-sans-serif, sans-serif;
+}
+
+html[lang^="zh"] h1,
+html[lang^="zh"] h2,
+html[lang^="zh"] .price-card strong {
+  font-family: "Songti SC", "Noto Serif CJK SC", Georgia, serif;
+  letter-spacing: 0;
 }
 
 .sr-only {
@@ -634,6 +909,36 @@ input:focus-visible {
     border-bottom: 1px solid var(--line);
     border-left: 1px solid var(--line);
     border-radius: 0 0 32px 32px;
+  }
+}
+
+@media (max-width: 390px) {
+  .prototype-shell {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .topbar {
+    gap: 8px;
+  }
+
+  .topbar-actions {
+    gap: 4px;
+  }
+
+  .language-switch {
+    gap: 2px;
+  }
+
+  .language-button {
+    min-width: 34px;
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+
+  .field-grid,
+  .price-grid {
+    grid-template-columns: 1fr;
   }
 }
 

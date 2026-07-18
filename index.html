@@ -1,66 +1,88 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-US">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f5efe5" />
+    <meta name="description" content="Atlas bilingual continuity usability prototype" />
     <title>Atlas Continuity Prototype</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="prototype-shell" aria-label="Atlas mobile web usability prototype">
+    <main class="prototype-shell" aria-label="Atlas bilingual mobile web usability prototype">
       <header class="topbar">
         <div>
-          <p class="eyebrow">ATLAS · WEB PROTOTYPE</p>
-          <h1 id="screen-title">Good morning, Alex</h1>
+          <p class="eyebrow" data-i18n="prototype_label">ATLAS · WEB PROTOTYPE</p>
+          <h1 id="screen-title" data-i18n="title_followup">Good morning, Alex</h1>
         </div>
-        <button class="icon-button" id="reset-button" type="button" aria-label="Reset prototype data" title="Reset prototype data">
-          <span aria-hidden="true">↻</span>
-        </button>
+        <div class="topbar-actions">
+          <div class="language-switch" role="group" aria-label="Language">
+            <button class="language-button is-active" type="button" data-locale="en-US">EN</button>
+            <button class="language-button" type="button" data-locale="zh-CN">中文</button>
+          </div>
+          <button class="icon-button" id="reset-button" type="button" data-i18n-aria="reset" title="Reset prototype data">
+            <span aria-hidden="true">↻</span>
+          </button>
+        </div>
       </header>
 
       <p class="prototype-notice">
         <span aria-hidden="true">◇</span>
-        This is an AI product concept using fictional data. It is not a human or a live AI service.
+        <span data-i18n="identity_notice">This is an AI product concept using fictional data. It is not a human or a live AI service.</span>
       </p>
+
+      <section class="test-guide" id="test-guide" aria-labelledby="task-heading">
+        <div class="progress-row">
+          <span id="progress-label">0 / 4</span>
+          <div class="progress-track" aria-hidden="true"><span id="progress-fill"></span></div>
+          <span data-i18n="about_minutes">8–12 min</span>
+        </div>
+        <p class="card-kicker" data-i18n="current_task">CURRENT TASK</p>
+        <h2 id="task-heading">Choose what to do with yesterday’s unfinished topic.</h2>
+        <p id="task-instruction">Use the prototype as you normally would. There is no single preferred choice.</p>
+        <div class="button-row">
+          <button class="secondary-button compact-button" id="go-task-button" type="button" data-i18n="go_to_task">Go to task</button>
+          <button class="text-button compact-button" id="cannot-complete-button" type="button" data-i18n="cannot_complete">I can’t complete this task</button>
+        </div>
+      </section>
 
       <section class="screen is-active" id="screen-followup" data-screen="followup" aria-labelledby="followup-heading">
         <div class="relationship-strip">
-          <span>Relationship day 18</span>
-          <strong>Growing together</strong>
+          <span data-i18n="relationship_day">Relationship day 18</span>
+          <strong data-i18n="growing_together">Growing together</strong>
         </div>
 
         <article class="hero-card">
-          <p class="card-kicker">FROM YESTERDAY</p>
-          <h2 id="followup-heading">Ready to shape the opening?</h2>
-          <p>You were preparing a short project presentation. You wanted one concise check-in today—no repeated reminders.</p>
-          <div class="source-chip">Source: Yesterday’s conversation · 4:42 PM</div>
+          <p class="card-kicker" data-i18n="from_yesterday">FROM YESTERDAY</p>
+          <h2 id="followup-heading" data-i18n="followup_heading">Ready to shape the opening?</h2>
+          <p data-i18n="followup_copy">You were preparing a short project presentation. You wanted one concise check-in today—no repeated reminders.</p>
+          <div class="source-chip" data-i18n="followup_source">Source: Yesterday’s conversation · 4:42 PM</div>
           <div class="button-row">
-            <button class="primary-button" id="continue-button" type="button">Continue this</button>
-            <button class="secondary-button" id="skip-button" type="button">Not now</button>
+            <button class="primary-button" id="continue-button" type="button" data-i18n="continue_this">Continue this</button>
+            <button class="secondary-button" id="skip-button" type="button" data-i18n="not_now">Not now</button>
           </div>
-          <button class="text-button" data-go="memory" type="button">Review what Atlas remembered</button>
+          <button class="text-button" data-go="memory" type="button" data-i18n="review_memory">Review what Atlas remembered</button>
         </article>
 
         <article class="conversation-preview" id="conversation-preview" hidden>
-          <p class="card-kicker">CONVERSATION</p>
-          <div class="message assistant-message">Yesterday you wanted a concise opening. Would you like to draft the first two sentences now?</div>
+          <p class="card-kicker" data-i18n="conversation">CONVERSATION</p>
+          <div class="message assistant-message" data-i18n="assistant_followup">Yesterday you wanted a concise opening. Would you like to draft the first two sentences now?</div>
           <div class="quick-replies">
-            <button type="button">Draft with me</button>
-            <button type="button">I already finished it</button>
+            <button type="button" data-i18n="draft_with_me">Draft with me</button>
+            <button type="button" data-i18n="already_finished">I already finished it</button>
           </div>
         </article>
 
         <article class="boundary-card">
           <div>
-            <p class="card-kicker">YOUR BOUNDARY</p>
-            <h3>Proactive follow-ups</h3>
-            <p>Ask once about unfinished topics. Never repeat a skipped reminder.</p>
+            <p class="card-kicker" data-i18n="your_boundary">YOUR BOUNDARY</p>
+            <h3 data-i18n="proactive_followups">Proactive follow-ups</h3>
+            <p data-i18n="boundary_copy">Ask once about unfinished topics. Never repeat a skipped reminder.</p>
           </div>
           <label class="switch">
             <input id="followup-toggle" type="checkbox" checked />
             <span aria-hidden="true"></span>
-            <span class="sr-only">Allow proactive follow-ups</span>
+            <span class="sr-only" data-i18n="allow_followups">Allow proactive follow-ups</span>
           </label>
         </article>
       </section>
@@ -68,67 +90,67 @@
       <section class="screen" id="screen-memory" data-screen="memory" aria-labelledby="memory-heading" hidden>
         <div class="section-heading">
           <div>
-            <p class="eyebrow">MEMORY LEDGER</p>
-            <h2 id="memory-heading">What Atlas may use</h2>
+            <p class="eyebrow" data-i18n="memory_ledger">MEMORY LEDGER</p>
+            <h2 id="memory-heading" data-i18n="what_atlas_may_use">What Atlas may use</h2>
           </div>
           <span class="count-pill" id="memory-count">4 saved</span>
         </div>
-        <p class="section-copy">You control every saved detail. Changes take effect in the next conversation.</p>
+        <p class="section-copy" data-i18n="memory_control_copy">You control every saved detail. Changes take effect in the next conversation.</p>
 
         <div class="ledger" id="memory-list">
           <article class="memory-card" data-memory-id="presentation">
             <div class="memory-meta">
-              <span class="memory-type">CURRENT GOAL</span>
-              <span class="permission allowed">Allowed</span>
+              <span class="memory-type" data-i18n="current_goal">CURRENT GOAL</span>
+              <span class="permission allowed" data-i18n="allowed">Allowed</span>
             </div>
-            <h3>Project presentation</h3>
-            <p class="memory-value" id="presentation-value">Friday at 10:00 AM</p>
-            <p class="memory-source">From your conversation on July 16</p>
+            <h3 data-i18n="project_presentation">Project presentation</h3>
+            <p class="memory-value" id="presentation-value" data-i18n="presentation_old_time">Friday at 10:00 AM</p>
+            <p class="memory-source" data-i18n="from_july_16">From your conversation on July 16</p>
             <div class="card-actions">
-              <button class="secondary-button edit-memory" type="button" data-memory="presentation">Correct</button>
-              <button class="danger-button delete-memory" type="button" data-memory="presentation">Delete</button>
+              <button class="secondary-button edit-memory" type="button" data-memory="presentation" data-i18n="correct">Correct</button>
+              <button class="danger-button delete-memory" type="button" data-memory="presentation" data-i18n="delete">Delete</button>
             </div>
           </article>
 
           <article class="memory-card" data-memory-id="dog">
             <div class="memory-meta">
-              <span class="memory-type">PERSONAL CONTEXT</span>
-              <span class="permission allowed">Allowed</span>
+              <span class="memory-type" data-i18n="personal_context">PERSONAL CONTEXT</span>
+              <span class="permission allowed" data-i18n="allowed">Allowed</span>
             </div>
-            <h3>Your dog</h3>
+            <h3 data-i18n="your_dog">Your dog</h3>
             <p class="memory-value">Comet</p>
-            <p class="memory-source">Confirmed by you on July 16</p>
+            <p class="memory-source" data-i18n="confirmed_july_16">Confirmed by you on July 16</p>
             <div class="card-actions">
-              <button class="secondary-button edit-memory" type="button" data-memory="dog">Correct</button>
-              <button class="danger-button delete-memory" type="button" data-memory="dog">Delete</button>
+              <button class="secondary-button edit-memory" type="button" data-memory="dog" data-i18n="correct">Correct</button>
+              <button class="danger-button delete-memory" type="button" data-memory="dog" data-i18n="delete">Delete</button>
             </div>
           </article>
 
           <article class="memory-card" data-memory-id="style">
             <div class="memory-meta">
-              <span class="memory-type">COMMUNICATION</span>
-              <span class="permission allowed">Allowed</span>
+              <span class="memory-type" data-i18n="communication">COMMUNICATION</span>
+              <span class="permission allowed" data-i18n="allowed">Allowed</span>
             </div>
-            <h3>Check-in style</h3>
-            <p class="memory-value">Concise; no long motivational messages</p>
-            <p class="memory-source">Confirmed by you on July 16</p>
+            <h3 data-i18n="checkin_style">Check-in style</h3>
+            <p class="memory-value" data-i18n="concise_style">Concise; no long motivational messages</p>
+            <p class="memory-source" data-i18n="confirmed_july_16">Confirmed by you on July 16</p>
             <div class="card-actions">
-              <button class="secondary-button edit-memory" type="button" data-memory="style">Correct</button>
-              <button class="danger-button delete-memory" type="button" data-memory="style">Delete</button>
+              <button class="secondary-button edit-memory" type="button" data-memory="style" data-i18n="correct">Correct</button>
+              <button class="danger-button delete-memory" type="button" data-memory="style" data-i18n="delete">Delete</button>
             </div>
           </article>
 
           <article class="memory-card" data-memory-id="followup">
             <div class="memory-meta">
-              <span class="memory-type">INTERACTION BOUNDARY</span>
-              <span class="permission allowed">Allowed</span>
+              <span class="memory-type" data-i18n="interaction_boundary">INTERACTION BOUNDARY</span>
+              <span class="permission allowed" data-i18n="allowed">Allowed</span>
             </div>
-            <h3>Follow-up preference</h3>
-            <p class="memory-value">Ask once the next day; do not repeat</p>
-            <p class="memory-source">Confirmed by you on July 16</p>
+            <h3 data-i18n="followup_preference">Follow-up preference</h3>
+            <p class="memory-value" data-i18n="ask_once">Ask once the next day; do not repeat</p>
+            <p class="memory-source" data-i18n="confirmed_july_16">Confirmed by you on July 16</p>
             <div class="card-actions">
-              <button class="secondary-button edit-memory" type="button" data-memory="followup">Correct</button>
-              <button class="danger-button delete-memory" type="button" data-memory="followup">Delete</button>
+              <button class="secondary-button edit-memory" type="button" data-memory="followup" data-i18n="correct">Correct</button>
+              <button class="danger-button delete-memory" type="button" data-memory="followup" data-i18n="delete">Delete</button>
             </div>
           </article>
         </div>
@@ -137,44 +159,44 @@
       <section class="screen" id="screen-timeline" data-screen="timeline" aria-labelledby="timeline-heading" hidden>
         <div class="section-heading">
           <div>
-            <p class="eyebrow">RELATIONSHIP TIMELINE</p>
-            <h2 id="timeline-heading">Our shared journey</h2>
+            <p class="eyebrow" data-i18n="relationship_timeline">RELATIONSHIP TIMELINE</p>
+            <h2 id="timeline-heading" data-i18n="shared_journey">Our shared journey</h2>
           </div>
-          <span class="count-pill">18 days</span>
+          <span class="count-pill" data-i18n="eighteen_days">18 days</span>
         </div>
-        <p class="section-copy">Meaningful moments—not a transcript of every message.</p>
+        <p class="section-copy" data-i18n="timeline_copy">Meaningful moments—not a transcript of every message.</p>
 
         <div class="filter-row" role="group" aria-label="Timeline filters">
-          <button class="filter-button is-selected" type="button" data-filter="all">All</button>
-          <button class="filter-button" type="button" data-filter="goal">Goals</button>
-          <button class="filter-button" type="button" data-filter="relationship">Relationship</button>
+          <button class="filter-button is-selected" type="button" data-filter="all" data-i18n="all">All</button>
+          <button class="filter-button" type="button" data-filter="goal" data-i18n="goals">Goals</button>
+          <button class="filter-button" type="button" data-filter="relationship" data-i18n="relationship">Relationship</button>
         </div>
 
         <div class="timeline-list">
           <article class="timeline-event" data-kind="goal">
             <div class="timeline-marker" aria-hidden="true"></div>
             <div class="timeline-card">
-              <p class="timeline-date">JUL 16 · DAY 17</p>
-              <h3>Presentation goal began</h3>
-              <p>You asked Atlas to help make the opening practical and concise.</p>
-              <button class="text-button event-detail" type="button" data-event="presentation">See why this matters</button>
+              <p class="timeline-date" data-i18n="date_day_17">JUL 16 · DAY 17</p>
+              <h3 data-i18n="presentation_goal_began">Presentation goal began</h3>
+              <p data-i18n="presentation_goal_copy">You asked Atlas to help make the opening practical and concise.</p>
+              <button class="text-button event-detail" type="button" data-event="presentation" data-i18n="why_matters">See why this matters</button>
             </div>
           </article>
           <article class="timeline-event" data-kind="relationship">
             <div class="timeline-marker" aria-hidden="true"></div>
             <div class="timeline-card">
-              <p class="timeline-date">JUL 10 · DAY 11</p>
-              <h3>You set a communication boundary</h3>
-              <p>Atlas should keep check-ins brief and avoid repeated reminders.</p>
-              <button class="text-button event-detail" type="button" data-event="boundary">View source and control</button>
+              <p class="timeline-date" data-i18n="date_day_11">JUL 10 · DAY 11</p>
+              <h3 data-i18n="boundary_event">You set a communication boundary</h3>
+              <p data-i18n="boundary_event_copy">Atlas should keep check-ins brief and avoid repeated reminders.</p>
+              <button class="text-button event-detail" type="button" data-event="boundary" data-i18n="view_source_control">View source and control</button>
             </div>
           </article>
           <article class="timeline-event" data-kind="relationship">
             <div class="timeline-marker" aria-hidden="true"></div>
             <div class="timeline-card">
-              <p class="timeline-date">JUN 29 · DAY 1</p>
-              <h3>Your first conversation</h3>
-              <p>You chose practical support and user-controlled memory.</p>
+              <p class="timeline-date" data-i18n="date_day_1">JUN 29 · DAY 1</p>
+              <h3 data-i18n="first_conversation">Your first conversation</h3>
+              <p data-i18n="first_conversation_copy">You chose practical support and user-controlled memory.</p>
             </div>
           </article>
         </div>
@@ -183,111 +205,161 @@
       <section class="screen" id="screen-model" data-screen="model" aria-labelledby="model-heading" hidden>
         <div class="section-heading">
           <div>
-            <p class="eyebrow">MODEL CHANGE</p>
-            <h2 id="model-heading">Review before switching</h2>
+            <p class="eyebrow" data-i18n="model_change">MODEL CHANGE</p>
+            <h2 id="model-heading" data-i18n="review_before_switching">Review before switching</h2>
           </div>
-          <span class="count-pill warning">Preview</span>
+          <span class="count-pill warning" data-i18n="preview">Preview</span>
         </div>
-        <p class="section-copy">An update may change tone or recall behavior. Your memories and timeline remain yours.</p>
+        <p class="section-copy" data-i18n="model_change_copy">An update may change tone or recall behavior. Your memories and timeline remain yours.</p>
 
         <article class="change-card">
           <div class="version-row">
-            <div>
-              <span class="version-label">CURRENT</span>
-              <strong>Atlas Core 1.4</strong>
-            </div>
+            <div><span class="version-label" data-i18n="current">CURRENT</span><strong>Atlas Core 1.4</strong></div>
             <span aria-hidden="true">→</span>
-            <div>
-              <span class="version-label">AVAILABLE</span>
-              <strong>Atlas Core 1.5</strong>
-            </div>
+            <div><span class="version-label" data-i18n="available">AVAILABLE</span><strong>Atlas Core 1.5</strong></div>
           </div>
-          <h3>What may feel different</h3>
+          <h3 data-i18n="what_may_change">What may feel different</h3>
           <ul class="change-list">
-            <li>Shorter opening responses</li>
-            <li>Stricter confirmation before saving context</li>
-            <li>Existing memories remain visible and editable</li>
+            <li data-i18n="change_shorter">Shorter opening responses</li>
+            <li data-i18n="change_confirm">Stricter confirmation before saving context</li>
+            <li data-i18n="change_memory">Existing memories remain visible and editable</li>
           </ul>
         </article>
 
         <article class="comparison-card">
-          <p class="card-kicker">SAME MOMENT, TWO STYLES</p>
-          <p class="comparison-prompt">You say: “I’m nervous about the presentation.”</p>
+          <p class="card-kicker" data-i18n="same_moment">SAME MOMENT, TWO STYLES</p>
+          <p class="comparison-prompt" data-i18n="comparison_prompt">You say: “I’m nervous about the presentation.”</p>
           <div class="response-option current-response">
-            <span>1.4 · CURRENT</span>
-            <p>That makes sense. Yesterday you wanted a concise opening—should we rehearse just those two lines?</p>
+            <span data-i18n="current_response">1.4 · CURRENT</span>
+            <p data-i18n="response_14">That makes sense. Yesterday you wanted a concise opening—should we rehearse just those two lines?</p>
           </div>
           <div class="response-option new-response">
-            <span>1.5 · PREVIEW</span>
-            <p>Let’s focus on the opening you planned yesterday. Want to rehearse the first two lines?</p>
+            <span data-i18n="preview_response">1.5 · PREVIEW</span>
+            <p data-i18n="response_15">Let’s focus on the opening you planned yesterday. Want to rehearse the first two lines?</p>
           </div>
         </article>
 
         <div class="stacked-actions" id="model-actions">
-          <button class="primary-button" id="keep-update-button" type="button">Use the update</button>
-          <button class="secondary-button" id="restore-button" type="button">Keep version 1.4</button>
-          <p class="action-note">You can restore the prior version for 30 days. No memories are deleted.</p>
+          <button class="primary-button" id="keep-update-button" type="button" data-i18n="use_update">Use the update</button>
+          <button class="secondary-button" id="restore-button" type="button" data-i18n="keep_old_version">Keep version 1.4</button>
+          <p class="action-note" data-i18n="restore_note">You can restore the prior version for 30 days. No memories are deleted.</p>
         </div>
       </section>
 
+      <section class="screen" id="screen-results" data-screen="results" aria-labelledby="results-heading" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-i18n="final_step">FINAL STEP</p>
+            <h2 id="results-heading" data-i18n="your_choice">Your choice</h2>
+          </div>
+          <span class="count-pill" data-i18n="tasks_complete">Tasks complete</span>
+        </div>
+        <p class="section-copy" data-i18n="survey_intro">These are research concepts, not a sales offer. Choose what you would do today.</p>
+
+        <form id="survey-form">
+          <fieldset>
+            <legend data-i18n="price_question">Which option, if any, would you choose?</legend>
+            <div class="price-grid">
+              <label class="price-card"><input type="radio" name="price" value="none" /><span><strong id="price-none">$0</strong><b data-i18n="price_none">No subscription</b><small data-i18n="price_none_copy">Keep using current tools</small></span></label>
+              <label class="price-card"><input type="radio" name="price" value="essential" /><span><strong id="price-essential">$9.99</strong><b>Essential</b><small data-i18n="price_essential_copy">Follow-up + memory controls</small></span></label>
+              <label class="price-card"><input type="radio" name="price" value="continuity" /><span><strong id="price-continuity">$14.99</strong><b>Continuity</b><small data-i18n="price_continuity_copy">Essential + timeline + update protection</small></span></label>
+              <label class="price-card"><input type="radio" name="price" value="portable" /><span><strong id="price-portable">$19.99</strong><b>Portable</b><small data-i18n="price_portable_copy">Continuity + export and migration</small></span></label>
+            </div>
+            <p class="input-help" id="price-note">US research concept · monthly · USD</p>
+          </fieldset>
+
+          <label for="choice-reason" data-i18n="choice_reason">What is the main reason for your choice?</label>
+          <textarea id="choice-reason" rows="3" maxlength="500" required data-i18n-placeholder="no_personal_info"></textarea>
+
+          <label for="value-summary" data-i18n="value_summary">In one sentence, what do you think Atlas is for?</label>
+          <textarea id="value-summary" rows="3" maxlength="500" required data-i18n-placeholder="no_personal_info"></textarea>
+
+          <label for="would-use" data-i18n="would_use">Would you use a working version again next week?</label>
+          <select id="would-use" required>
+            <option value="" data-i18n="choose_one">Choose one</option>
+            <option value="definitely" data-i18n="definitely">Definitely</option>
+            <option value="maybe" data-i18n="maybe">Maybe</option>
+            <option value="unlikely" data-i18n="unlikely">Unlikely</option>
+          </select>
+
+          <label class="consent-row"><input type="checkbox" id="beta-interest" /><span data-i18n="beta_interest">I would join a limited beta for the option I selected. No contact information is collected here.</span></label>
+          <label class="consent-row"><input type="checkbox" id="confirm-safe-text" required /><span data-i18n="safe_text_confirm">I did not include real names, contact details or sensitive personal information.</span></label>
+          <button class="primary-button full-button" type="submit" data-i18n="generate_result">Generate anonymous result</button>
+        </form>
+      </section>
+
       <nav class="bottom-nav" aria-label="Prototype screens">
-        <button class="nav-button is-active" data-go="followup" type="button">
-          <span class="nav-icon" aria-hidden="true">◌</span>
-          <span>Today</span>
-        </button>
-        <button class="nav-button" data-go="memory" type="button">
-          <span class="nav-icon" aria-hidden="true">▤</span>
-          <span>Memory</span>
-        </button>
-        <button class="nav-button" data-go="timeline" type="button">
-          <span class="nav-icon" aria-hidden="true">⌁</span>
-          <span>Timeline</span>
-        </button>
-        <button class="nav-button" data-go="model" type="button">
-          <span class="nav-icon" aria-hidden="true">◇</span>
-          <span>Update</span>
-        </button>
+        <button class="nav-button is-active" data-go="followup" type="button"><span class="nav-icon" aria-hidden="true">◌</span><span data-i18n="nav_today">Today</span></button>
+        <button class="nav-button" data-go="memory" type="button"><span class="nav-icon" aria-hidden="true">▤</span><span data-i18n="nav_memory">Memory</span></button>
+        <button class="nav-button" data-go="timeline" type="button"><span class="nav-icon" aria-hidden="true">⌁</span><span data-i18n="nav_timeline">Timeline</span></button>
+        <button class="nav-button" data-go="model" type="button"><span class="nav-icon" aria-hidden="true">◇</span><span data-i18n="nav_update">Update</span></button>
       </nav>
+
+      <footer class="prototype-footer">
+        <span>continuity-web-prototype-v0.2</span>
+        <button class="text-button" id="privacy-button" type="button" data-i18n="privacy">Privacy & data</button>
+      </footer>
     </main>
+
+    <dialog id="onboarding-dialog">
+      <form id="onboarding-form">
+        <p class="eyebrow" data-i18n="research_test">ATLAS RESEARCH TEST</p>
+        <h2 data-i18n="welcome_heading">Help test relationship continuity</h2>
+        <p data-i18n="welcome_copy">This 8–12 minute prototype uses fictional data. It has no live AI and will not automatically upload your answers.</p>
+
+        <div class="field-grid">
+          <label><span data-i18n="interface_language">Interface language</span>
+            <select id="locale-select"><option value="en-US">English</option><option value="zh-CN">简体中文</option></select>
+          </label>
+          <label><span data-i18n="research_region">Research region</span>
+            <select id="market-select"><option value="US" data-i18n="region_us">United States</option><option value="CN" data-i18n="region_cn">China mainland</option></select>
+          </label>
+        </div>
+
+        <ul class="consent-list">
+          <li data-i18n="consent_fact_1">Only task actions and time are recorded in the result.</li>
+          <li data-i18n="consent_fact_2">No account, email, IP address, device fingerprint or real chat is collected by this page.</li>
+          <li data-i18n="consent_fact_3">You decide whether to copy or download the result at the end.</li>
+        </ul>
+        <label class="consent-row"><input id="adult-consent" type="checkbox" required /><span data-i18n="adult_consent">I am 18 or older and agree to participate in this product test.</span></label>
+        <button class="primary-button full-button" type="submit" data-i18n="start_test">Start test</button>
+      </form>
+    </dialog>
 
     <dialog id="memory-dialog">
       <form method="dialog" id="memory-form">
-        <div class="dialog-heading">
-          <div>
-            <p class="eyebrow">CORRECT MEMORY</p>
-            <h2 id="memory-dialog-title">Update saved detail</h2>
-          </div>
-          <button class="icon-button" value="cancel" aria-label="Close dialog">×</button>
-        </div>
-        <label for="memory-input">What should Atlas use next time?</label>
+        <div class="dialog-heading"><div><p class="eyebrow" data-i18n="correct_memory">CORRECT MEMORY</p><h2 id="memory-dialog-title">Update saved detail</h2></div><button class="icon-button" value="cancel" data-i18n-aria="close">×</button></div>
+        <label for="memory-input" data-i18n="what_use_next">What should Atlas use next time?</label>
         <input id="memory-input" name="memoryValue" autocomplete="off" />
-        <p class="input-help">The earlier value will be marked outdated, not silently merged.</p>
-        <div class="button-row">
-          <button class="primary-button" id="save-memory-button" value="default">Save correction</button>
-          <button class="secondary-button" value="cancel">Cancel</button>
-        </div>
+        <p class="input-help" data-i18n="old_marked_outdated">The earlier value will be marked outdated, not silently merged.</p>
+        <div class="button-row"><button class="primary-button" id="save-memory-button" value="default" data-i18n="save_correction">Save correction</button><button class="secondary-button" value="cancel" data-i18n="cancel">Cancel</button></div>
       </form>
     </dialog>
 
     <dialog id="confirm-dialog">
-      <form method="dialog">
-        <p class="eyebrow">DELETE MEMORY</p>
-        <h2>Stop using this detail?</h2>
-        <p id="delete-description">Atlas will stop using it in future conversations. The fictional prototype data can be restored with Reset.</p>
-        <div class="button-row">
-          <button class="danger-filled" id="confirm-delete-button" value="delete">Delete</button>
-          <button class="secondary-button" value="cancel">Cancel</button>
-        </div>
-      </form>
+      <form method="dialog"><p class="eyebrow" data-i18n="delete_memory">DELETE MEMORY</p><h2 data-i18n="stop_using">Stop using this detail?</h2><p id="delete-description"></p><div class="button-row"><button class="danger-filled" id="confirm-delete-button" value="delete" data-i18n="delete">Delete</button><button class="secondary-button" value="cancel" data-i18n="cancel">Cancel</button></div></form>
     </dialog>
 
     <dialog id="detail-dialog">
+      <form method="dialog"><p class="eyebrow" data-i18n="timeline_source">TIMELINE SOURCE</p><h2 id="detail-title">Presentation goal began</h2><p id="detail-copy"></p><div class="detail-source" data-i18n="detail_source">Source · July 16 conversation · Confirmed by Alex</div><button class="primary-button" value="close" data-i18n="done">Done</button></form>
+    </dialog>
+
+    <dialog id="privacy-dialog">
+      <form method="dialog"><p class="eyebrow" data-i18n="privacy">PRIVACY & DATA</p><h2 data-i18n="privacy_heading">Your result stays with you</h2><p data-i18n="privacy_copy">This page does not automatically send results anywhere. It stores the current test only in memory, plus your language preference in local browser storage. At the end you can preview, copy or download the result.</p><p data-i18n="privacy_warning">Do not enter real names, contact details, health information or other sensitive personal content.</p><button class="primary-button" value="close" data-i18n="done">Done</button></form>
+    </dialog>
+
+    <dialog id="result-dialog">
       <form method="dialog">
-        <p class="eyebrow">TIMELINE SOURCE</p>
-        <h2 id="detail-title">Presentation goal began</h2>
-        <p id="detail-copy">This event came from a confirmed relationship event, not the full chat transcript.</p>
-        <div class="detail-source">Source · July 16 conversation · Confirmed by Alex</div>
-        <button class="primary-button" value="close">Done</button>
+        <p class="eyebrow" data-i18n="anonymous_result">ANONYMOUS RESULT</p>
+        <h2 data-i18n="result_ready">Your result is ready</h2>
+        <p data-i18n="result_copy">Send the result code to the researcher. You can preview exactly what it contains first.</p>
+        <details><summary data-i18n="preview_data">Preview result data</summary><pre id="result-preview"></pre></details>
+        <textarea id="result-code" rows="4" readonly aria-label="Anonymous result code"></textarea>
+        <div class="stacked-actions">
+          <button class="primary-button" id="copy-result-button" type="button" data-i18n="copy_result">Copy result code</button>
+          <button class="secondary-button" id="download-result-button" type="button" data-i18n="download_json">Download JSON</button>
+          <button class="text-button" value="close" data-i18n="close">Close</button>
+        </div>
       </form>
     </dialog>
 
