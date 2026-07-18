@@ -1,0 +1,9 @@
+{
+  "name": "atlas-continuity-product-sandbox",
+  "private": true,
+  "type": "module",
+  "version": "0.7.0",
+  "scripts": {
+    "test": "node tests/domain.test.mjs && node tests/smoke.mjs"
+  }
+}

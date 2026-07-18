@@ -1,241 +1,185 @@
 <!doctype html>
-<html lang="en-US">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f5efe5" />
-    <meta name="description" content="Atlas bilingual relationship continuity product prototype" />
-    <title>Atlas Relationship Prototype</title>
+    <meta name="theme-color" content="#efe9dd" />
+    <meta name="description" content="Atlas relationship product vertical slice and isolated engineering self-test console" />
+    <title>Atlas · Relationship Sandbox</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="prototype-shell" aria-label="Atlas bilingual mobile product prototype">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow" data-i18n="prototype_label">ATLAS · PRODUCT PROTOTYPE</p>
-          <h1 id="screen-title" data-i18n="title_conversation">Conversation</h1>
-        </div>
-        <div class="topbar-actions">
-          <div class="language-switch" role="group" aria-label="Language">
-            <button class="language-button is-active" type="button" data-locale="en-US">EN</button>
-            <button class="language-button" type="button" data-locale="zh-CN">中文</button>
+    <div class="page-shell">
+      <header class="masthead">
+        <button class="brand" id="brand-home" type="button" aria-label="Atlas home">
+          <span class="brand-mark" aria-hidden="true">A</span>
+          <span><strong>Atlas</strong><small data-t="productSandbox">关系产品沙盒</small></span>
+        </button>
+        <div class="masthead-actions">
+          <span class="local-badge" data-t="localOnly">仅保存在本机</span>
+          <div class="locale-switch" aria-label="Language">
+            <button class="locale-button" data-locale="zh-CN" type="button">中</button>
+            <button class="locale-button" data-locale="en-US" type="button">EN</button>
           </div>
-          <button class="icon-button" id="reset-button" type="button" data-i18n-aria="reset" title="Reset prototype data"><span aria-hidden="true">↻</span></button>
         </div>
       </header>
 
-      <p class="prototype-notice">
-        <span aria-hidden="true">◇</span>
-        <span data-i18n="identity_notice">This is a scripted AI product concept using fictional data. It is not a human or a live AI service.</span>
-      </p>
+      <div class="qa-banner" id="qa-banner" hidden>
+        <div><strong data-t="qaMode">工程自测模式</strong><span data-t="qaModeCopy">测试时钟、故障注入和状态检查与产品界面隔离。</span></div>
+        <button class="quiet-button" id="toggle-qa" type="button" data-t="openConsole">打开控制台</button>
+      </div>
 
-      <section class="test-guide" id="test-guide" aria-labelledby="task-heading">
-        <div class="progress-row">
-          <span id="progress-label">0 / 4</span>
-          <div class="progress-track" aria-hidden="true"><span id="progress-fill"></span></div>
-          <span data-i18n="about_minutes">8–12 min</span>
-        </div>
-        <p class="card-kicker" data-i18n="current_task">CURRENT TASK</p>
-        <h2 id="task-heading" data-i18n="task_conversation_title">Have a short conversation as Alex.</h2>
-        <p id="task-instruction" data-i18n="task_conversation_copy">Choose what Alex would ask for. There is no preferred answer.</p>
-        <button class="text-button compact-button" id="cannot-complete-button" type="button" data-i18n="cannot_complete">I can’t complete this task</button>
-      </section>
-
-      <section class="screen is-active" id="screen-conversation" data-screen="conversation" aria-labelledby="conversation-heading">
-        <div class="relationship-strip">
-          <span id="relationship-day" data-i18n="relationship_day_17">Relationship day 17</span>
-          <strong data-i18n="growing_together">Growing together</strong>
-        </div>
-
-        <div class="conversation-header">
-          <div class="atlas-mark" aria-hidden="true">A</div>
-          <div><h2 id="conversation-heading">Atlas</h2><p data-i18n="scripted_companion">Scripted companion experience</p></div>
-        </div>
-
-        <div class="day-divider" id="day-label" data-i18n="yesterday">YESTERDAY</div>
-        <div class="chat-thread" id="day-one-thread">
-          <div class="message assistant-message" data-i18n="opening_prompt">Good to see you, Alex. What would be most useful while you prepare for Wednesday’s presentation?</div>
-          <div class="quick-replies scenario-options" id="conversation-options">
-            <button type="button" data-conversation-choice="draft" data-i18n="choice_draft">Help me make the opening sound natural</button>
-            <button type="button" data-conversation-choice="reassure" data-i18n="choice_reassure">Talk through why I’m nervous</button>
-            <button type="button" data-conversation-choice="checkin" data-i18n="choice_checkin">Ask me about it tomorrow</button>
+      <main class="product-frame" id="product-frame">
+        <section class="product-screen" data-screen="home" id="screen-home">
+          <div class="screen-heading">
+            <div><p class="eyebrow" id="today-label"></p><h1 id="home-greeting"></h1></div>
+            <span class="relationship-day" id="home-day"></span>
           </div>
-          <div id="day-one-response" hidden>
-            <div class="message user-message" id="day-one-user-message"></div>
-            <div class="message assistant-message" id="day-one-assistant-message"></div>
-          </div>
-        </div>
 
-        <button class="primary-button full-button" id="return-tomorrow-button" type="button" hidden data-i18n="return_tomorrow">End today and return tomorrow</button>
-
-        <div id="day-two-thread" hidden>
-          <div class="time-transition"><span aria-hidden="true">☀</span><strong data-i18n="next_day">THE NEXT DAY</strong><small data-i18n="context_carried">Atlas carries forward only the fictional context Alex allowed.</small></div>
-          <article class="return-home-card" id="return-home-card">
-            <p class="card-kicker" data-i18n="good_morning_alex">GOOD MORNING, ALEX</p>
-            <div class="home-relationship"><span data-i18n="relationship_day_18">Relationship day 18</span><strong data-i18n="growing_together">Growing together</strong></div>
-            <p class="card-kicker home-followup-label" data-i18n="todays_followup">TODAY’S FOLLOW-UP</p>
-            <h2 id="home-followup-heading"></h2>
-            <p id="home-followup-copy"></p>
-            <button class="primary-button full-button" id="continue-from-home-button" type="button" data-i18n="continue_conversation">Continue conversation</button>
-            <div class="home-milestone"><span data-i18n="recent_milestone">Recent milestone</span><strong data-i18n="presentation_goal">Presentation goal</strong></div>
+          <article class="hero-card empty-home" id="empty-home">
+            <p class="eyebrow" data-t="beginRelationship">开始一段关系</p>
+            <h2 data-t="emptyHomeTitle">先从一件今天真实重要的事开始</h2>
+            <p data-t="emptyHomeCopy">Atlas 会先与你对话；候选背景由你确认后才会成为关系的一部分。</p>
+            <button class="primary-button" id="start-first-conversation" type="button" data-t="startConversation">开始 Conversation</button>
           </article>
-          <div id="return-conversation" hidden>
-            <div class="day-divider" data-i18n="today">TODAY</div>
-            <div class="message assistant-message" id="returning-message"></div>
-            <button class="source-link" id="followup-source-button" type="button" data-i18n="from_yesterday_source">From yesterday’s conversation · View source</button>
-            <div class="quick-replies" id="return-options">
-              <button type="button" data-return-choice="continue" data-i18n="continue_together">Continue together</button>
-              <button type="button" data-return-choice="complete" data-i18n="already_handled">I’ve handled it</button>
-              <button type="button" data-return-choice="skip" data-i18n="not_today">Not today</button>
-            </div>
-            <div class="message assistant-message followup-response" id="return-response" hidden></div>
-            <article class="boundary-card" id="followup-boundary" hidden>
-              <div><p class="card-kicker" data-i18n="your_boundary">YOUR BOUNDARY</p><strong data-i18n="ask_once_boundary">Ask once about unfinished topics; do not repeat a skipped reminder.</strong></div>
-              <label class="switch"><input id="followup-toggle" type="checkbox" checked /><span></span><span class="sr-only" data-i18n="allow_followups">Allow proactive follow-ups</span></label>
+
+          <div id="active-home" hidden>
+            <article class="relationship-card" id="home-relationship-card">
+              <div><p class="eyebrow" data-t="relationshipNow">此刻的 Relationship</p><h2 id="home-stage"></h2><p id="home-latest-event"></p></div>
+              <span class="line-symbol" aria-hidden="true">⌁</span>
             </article>
-            <button class="primary-button full-button" id="open-relationship-button" type="button" hidden data-i18n="see_relationship">See how this relationship is growing</button>
+            <article class="hero-card followup-card" id="followup-card" hidden>
+              <p class="eyebrow" data-t="todaysContinuation">今天值得继续的事</p>
+              <h2 id="followup-title"></h2>
+              <p id="followup-copy"></p>
+              <div class="action-row">
+                <button class="primary-button" id="continue-followup" type="button" data-t="continueTogether">继续聊这件事</button>
+                <button class="source-button" id="view-followup-source" type="button" data-t="viewSource">查看来源</button>
+              </div>
+            </article>
+            <article class="hero-card same-day-card" id="same-day-card">
+              <p class="eyebrow" data-t="todayComplete">今天的关系进展</p>
+              <h2 data-t="sameDayTitle">重要的内容已经留下，不需要为了提醒而继续聊天</h2>
+              <p data-t="sameDayCopy">你可以继续 Conversation，或在 Relationship 中检查 Atlas 获得了哪些理解。</p>
+              <button class="secondary-button" id="continue-today" type="button" data-t="continueConversation">继续 Conversation</button>
+            </article>
+            <article class="moment-card" id="recent-moment" hidden>
+              <p class="eyebrow" data-t="recentMoment">最近的共同经历</p>
+              <h3 id="recent-moment-title"></h3><p id="recent-moment-copy"></p>
+              <button class="text-button" data-nav="timeline" type="button" data-t="openJourney">查看 Shared Journey</button>
+            </article>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section class="screen" id="screen-relationship" data-screen="relationship" aria-labelledby="relationship-heading" hidden>
-        <article class="relationship-summary">
-          <p class="card-kicker" data-i18n="relationship">RELATIONSHIP</p>
-          <h2 id="relationship-heading" data-i18n="growing_together">Growing together</h2>
-          <p data-i18n="relationship_summary_copy">Atlas is learning how to support Alex while keeping important context visible and controllable.</p>
-          <div class="journey-stats"><div><strong>18</strong><span data-i18n="days_together">days together</span></div><div><strong>3</strong><span data-i18n="shared_moments">shared moments</span></div></div>
-        </article>
-
-        <div class="section-heading relationship-section-heading">
-          <div><p class="eyebrow" data-i18n="shared_journey">SHARED JOURNEY</p><h2 data-i18n="what_we_experienced">What we experienced</h2></div>
-        </div>
-        <p class="section-copy" data-i18n="journey_copy">Meaningful moments, not a transcript of every message.</p>
-        <article class="timeline-card featured-moment">
-          <p class="timeline-date" data-i18n="yesterday_day_17">YESTERDAY · DAY 17</p>
-          <h3 id="shared-moment-title" data-i18n="presentation_moment">You prepared for Wednesday’s presentation</h3>
-          <p id="shared-moment-copy" data-i18n="presentation_moment_copy">Alex asked Atlas to keep the support practical and natural.</p>
-          <button class="text-button" id="shared-moment-button" type="button" data-i18n="open_shared_moment">Open this shared moment</button>
-        </article>
-
-        <div class="section-heading relationship-section-heading context-heading">
-          <div><p class="eyebrow" data-i18n="context_control">CONTEXT CONTROL</p><h2 data-i18n="what_atlas_may_use">What Atlas may use</h2></div>
-          <span class="count-pill" data-i18n="confirmed">Confirmed</span>
-        </div>
-        <p class="section-copy" data-i18n="context_copy">The system organizes context; Alex keeps final control.</p>
-        <article class="context-card" id="presentation-context-card">
-          <div class="context-meta"><span data-i18n="current_goal">CURRENT GOAL</span><span class="permission" data-i18n="allowed">Allowed</span></div>
-          <h3 data-i18n="project_presentation">Project presentation</h3>
-          <p class="context-value" id="presentation-context-value" data-i18n="wrong_presentation_time">Friday at 10:00 AM</p>
-          <p class="memory-source" data-i18n="context_source">From yesterday’s conversation · Confirmed by Alex</p>
-          <div class="card-actions">
-            <button class="secondary-button" id="correct-context-button" type="button" data-i18n="correct_to_monday">Correct to Monday at 2:00 PM</button>
-            <button class="danger-button" id="delete-context-button" type="button" data-i18n="delete_context">Delete</button>
+        <section class="product-screen" data-screen="conversation" id="screen-conversation" hidden>
+          <div class="relationship-strip"><span id="conversation-day"></span><strong id="conversation-stage"></strong></div>
+          <div class="companion-heading"><span class="brand-mark small" aria-hidden="true">A</span><div><h1>Atlas</h1><p data-t="conversationIdentity">与你共同理解和推进，而不是等待下一条提醒</p></div></div>
+          <div class="conversation-thread" id="conversation-thread" aria-live="polite"></div>
+          <div class="conversation-empty" id="conversation-empty">
+            <h2 data-t="conversationPrompt">今天什么事情最值得我们认真聊一会儿？</h2>
+            <p data-t="conversationBoundary">这是真实可输入的本地功能沙盒；没有连接线上模型，内容不会上传。</p>
+            <div class="prompt-chips">
+              <button type="button" data-prompt="goal" data-t="promptGoal">我想推进一个目标</button>
+              <button type="button" data-prompt="reflection" data-t="promptReflection">我想梳理今天的感受</button>
+              <button type="button" data-prompt="preference" data-t="promptPreference">我想调整你与我交流的方式</button>
+            </div>
           </div>
-        </article>
-        <button class="primary-button full-button" id="review-update-button" type="button" hidden data-i18n="review_update">Review an upcoming Atlas update</button>
-      </section>
+          <article class="candidate-card" id="candidate-card" hidden>
+            <div><p class="eyebrow" data-t="candidateContext">候选 Context · 尚未保存</p><span class="candidate-type" id="candidate-type"></span></div>
+            <label for="candidate-value" data-t="atlasUnderstanding">Atlas 的理解</label>
+            <textarea id="candidate-value" rows="3" maxlength="360"></textarea>
+            <p class="field-note" data-t="confirmBoundary">只有确认后，未来的 Conversation 和 Follow-up 才能使用它。</p>
+            <div class="action-row"><button class="primary-button" id="confirm-candidate" type="button" data-t="confirmContext">确认这项理解</button><button class="quiet-button" id="reject-candidate" type="button" data-t="dontKeep">不要保留</button></div>
+          </article>
+          <form class="composer" id="composer-form">
+            <label class="sr-only" for="message-input" data-t="messageLabel">给 Atlas 的消息</label>
+            <textarea id="message-input" rows="2" maxlength="360" required data-t-placeholder="messagePlaceholder" placeholder="说说你正在经历什么……"></textarea>
+            <button class="send-button" type="submit" aria-label="Send"><span aria-hidden="true">↑</span></button>
+          </form>
+          <button class="end-button" id="complete-conversation" type="button" hidden data-t="endConversation">结束这次 Conversation</button>
+        </section>
 
-      <section class="screen" id="screen-model" data-screen="model" aria-labelledby="model-heading" hidden>
-        <article class="change-card">
-          <p class="version-label" data-i18n="continuity_check">CONTINUITY CHECK</p>
-          <h2 id="model-heading" data-i18n="update_without_starting_over">Update without starting over</h2>
-          <p data-i18n="model_change_copy">Atlas 1.5 may respond more directly. Alex’s approved context and shared journey will remain.</p>
-          <div class="version-row"><div><span data-i18n="current">CURRENT</span><strong>Atlas 1.4</strong></div><span>→</span><div><span data-i18n="available">AVAILABLE</span><strong>Atlas 1.5</strong></div></div>
-          <button class="primary-button full-button" id="preview-update-button" type="button" data-i18n="preview_same_moment">Preview the same moment in both versions</button>
-        </article>
-        <div class="comparison-card" id="update-comparison" hidden>
-          <p class="comparison-prompt" data-i18n="comparison_prompt">Alex says: “I’m nervous about the presentation.”</p>
-          <div class="response-option"><span data-i18n="current_response">1.4 · CURRENT</span><p data-i18n="response_14">That makes sense. Yesterday you wanted the opening to sound natural—should we work through those first two lines together?</p></div>
-          <div class="response-option"><span data-i18n="preview_response">1.5 · PREVIEW</span><p data-i18n="response_15">Let’s return to the natural opening you wanted yesterday. Want to rehearse the first two lines?</p></div>
-          <div class="button-row"><button class="primary-button" id="use-update-button" type="button" data-i18n="use_update">Use the update</button><button class="secondary-button" id="keep-old-button" type="button" data-i18n="keep_old_version">Keep version 1.4</button></div>
-          <p class="action-note" data-i18n="restore_note">The prior version can be restored for 30 days. Approved context is not deleted.</p>
-        </div>
-        <button class="primary-button full-button" id="continue-paywall-button" type="button" hidden data-i18n="see_continuity_options">See continuity options</button>
-      </section>
+        <section class="product-screen" data-screen="timeline" id="screen-timeline" hidden>
+          <div class="screen-heading"><div><p class="eyebrow">Shared Journey</p><h1 data-t="timelineTitle">我们真正一起经历了什么</h1></div></div>
+          <p class="section-intro" data-t="timelineIntro">这里只保留有意义的 Relationship Event，不是全部聊天记录。</p>
+          <div class="empty-state" id="timeline-empty"><span aria-hidden="true">◇</span><h2 data-t="noEvents">还没有共同经历</h2><p data-t="noEventsCopy">完成一次有意义的 Conversation 后，第一条 Event 会出现在这里。</p></div>
+          <div class="timeline-list" id="timeline-list"></div>
+        </section>
 
-      <section class="screen" id="screen-paywall" data-screen="paywall" aria-labelledby="paywall-heading" hidden>
-        <article class="paywall-hero">
-          <p class="card-kicker" data-i18n="relationship_continuity">RELATIONSHIP CONTINUITY</p>
-          <h2 id="paywall-heading" data-i18n="continue_growing">Continue growing together</h2>
-          <p data-i18n="paywall_value">Keep the conversations, shared journey and support style connected across days—with Alex in control.</p>
-        </article>
-        <form id="paywall-form">
-          <fieldset class="plan-options">
-            <legend data-i18n="choose_today">What would you choose today?</legend>
-            <label class="plan-card"><input type="radio" name="plan" value="keep_current" required /><span><b data-i18n="keep_current_tools">Keep my current tools</b><small data-i18n="keep_current_copy">Do not use Atlas</small></span><strong data-i18n="price_zero">$0</strong></label>
-            <label class="plan-card"><input type="radio" name="plan" value="free" /><span><b>Free</b><small data-i18n="free_copy">Basic conversation, relationship and recent shared moments</small></span><strong data-i18n="price_zero">$0</strong></label>
-            <label class="plan-card featured-plan"><input type="radio" name="plan" value="plus" /><span><b>Plus</b><small data-i18n="plus_copy">Full relationship history, deeper context, advanced follow-up and update protection</small></span><strong id="plus-price">$14.99</strong></label>
-          </fieldset>
-          <p class="input-help" id="price-note">US research concept · monthly · USD</p>
-          <button class="primary-button full-button" type="submit" data-i18n="continue_to_feedback">Continue to feedback</button>
-        </form>
-      </section>
+        <section class="product-screen" data-screen="relationship" id="screen-relationship" hidden>
+          <article class="relationship-hero">
+            <p class="eyebrow">Relationship</p><h1 id="relationship-stage"></h1>
+            <div class="relationship-stat"><strong id="relationship-days">0</strong><span data-t="daysTogether">天共同经历</span></div>
+            <p id="relationship-summary" data-t="relationshipSummary">关系成长来自你们共同经历和确认过的理解，而不是消息数量。</p>
+          </article>
+          <section class="settings-section">
+            <div class="section-title"><div><p class="eyebrow">Context Control</p><h2 data-t="confirmedUnderstanding">Atlas 可以使用的已确认理解</h2></div><span class="count-pill" id="context-count">0</span></div>
+            <p class="section-intro" data-t="contextControlCopy">系统负责整理，你拥有查看、修改和删除的最终控制权。</p>
+            <div class="empty-state compact" id="context-empty"><p data-t="noContext">还没有确认过的 Context。</p></div>
+            <div class="context-list" id="context-list"></div>
+          </section>
+          <section class="settings-section">
+            <div class="setting-row"><div><h3 data-t="proactiveFollowups">允许主动 Follow-up</h3><p data-t="followupSettingCopy">只根据已确认且仍有效的 Context 生成。</p></div><label class="switch"><input id="followup-switch" type="checkbox" /><span></span></label></div>
+          </section>
+        </section>
 
-      <section class="screen" id="screen-results" data-screen="results" aria-labelledby="results-heading" hidden>
-        <div class="section-heading"><div><p class="eyebrow" data-i18n="final_step">FINAL STEP</p><h2 id="results-heading" data-i18n="tell_us_what_landed">Tell us what came through</h2></div><span class="count-pill" data-i18n="experience_complete">Experience complete</span></div>
-        <p class="section-copy" data-i18n="survey_intro">Answer in your own words. “I don’t know” and negative feedback are useful.</p>
-        <form id="survey-form">
-          <label for="value-summary" data-i18n="value_summary">In one sentence, what do you think Atlas is for?</label>
-          <textarea id="value-summary" rows="3" maxlength="500" required data-i18n-placeholder="open_answer_hint"></textarea>
-          <label for="same-ai-reason" data-i18n="same_ai_reason">What, if anything, made this feel like the same AI across the two days?</label>
-          <textarea id="same-ai-reason" rows="3" maxlength="500" required data-i18n-placeholder="open_answer_hint"></textarea>
-          <label for="strongest-moment" data-i18n="strongest_moment">Which moment best showed Atlas’s value?</label>
-          <select id="strongest-moment" required><option value="" data-i18n="choose_one">Choose one</option><option value="conversation" data-i18n="moment_conversation">The first conversation</option><option value="next_day_followup" data-i18n="moment_followup">The next-day follow-up</option><option value="relationship_growth" data-i18n="moment_relationship">The shared journey</option><option value="context_control" data-i18n="moment_context">Correcting or deleting context</option><option value="update_protection" data-i18n="moment_update">Previewing the model update</option><option value="none" data-i18n="moment_none">None of these</option></select>
-          <label for="relationship-believability" data-i18n="relationship_believability">Did the experience feel like a relationship that could grow over time?</label>
-          <select id="relationship-believability" required><option value="" data-i18n="choose_one">Choose one</option><option value="clearly" data-i18n="clearly">Clearly</option><option value="somewhat" data-i18n="somewhat">Somewhat</option><option value="not_really" data-i18n="not_really">Not really</option></select>
-          <label for="comparison-current" data-i18n="comparison_current">Compared with the AI tools you use now, how useful was this experience?</label>
-          <select id="comparison-current" required><option value="" data-i18n="choose_one">Choose one</option><option value="much_better" data-i18n="much_better">Much better</option><option value="somewhat_better" data-i18n="somewhat_better">Somewhat better</option><option value="about_same" data-i18n="about_same">About the same</option><option value="worse" data-i18n="worse">Worse</option><option value="not_applicable" data-i18n="not_applicable">I do not currently use AI tools</option></select>
-          <label for="choice-reason" data-i18n="choice_reason">What is the main reason for your plan choice?</label>
-          <textarea id="choice-reason" rows="3" maxlength="500" required data-i18n-placeholder="open_answer_hint"></textarea>
-          <label for="confusion-point" data-i18n="confusion_point">Which part was most confusing or least useful?</label>
-          <textarea id="confusion-point" rows="3" maxlength="500" required data-i18n-placeholder="confusion_hint"></textarea>
-          <label for="would-use" data-i18n="would_use">Would you use a working version again next week?</label>
-          <select id="would-use" required><option value="" data-i18n="choose_one">Choose one</option><option value="definitely" data-i18n="definitely">Definitely</option><option value="maybe" data-i18n="maybe">Maybe</option><option value="unlikely" data-i18n="unlikely">Unlikely</option></select>
-          <fieldset class="radio-question"><legend data-i18n="beta_interest_question">If a limited beta were available, would you apply?</legend><div class="radio-options"><label><input type="radio" name="beta-interest" value="yes" required /><span data-i18n="beta_yes">Yes</span></label><label><input type="radio" name="beta-interest" value="maybe" /><span data-i18n="beta_maybe">Maybe</span></label><label><input type="radio" name="beta-interest" value="no" /><span data-i18n="beta_no">No</span></label></div><p class="input-help" data-i18n="beta_privacy_note">This records interest only; no contact information is collected.</p></fieldset>
-          <label class="consent-row"><input type="checkbox" id="confirm-safe-text" required /><span data-i18n="safe_text_confirm">I did not include real names, contact details or sensitive personal information.</span></label>
-          <button class="primary-button full-button" type="submit" data-i18n="submit_result">Submit anonymous result</button>
-        </form>
-      </section>
+        <section class="product-screen" data-screen="profile" id="screen-profile" hidden>
+          <div class="screen-heading"><div><p class="eyebrow">Profile & Control</p><h1 data-t="profileTitle">账号与数据控制</h1></div></div>
+          <article class="profile-card"><p data-t="sandboxNotice">当前是无账号、无云端存储的产品沙盒。所有输入只存在这个浏览器的 localStorage 中。</p></article>
+          <div class="profile-actions">
+            <button class="secondary-button" id="export-state" type="button" data-t="exportData">导出本地数据 JSON</button>
+            <button class="danger-button" id="delete-state" type="button" data-t="deleteAllData">删除全部本地数据</button>
+          </div>
+          <div class="version-card"><span data-t="buildVersion">构建版本</span><code>continuity-product-slice-v0.7</code></div>
+        </section>
+      </main>
 
-      <nav class="bottom-nav" id="product-nav" aria-label="Prototype screens">
-        <button class="nav-button is-active" data-go="conversation" type="button"><span class="nav-icon" aria-hidden="true">◌</span><span data-i18n="nav_conversation">Conversation</span></button>
-        <button class="nav-button" id="relationship-nav-button" data-go="relationship" type="button" disabled><span class="nav-icon" aria-hidden="true">⌁</span><span data-i18n="nav_relationship">Relationship</span></button>
+      <nav class="product-nav" aria-label="Primary">
+        <button class="nav-button is-active" data-nav="home" type="button"><span aria-hidden="true">⌂</span><small data-t="navHome">首页</small></button>
+        <button class="nav-button" data-nav="conversation" type="button"><span aria-hidden="true">◌</span><small data-t="navConversation">对话</small></button>
+        <button class="nav-button" data-nav="timeline" type="button"><span aria-hidden="true">⋮</span><small data-t="navTimeline">旅程</small></button>
+        <button class="nav-button" data-nav="relationship" type="button"><span aria-hidden="true">⌁</span><small data-t="navRelationship">关系</small></button>
+        <button class="nav-button" data-nav="profile" type="button"><span aria-hidden="true">○</span><small data-t="navProfile">我的</small></button>
       </nav>
+    </div>
 
-      <footer class="prototype-footer"><span>continuity-web-prototype-v0.6</span><button class="text-button" id="privacy-button" type="button" data-i18n="privacy">Privacy & data</button></footer>
-    </main>
+    <aside class="qa-console" id="qa-console" hidden aria-label="Engineering self-test console">
+      <div class="qa-heading"><div><p class="eyebrow">ATLAS ENGINEERING</p><h2 data-t="selfTestConsole">Sprint 1 自测试控制台</h2></div><button class="icon-button" id="close-qa" type="button" aria-label="Close">×</button></div>
+      <p data-t="selfTestBoundary">控制台只验证确定性的领域规则、状态迁移、异常降级和数据边界，不冒充真人的价值判断。</p>
+      <div class="qa-primary-actions">
+        <button class="primary-button" id="run-self-tests" type="button" data-t="runAllTests">运行全部自动测试</button>
+        <button class="secondary-button" id="seed-scenario" type="button" data-t="seedScenario">装载完整首日场景</button>
+        <button class="secondary-button" id="advance-day" type="button" data-t="advanceDay">推进到下一天</button>
+        <button class="quiet-button" id="reset-sandbox" type="button" data-t="resetSandbox">重置沙盒</button>
+      </div>
+      <section class="qa-section"><h3 data-t="faultInjection">故障注入</h3><div class="fault-grid">
+        <label><input type="checkbox" data-fault="model" /><span data-t="modelFailure">模型不可用</span></label>
+        <label><input type="checkbox" data-fault="context" /><span data-t="contextFailure">Context 检索失败</span></label>
+        <label><input type="checkbox" data-fault="network" /><span data-t="networkFailure">网络不可用</span></label>
+      </div></section>
+      <section class="qa-section"><div class="section-title"><h3 data-t="testResults">自动测试结果</h3><span class="count-pill" id="test-summary">—</span></div><ol class="test-results" id="test-results"></ol></section>
+      <section class="qa-section"><details><summary data-t="inspectState">检查当前领域状态与 Analytics</summary><pre id="state-inspector"></pre></details></section>
+    </aside>
 
     <dialog id="onboarding-dialog">
-      <form id="onboarding-form">
-        <p class="eyebrow" data-i18n="research_test">ATLAS PRODUCT RESEARCH</p>
-        <h2 data-i18n="welcome_heading">Experience two days with an AI companion</h2>
-        <p data-i18n="welcome_copy">You will play Alex in a compressed, fictional two-day experience. Use the interface naturally; all conversation choices are scripted and no live AI is connected.</p>
-        <p class="research-context" data-i18n="research_context">We are testing the product, not you. Complete four tasks without outside help. If something is unclear, choose “I can’t complete this task.”</p>
-        <div class="qa-mode-banner" id="qa-mode-banner" hidden><strong data-i18n="qa_mode_title">TECHNICAL QA MODE</strong><span data-i18n="qa_mode_copy">This submission checks the system and is excluded from participant research gates.</span></div>
-        <div class="field-grid">
-          <label><span data-i18n="interface_language">Interface language</span><select id="locale-select"><option value="en-US">English</option><option value="zh-CN">简体中文</option></select></label>
-          <label><span data-i18n="research_region">Where would you mainly use this product?</span><select id="market-select" required><option value="" data-i18n="choose_market">Choose a market</option><option value="US" data-i18n="region_us">United States</option><option value="CN" data-i18n="region_cn">China mainland</option></select></label>
-          <label><span data-i18n="first_time_question">Is this your first time completing this product prototype?</span><select id="first-time-select" required><option value="" data-i18n="choose_one">Choose one</option><option value="yes" data-i18n="yes">Yes</option><option value="no" data-i18n="no">No</option></select></label>
-          <label><span data-i18n="ai_use_frequency">How often do you use AI tools?</span><select id="ai-use-frequency" required><option value="" data-i18n="choose_one">Choose one</option><option value="daily" data-i18n="daily">Daily</option><option value="several_weekly" data-i18n="several_weekly">Several times a week</option><option value="occasionally" data-i18n="occasionally">Occasionally</option><option value="never" data-i18n="never">Never</option></select></label>
-          <label><span data-i18n="current_ai_type">What kind of AI tool do you mainly use?</span><select id="current-ai-type" required><option value="" data-i18n="choose_one">Choose one</option><option value="general_assistant" data-i18n="general_assistant">General AI assistant</option><option value="ai_companion" data-i18n="ai_companion">AI companion</option><option value="other_ai" data-i18n="other_ai">Another AI tool</option><option value="none" data-i18n="no_ai_tool">I do not use one</option></select></label>
-          <label><span data-i18n="multi_day_use">How often do you return to the same AI across different days?</span><select id="multi-day-use" required><option value="" data-i18n="choose_one">Choose one</option><option value="often" data-i18n="often">Often</option><option value="sometimes" data-i18n="sometimes">Sometimes</option><option value="rarely" data-i18n="rarely">Rarely</option><option value="never" data-i18n="never">Never</option></select></label>
-        </div>
-        <ul class="consent-list"><li data-i18n="consent_fact_1">The result records task actions, time, selections and non-sensitive research answers—not the fictional Context choice value.</li><li data-i18n="consent_fact_2">Atlas does not persist an IP address, account, email, device fingerprint or real chat in the result database.</li><li data-i18n="consent_fact_3">Hosting infrastructure may temporarily process standard network metadata. Stored results are deleted within 30 days.</li></ul>
-        <label class="consent-row"><input id="adult-consent" type="checkbox" required /><span data-i18n="adult_consent">I am 18 or older and agree to participate in this product test.</span></label>
-        <label class="consent-row"><input id="upload-consent" type="checkbox" required /><span data-i18n="upload_consent">I agree that my anonymous result will be submitted automatically and stored for up to 30 days.</span></label>
-        <button class="primary-button full-button" type="submit" data-i18n="start_test">Start experience</button>
+      <form method="dialog" id="onboarding-form">
+        <p class="eyebrow">ATLAS PRODUCT SANDBOX</p><h2 data-t="onboardingTitle">先建立关系边界，再开始聊天</h2>
+        <p data-t="onboardingCopy">这是本地功能沙盒，不是真人，也没有连接线上 AI。你输入的内容不会上传。</p>
+        <label for="display-name" data-t="displayName">希望 Atlas 如何称呼你？</label><input id="display-name" maxlength="40" data-t-placeholder="namePlaceholder" placeholder="例如：小宇" required />
+        <fieldset><legend data-t="styleLegend">你更希望 Atlas 怎样回应？</legend><div class="style-options">
+          <label><input type="radio" name="style" value="balanced" checked /><span data-t="styleBalanced">平衡：理解与行动并重</span></label>
+          <label><input type="radio" name="style" value="direct" /><span data-t="styleDirect">直接：尽快进入重点</span></label>
+          <label><input type="radio" name="style" value="gentle" /><span data-t="styleGentle">温和：先理解感受</span></label>
+        </div></fieldset>
+        <button class="primary-button full-width" type="submit" data-t="createRelationship">建立 Relationship</button>
       </form>
     </dialog>
 
-    <dialog id="source-dialog"><form method="dialog"><p class="eyebrow" data-i18n="source">SOURCE</p><h2 data-i18n="yesterday_conversation">Yesterday’s conversation</h2><p id="source-dialog-copy"></p><div class="detail-source" data-i18n="source_boundary">Fictional source · Approved for next-day follow-up · Ask once</div><button class="primary-button" value="close" data-i18n="done">Done</button></form></dialog>
-    <dialog id="moment-dialog"><form method="dialog"><p class="eyebrow" data-i18n="shared_moment">SHARED MOMENT</p><h2 id="moment-dialog-title" data-i18n="presentation_moment">You prepared for Wednesday’s presentation</h2><p id="moment-dialog-copy"></p><div class="detail-source" data-i18n="moment_not_transcript">Created from a meaningful event, not a full transcript.</div><button class="primary-button" value="close" data-i18n="done">Done</button></form></dialog>
-    <dialog id="delete-dialog"><form method="dialog"><p class="eyebrow" data-i18n="delete_context">DELETE CONTEXT</p><h2 data-i18n="stop_using_detail">Stop using this detail?</h2><p data-i18n="delete_context_copy">Atlas will not use the fictional presentation time in future conversations.</p><div class="button-row"><button class="danger-filled" id="confirm-delete-button" value="delete" data-i18n="delete">Delete</button><button class="secondary-button" value="cancel" data-i18n="cancel">Cancel</button></div></form></dialog>
-    <dialog id="privacy-dialog"><form method="dialog"><p class="eyebrow" data-i18n="privacy">PRIVACY & DATA</p><h2 data-i18n="privacy_heading">Minimal automatic submission</h2><p data-i18n="privacy_copy">After explicit consent, task actions, time, research selections and non-sensitive answers are stored for up to 30 days. The result database does not persist IP addresses, accounts, email, device fingerprints, real chat or Context input values.</p><p data-i18n="privacy_warning">Do not enter real names, contact details, health information or other sensitive personal content. A deletion receipt is available after upload.</p><button class="primary-button" value="close" data-i18n="done">Done</button></form></dialog>
+    <dialog id="source-dialog"><article><p class="eyebrow" data-t="sourceTrace">来源追溯</p><h2 data-t="whyFollowup">为什么 Atlas 今天提起这件事？</h2><dl id="source-detail"></dl><button class="primary-button full-width" data-close-dialog type="button" data-t="close">关闭</button></article></dialog>
+    <dialog id="edit-dialog"><form method="dialog" id="edit-context-form"><p class="eyebrow">Context Control</p><h2 data-t="editUnderstanding">修改 Atlas 的理解</h2><textarea id="edit-context-value" rows="4" maxlength="360" required></textarea><input id="edit-context-id" type="hidden" /><div class="action-row"><button class="primary-button" type="submit" data-t="saveChange">保存修改</button><button class="quiet-button" data-close-dialog type="button" data-t="cancel">取消</button></div></form></dialog>
+    <dialog id="delete-dialog"><article><h2 data-t="deleteContextTitle">删除这项 Context？</h2><p data-t="deleteContextCopy">删除后，未来回复和 Follow-up 都不能再引用它。</p><div class="action-row"><button class="danger-button" id="confirm-delete-context" type="button" data-t="confirmDelete">确认删除</button><button class="quiet-button" data-close-dialog type="button" data-t="cancel">取消</button></div></article></dialog>
+    <div class="toast" id="toast" role="status" hidden></div>
 
-    <dialog id="result-dialog"><form method="dialog"><p class="eyebrow" data-i18n="anonymous_result">ANONYMOUS RESULT</p><h2 data-i18n="result_ready">Your result is ready</h2><p data-i18n="result_copy">The page submits the anonymous result automatically. The result code remains available as a backup.</p><div class="upload-status" id="upload-status" role="status" aria-live="polite"><strong id="upload-status-title" data-i18n="upload_waiting">Preparing upload…</strong><span id="upload-status-copy" data-i18n="upload_waiting_copy">Keep this window open until submission finishes.</span></div><a class="text-button collector-health-link" id="collector-health-link" target="_blank" rel="noopener noreferrer" data-i18n="collector_connection_test" hidden>Open collector connection test</a><details><summary data-i18n="preview_data">Preview result data</summary><pre id="result-preview"></pre></details><textarea id="result-code" rows="4" readonly aria-label="Anonymous result code"></textarea><div id="receipt-panel" hidden><p class="input-help" data-i18n="receipt_copy">Save the receipt if you may want to delete this result later.</p><code id="receipt-id"></code></div><div class="stacked-actions"><button class="primary-button" id="copy-result-button" type="button" data-i18n="copy_result">Copy result code</button><button class="secondary-button" id="download-result-button" type="button" data-i18n="download_receipt">Download result and deletion receipt</button><button class="secondary-button" id="retry-upload-button" type="button" data-i18n="retry_upload" hidden>Retry automatic upload</button><button class="danger-button" id="delete-upload-button" type="button" data-i18n="delete_uploaded" hidden>Delete uploaded result</button><button class="text-button" value="close" data-i18n="close">Close</button></div></form></dialog>
-
-    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
-    <script src="config.js"></script>
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
   </body>
 </html>

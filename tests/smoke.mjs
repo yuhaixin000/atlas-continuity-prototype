@@ -5,109 +5,58 @@ import path from "node:path";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
-const [html, css, js, config] = await Promise.all([
+const [html, css, app, domain] = await Promise.all([
   readFile(path.join(root, "index.html"), "utf8"),
   readFile(path.join(root, "styles.css"), "utf8"),
   readFile(path.join(root, "app.js"), "utf8"),
-  readFile(path.join(root, "config.js"), "utf8"),
+  readFile(path.join(root, "domain.mjs"), "utf8"),
 ]);
 
-for (const screen of ["conversation", "relationship", "model", "paywall", "results"]) {
-  assert.match(html, new RegExp(`data-screen="${screen}"`), `missing ${screen} screen`);
-}
-for (const screen of ["conversation", "relationship"]) {
-  assert.match(html, new RegExp(`data-go="${screen}"`), `missing ${screen} navigation`);
+for (const screen of ["home", "conversation", "timeline", "relationship", "profile"]) {
+  assert.match(html, new RegExp(`data-screen="${screen}"`), `missing ${screen} product screen`);
+  assert.match(html, new RegExp(`data-nav="${screen}"`), `missing ${screen} product navigation`);
 }
 
 for (const control of [
-  "onboarding-dialog",
-  "locale-select",
-  "market-select",
-  "first-time-select",
-  "ai-use-frequency",
-  "current-ai-type",
-  "multi-day-use",
-  "adult-consent",
-  "upload-consent",
-  "conversation-options",
-  "return-tomorrow-button",
-  "day-two-thread",
-  "return-home-card",
-  "continue-from-home-button",
-  "return-options",
-  "followup-toggle",
-  "open-relationship-button",
-  "shared-moment-button",
-  "correct-context-button",
-  "delete-context-button",
-  "confirm-delete-button",
-  "preview-update-button",
-  "use-update-button",
-  "keep-old-button",
-  "paywall-form",
-  "cannot-complete-button",
-  "survey-form",
-  "same-ai-reason",
-  "strongest-moment",
-  "relationship-believability",
-  "confusion-point",
-  "comparison-current",
-  "result-dialog",
-  "copy-result-button",
-  "download-result-button",
-  "retry-upload-button",
-  "delete-upload-button",
-  "upload-status",
-  "collector-health-link",
-  "reset-button",
-]) {
-  assert.match(html, new RegExp(`id="${control}"`), `missing ${control}`);
-}
+  "onboarding-dialog", "onboarding-form", "message-input", "composer-form", "candidate-card",
+  "confirm-candidate", "reject-candidate", "complete-conversation", "followup-card",
+  "continue-followup", "view-followup-source", "timeline-list", "context-list",
+  "followup-switch", "export-state", "delete-state", "qa-console", "run-self-tests",
+  "seed-scenario", "advance-day", "state-inspector",
+]) assert.match(html, new RegExp(`id="${control}"`), `missing ${control}`);
 
-const enStart = js.indexOf('"en-US": {');
-const zhStart = js.indexOf('"zh-CN": {');
-const dictionaryEnd = js.indexOf("\n    },\n  };", zhStart);
-assert.ok(enStart >= 0 && zhStart > enStart && dictionaryEnd > zhStart, "bilingual dictionaries are missing");
-const enDictionary = js.slice(enStart, zhStart);
-const zhDictionary = js.slice(zhStart, dictionaryEnd);
-const htmlKeys = new Set([
-  ...Array.from(html.matchAll(/data-i18n="([^"]+)"/g), (match) => match[1]),
-  ...Array.from(html.matchAll(/data-i18n-(?:placeholder|aria)="([^"]+)"/g), (match) => match[1]),
+assert.match(domain, /continuity-product-slice-v0\.7/, "v0.7 version missing");
+assert.match(domain, /atlas-product-sandbox-v1/, "product state contract missing");
+assert.match(domain, /context\.candidate_created/, "candidate Context lifecycle missing");
+assert.match(domain, /context\.confirmed/, "Context confirmation missing");
+assert.match(domain, /relationship\.event_created/, "Relationship Event pipeline missing");
+assert.match(domain, /followup\.ready/, "source-traceable Follow-up missing");
+assert.match(domain, /sourceEventId/, "Follow-up source link missing");
+assert.match(domain, /status === "deleted"|status = "deleted"/, "Context deletion state missing");
+assert.match(domain, /context\.retrieval_failed/, "Context failure fallback missing");
+assert.match(domain, /model_unavailable/, "model failure fallback missing");
+assert.match(domain, /network_unavailable/, "network failure fallback missing");
+assert.match(domain, /runDomainSelfTests/, "domain self-test suite missing");
+assert.match(app, /localStorage\.setItem/, "local product persistence missing");
+assert.match(app, /mode"\) === "qa"/, "isolated QA mode missing");
+assert.doesNotMatch(app, /\/v1\/results|ATLAS-UT|submitResult|automatic_upload/, "product sandbox must not contain research submission");
+assert.doesNotMatch(html, /survey-form|test-guide|current_task|plan_choice/, "research tasks or survey leaked into product UI");
+assert.doesNotMatch(html, /https?:\/\//, "product sandbox must not load third-party resources");
+assert.match(css, /width:\s*min\(100%,\s*500px\)/, "mobile product frame missing");
+
+const zhStart = app.indexOf('"zh-CN": {');
+const enStart = app.indexOf('"en-US": {');
+assert.ok(zhStart >= 0 && enStart > zhStart, "bilingual UI dictionaries missing");
+const zh = app.slice(zhStart, enStart);
+const en = app.slice(enStart, app.indexOf("\n};", enStart));
+const translationKeys = new Set([
+  ...Array.from(html.matchAll(/data-t="([^"]+)"/g), (match) => match[1]),
+  ...Array.from(html.matchAll(/data-t-placeholder="([^"]+)"/g), (match) => match[1]),
 ]);
-for (const key of htmlKeys) {
+for (const key of translationKeys) {
   const pattern = new RegExp(`\\b${key}:`);
-  assert.match(enDictionary, pattern, `English translation missing: ${key}`);
-  assert.match(zhDictionary, pattern, `Chinese translation missing: ${key}`);
+  assert.match(zh, pattern, `Chinese translation missing: ${key}`);
+  assert.match(en, pattern, `English translation missing: ${key}`);
 }
 
-assert.match(html, /not a human or a live AI service/i, "missing English AI identity disclosure");
-assert.match(js, /不是真人/, "missing Chinese AI identity disclosure");
-assert.match(js, /ATLAS-UT4-/, "v4 anonymous result-code prefix missing");
-assert.match(js, /atlas-unmoderated-v4/, "v4 result schema missing");
-assert.match(js, /technical_qa/, "technical QA separation missing");
-assert.match(js, /first_time/, "first-time participant marker missing");
-assert.match(js, /automatic_upload:\s*true/, "automatic-upload consent boundary missing");
-assert.match(js, /automatic_with_manual_fallback/, "automatic upload fallback mode missing");
-assert.match(js, /selected_\$\{choice\}/, "scripted conversation interaction missing");
-assert.match(js, /returned_next_day/, "next-day transition missing");
-assert.match(js, /shared_moment_opened/, "Relationship shared-moment interaction missing");
-assert.match(js, /context_controlled/, "Relationship context control missing");
-assert.match(js, /model_preview_opened/, "model continuity preview missing");
-assert.match(html, /id="return-tomorrow-button"/, "explicit post-conversation transition missing");
-assert.doesNotMatch(html, /data-go="memory"|data-go="timeline"|data-go="update"/, "support capabilities must not appear as primary product navigation");
-assert.match(js, /chat_input_collected:\s*false/, "real-chat collection boundary missing");
-assert.match(js, /context_input_values_recorded:\s*false/, "context-input collection boundary missing");
-assert.match(js, /method:\s*"POST"/, "automatic result submission missing");
-assert.match(js, /method:\s*"DELETE"/, "participant deletion request missing");
-assert.match(js, /COLLECTOR_URLS/, "multiple collector endpoint support missing");
-assert.match(js, /requestWithTimeout/, "collector timeout handling missing");
-assert.match(js, /COLLECTOR_ATTEMPTS\s*=\s*2/, "idempotent collector retry missing");
-assert.match(config, /window\.ATLAS_COLLECTOR_URL\s*=/, "collector configuration missing");
-assert.match(config, /window\.ATLAS_COLLECTOR_URLS\s*=/, "collector endpoint list missing");
-assert.match(config, /window\.location\.origin/, "same-origin collector routing missing");
-assert.doesNotMatch(config, /api[_-]?key|bearer|password|secret/i, "public collector configuration must not contain credentials");
-assert.match(css, /width:\s*min\(100%,\s*460px\)/, "mobile-width shell missing");
-assert.doesNotMatch(html, /https?:\/\/(?!www\.w3\.org)/, "prototype HTML must not load third-party resources");
-assert.doesNotMatch(js, /XMLHttpRequest|WebSocket|sendBeacon/, "prototype must not use undeclared network channels");
-
-console.log(`Companion product-shaped prototype smoke test passed: 5 screens, ${htmlKeys.size} bilingual keys, two-day relationship flow, automatic upload, and participant deletion.`);
+console.log(`Atlas v0.7 product sandbox smoke test passed: 5 product screens, ${translationKeys.size} bilingual UI keys, isolated QA console, and no research survey/upload.`);
