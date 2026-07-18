@@ -32,6 +32,10 @@ python3 -m http.server 4173 --bind 0.0.0.0 --directory /DATA/codex_ts/atlas_os/a
 
 当前 GitHub 套餐不支持从私有 `atlas_os` 仓库直接发布 Pages。公开站点因此使用隔离仓库 `yuhaixin000/atlas-continuity-prototype`：只同步本目录，不发布私有仓库中的 `docs/`、`source/`、`evidence/`、其他应用代码或 `.git/` 历史。公开 URL 和真实 HTTP 验证结果在发布完成后登记。
 
+- 公开测试地址：<https://yuhaixin000.github.io/atlas-continuity-prototype/>
+- 隔离公开仓库：<https://github.com/yuhaixin000/atlas-continuity-prototype>
+- 首次发布提交：`fb949b5c321762df8e96c6a161b3d82914efb4ea`
+
 ## 无人测试执行
 
 向测试者只发送公开 URL 和中性说明，不解释控件或产品理念。执行协议、结果 Schema 与导入命令见 [`ES-003 无人测试工作区`](../../../evidence/interviews/validation/unmoderated/README.md)。
