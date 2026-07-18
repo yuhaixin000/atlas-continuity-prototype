@@ -77,6 +77,7 @@ assert.match(js, /method:\s*"POST"/, "automatic result submission missing");
 assert.match(js, /method:\s*"DELETE"/, "participant deletion request missing");
 assert.match(js, /COLLECTOR_URLS/, "multiple collector endpoint support missing");
 assert.match(js, /requestWithTimeout/, "collector timeout handling missing");
+assert.match(js, /COLLECTOR_ATTEMPTS\s*=\s*2/, "idempotent collector retry missing");
 assert.match(config, /window\.ATLAS_COLLECTOR_URL\s*=/, "collector configuration missing");
 assert.match(config, /window\.ATLAS_COLLECTOR_URLS\s*=/, "collector endpoint list missing");
 assert.doesNotMatch(config, /api[_-]?key|bearer|password|secret/i, "public collector configuration must not contain credentials");

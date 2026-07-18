@@ -10,6 +10,7 @@
   const COLLECTOR_URLS = [...new Set(configuredCollectorUrls.map((value) => String(value || "").replace(/\/$/, "")).filter(Boolean))];
   const PRIMARY_COLLECTOR_URL = COLLECTOR_URLS[0] || "";
   const REQUEST_TIMEOUT_MS = 10000;
+  const COLLECTOR_ATTEMPTS = 2;
   const TASK_ORDER = ["followup", "memory", "timeline", "model"];
 
   const messages = {
@@ -181,10 +182,10 @@
       upload_success_copy: "The anonymous result was stored successfully and will be deleted automatically within 30 days.",
       upload_duplicate: "Result already received",
       upload_duplicate_copy: "This session was already stored; no duplicate record was created.",
-      upload_failed: "Automatic upload did not finish",
-      upload_failed_copy: "Your result remains in this browser. If this network cannot reach the collector, download the report or copy the result code and send it to the researcher.",
-      upload_timeout_copy: "The collector did not respond within 10 seconds. Test the connection below, then retry or download the report.",
-      upload_network_copy: "The browser could not connect to the collector. Test the connection below, then retry or download the report.",
+      upload_failed: "Upload status not confirmed",
+      upload_failed_copy: "Your result remains in this browser. The server may still have received it; retry without reloading, or download the report.",
+      upload_timeout_copy: "No confirmation arrived after two attempts. The server may still have received the result. Retry without reloading—the same session will not create a duplicate—or download the report.",
+      upload_network_copy: "The browser could not confirm a response from the collector. Retry without reloading—the same session will not create a duplicate—or download the report.",
       upload_rejected_copy: "The collector was reached but rejected this result. Download the report and send it to the researcher for review.",
       collector_not_configured: "The result collector is not configured on this deployment.",
       collector_connection_test: "Open collector connection test",
@@ -197,6 +198,7 @@
       deleting: "Deleting uploaded result…",
       deleted_success: "Deletion request completed",
       deleted_success_copy: "The stored result has been deleted and will be removed by the retention job.",
+      delete_failed_title: "Deletion status not confirmed",
       delete_failed: "Deletion request did not finish. Keep the downloaded receipt and try again later.",
       toast_followup_continue: "Yesterday’s topic is ready to continue.",
       toast_followup_draft: "A concise opening draft is ready.",
@@ -386,10 +388,10 @@
       upload_success_copy: "匿名结果已成功保存，并会在30天内自动删除。",
       upload_duplicate: "结果已收到",
       upload_duplicate_copy: "该测试会话此前已经保存，没有生成重复记录。",
-      upload_failed: "自动上传未完成",
-      upload_failed_copy: "结果仍保留在当前浏览器中。如果当前网络无法连接接收端，请下载报告或复制结果码并发送给研究人员。",
-      upload_timeout_copy: "接收端在10秒内没有响应。请先打开下方连接测试，再重试或下载报告。",
-      upload_network_copy: "浏览器无法连接结果接收端。请先打开下方连接测试，再重试或下载报告。",
+      upload_failed: "上传状态尚未确认",
+      upload_failed_copy: "结果仍保留在当前浏览器中，服务端也可能已经收到。请不要刷新页面，直接重试或下载报告。",
+      upload_timeout_copy: "两次尝试后仍未收到确认，服务端也可能已经收到结果。请不要刷新页面，直接重试；同一会话不会产生重复记录。也可以下载报告。",
+      upload_network_copy: "浏览器没有收到接收端确认。请不要刷新页面，直接重试；同一会话不会产生重复记录。也可以下载报告。",
       upload_rejected_copy: "已经连接到接收端，但结果被拒绝。请下载报告并发送给研究人员复核。",
       collector_not_configured: "当前部署尚未配置结果接收端。",
       collector_connection_test: "打开接收端连接测试",
@@ -402,6 +404,7 @@
       deleting: "正在删除已上传结果……",
       deleted_success: "删除请求已完成",
       deleted_success_copy: "已存结果已标记删除，并会由清理任务彻底移除。",
+      delete_failed_title: "删除状态尚未确认",
       delete_failed: "删除请求未完成。请保留下载的凭证，稍后重试。",
       toast_followup_continue: "已准备好继续昨天的话题。",
       toast_followup_draft: "简洁的开场草稿已生成。",
@@ -707,7 +710,7 @@
       stored: ["upload_success", "upload_success_copy"],
       duplicate: ["upload_duplicate", "upload_duplicate_copy"],
       failed: ["upload_failed", detail || "upload_failed_copy"],
-      delete_failed: ["upload_failed", "delete_failed"],
+      delete_failed: ["delete_failed_title", "delete_failed"],
       deleted: ["deleted_success", "deleted_success_copy"],
     }[status] || ["upload_waiting", "upload_waiting_copy"];
     titleElement.textContent = t(content[0]);
@@ -751,26 +754,31 @@
     try {
       let delivered = null;
       let failureDetail = "upload_network_copy";
-      for (const endpoint of COLLECTOR_URLS) {
-        try {
-          const response = await requestWithTimeout(`${endpoint}/v1/results`, {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body,
-          });
-          const receipt = await response.json().catch(() => ({}));
-          if (response.ok && ["stored", "duplicate"].includes(receipt.status)) {
-            delivered = { endpoint, receipt };
-            break;
+      let stopTrying = false;
+      collectorLoop: for (const endpoint of COLLECTOR_URLS) {
+        for (let attempt = 0; attempt < COLLECTOR_ATTEMPTS; attempt += 1) {
+          try {
+            const response = await requestWithTimeout(`${endpoint}/v1/results`, {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body,
+            });
+            const receipt = await response.json().catch(() => ({}));
+            if (response.ok && ["stored", "duplicate"].includes(receipt.status)) {
+              delivered = { endpoint, receipt };
+              break collectorLoop;
+            }
+            if (response.status < 500) {
+              failureDetail = "upload_rejected_copy";
+              stopTrying = true;
+              break;
+            }
+          } catch (error) {
+            failureDetail = error && error.name === "AbortError" ? "upload_timeout_copy" : "upload_network_copy";
+            /* Retry this idempotent session, then try the next configured collector. */
           }
-          if (response.status < 500) {
-            failureDetail = "upload_rejected_copy";
-            break;
-          }
-        } catch (error) {
-          failureDetail = error && error.name === "AbortError" ? "upload_timeout_copy" : "upload_network_copy";
-          /* Try the next configured collector. */
         }
+        if (stopTrying) break;
       }
       if (!delivered) {
         setUploadStatus("failed", failureDetail);
