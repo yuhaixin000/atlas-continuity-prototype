@@ -1,9 +1,10 @@
 (function () {
   "use strict";
 
-  const PROTOTYPE_VERSION = "continuity-web-prototype-v0.4";
-  const SCHEMA_VERSION = "atlas-unmoderated-v2";
-  const PRIVACY_VERSION = "2026-07-18-v2";
+  const PROTOTYPE_VERSION = "continuity-web-prototype-v0.5";
+  const SCHEMA_VERSION = "atlas-unmoderated-v3";
+  const PRIVACY_VERSION = "2026-07-18-v3";
+  const STUDY_MODE = new URLSearchParams(window.location.search).get("mode") === "qa" ? "technical_qa" : "participant";
   const configuredCollectorUrls = Array.isArray(window.ATLAS_COLLECTOR_URLS)
     ? window.ATLAS_COLLECTOR_URLS
     : [window.ATLAS_COLLECTOR_URL];
@@ -26,7 +27,6 @@
       identity_notice: "This is an AI product concept using fictional data. It is not a human or a live AI service.",
       about_minutes: "8–12 min",
       current_task: "CURRENT TASK",
-      go_to_task: "Go to task",
       cannot_complete: "I can’t complete this task",
       finish_test: "Finish test",
       task_followup_title: "Choose what to do with yesterday’s unfinished topic.",
@@ -38,7 +38,7 @@
       task_model_title: "A model update may change the conversation style.",
       task_model_copy: "Review the difference and decide whether to use the update or keep the prior version.",
       task_results_title: "All four tasks are complete.",
-      task_results_copy: "Make a price choice and generate your anonymous result code.",
+      task_results_copy: "Answer the short research questions. Your anonymous result will submit automatically.",
       relationship_day: "Relationship day 18",
       growing_together: "Growing together",
       from_yesterday: "FROM YESTERDAY",
@@ -129,28 +129,62 @@
       price_note_cn: "China research concept · monthly · CNY · exploratory only",
       choice_reason: "What is the main reason for your choice?",
       value_summary: "In one sentence, what do you think Atlas is for?",
+      same_ai_reason: "What, if anything, made this feel like the same AI Alex used yesterday?",
+      confusion_point: "Which part was most confusing or least useful?",
+      comparison_current: "Compared with the AI tools you use now, how useful was this experience?",
+      much_better: "Much better",
+      somewhat_better: "Somewhat better",
+      about_same: "About the same",
+      worse: "Worse",
+      not_applicable: "I do not currently use AI tools",
       no_personal_info: "Do not include names, contact details or sensitive personal information.",
+      open_answer_hint: "Write your own answer. “I don’t know” or “none” is acceptable. Do not include personal information.",
       would_use: "Would you use a working version again next week?",
       choose_one: "Choose one",
       definitely: "Definitely",
       maybe: "Maybe",
       unlikely: "Unlikely",
-      beta_interest: "I would join a limited beta for the option I selected. No contact information is collected here.",
+      beta_interest_question: "If a limited beta were available, would you apply?",
+      beta_yes: "Yes",
+      beta_maybe: "Maybe",
+      beta_no: "No",
+      beta_privacy_note: "This records interest only; no contact information is collected.",
       safe_text_confirm: "I did not include real names, contact details or sensitive personal information.",
-      generate_result: "Generate anonymous result",
+      generate_result: "Submit anonymous result",
       nav_today: "Today",
       nav_memory: "Memory",
       nav_timeline: "Timeline",
       nav_update: "Update",
       privacy: "Privacy & data",
       research_test: "ATLAS RESEARCH TEST",
-      welcome_heading: "Help test relationship continuity",
-      welcome_copy: "This 8–12 minute prototype uses fictional data. It has no live AI. With your consent, the anonymous result is submitted automatically after the final survey.",
+      welcome_heading: "Test a multi-day AI experience",
+      welcome_copy: "You will play Alex, who used Atlas on several days and worked on a presentation yesterday. Today Alex returns. Use the fictional interface as you naturally would; there is no live AI.",
+      research_context: "We are testing whether the interface can be understood without help—not testing you. Complete four tasks in order. If a task is unclear, choose “I can’t complete this task.”",
+      qa_mode_title: "TECHNICAL QA MODE",
+      qa_mode_copy: "This submission checks the system and will be excluded from participant research gates.",
       interface_language: "Interface language",
-      research_region: "Research region",
+      research_region: "Market used for this research scenario",
+      choose_market: "Choose a market",
       region_us: "United States",
       region_cn: "China mainland",
-      consent_fact_1: "Only task actions and time are recorded in the result.",
+      first_time_question: "Is this your first time completing this prototype?",
+      yes: "Yes",
+      no: "No",
+      ai_use_frequency: "How often do you use AI tools?",
+      daily: "Daily",
+      several_weekly: "Several times a week",
+      occasionally: "Occasionally",
+      never: "Never",
+      current_ai_type: "What kind of AI tool do you mainly use?",
+      general_assistant: "General AI assistant",
+      ai_companion: "AI companion",
+      other_ai: "Another AI tool",
+      no_ai_tool: "I do not use one",
+      multi_day_use: "How often do you return to the same AI or conversation across different days?",
+      often: "Often",
+      sometimes: "Sometimes",
+      rarely: "Rarely",
+      consent_fact_1: "The result records task actions, time, the choices above and your non-sensitive research answers.",
       consent_fact_2: "Atlas does not persist an IP address, account, email, device fingerprint, real chat or Memory input in the result database.",
       consent_fact_3: "Hosting infrastructure may temporarily process standard network metadata. Stored results are deleted after 30 days.",
       adult_consent: "I am 18 or older and agree to participate in this product test.",
@@ -171,7 +205,7 @@
       boundary_detail: "This event explains why today’s follow-up is concise and will not repeat after you skip it.",
       done: "Done",
       privacy_heading: "Minimal automatic submission",
-      privacy_copy: "After explicit consent, the final anonymous result is sent to the Atlas prototype collector and stored for up to 30 days. The application database does not persist IP addresses, accounts, email, device fingerprints, real chat or Memory input values. Hosting infrastructure may temporarily process standard request metadata.",
+      privacy_copy: "After explicit consent, the final anonymous result sends task actions, time, research choices and non-sensitive answers to the Atlas prototype collector for up to 30 days. The application database does not persist IP addresses, accounts, email, device fingerprints, real chat or Memory input values. Hosting infrastructure may temporarily process standard request metadata.",
       privacy_warning: "Do not enter real names, contact details, health information or other sensitive personal content. A deletion receipt is available after successful upload.",
       anonymous_result: "ANONYMOUS RESULT",
       result_ready: "Your result is ready",
@@ -211,6 +245,7 @@
       corrected_source: "Corrected by you just now · earlier value marked outdated",
       toast_update: "Update selected. Prior behavior remains restorable.",
       toast_keep_old: "Version 1.4 kept. No memories were changed.",
+      toast_timeline_wrong: "That event explains another behavior. Keep looking for the presentation source.",
       toast_task_complete: "Task complete. The next task is ready.",
       toast_task_failed: "Recorded as not completed. Continue to the next task.",
       toast_all_tasks: "All four tasks are complete. Please finish the short survey.",
@@ -232,7 +267,6 @@
       identity_notice: "这是使用虚构数据的 AI 产品概念原型，不是真人，也不提供实时 AI 服务。",
       about_minutes: "约8–12分钟",
       current_task: "当前任务",
-      go_to_task: "前往任务",
       cannot_complete: "我无法完成这项任务",
       finish_test: "完成测试",
       task_followup_title: "决定如何处理昨天没有完成的话题。",
@@ -244,7 +278,7 @@
       task_model_title: "模型更新可能改变对话风格。",
       task_model_copy: "查看差异，然后决定使用更新还是保留旧版本。",
       task_results_title: "四项任务均已完成。",
-      task_results_copy: "请选择一个价格概念，并生成匿名结果码。",
+      task_results_copy: "请回答简短研究问题，匿名结果将自动提交。",
       relationship_day: "关系第18天",
       growing_together: "共同成长中",
       from_yesterday: "来自昨天",
@@ -335,28 +369,62 @@
       price_note_cn: "中国市场探索价格概念 · 月付 · 人民币 · 非最终定价",
       choice_reason: "你这样选择的主要原因是什么？",
       value_summary: "请用一句话说明你认为 Atlas 是做什么的。",
+      same_ai_reason: "哪些地方（如果有）让你觉得这仍是 Alex 昨天使用的同一个 AI？",
+      confusion_point: "哪一部分最令你困惑或最没有用？",
+      comparison_current: "与你现在使用的 AI 工具相比，这段体验有多大用处？",
+      much_better: "明显更好",
+      somewhat_better: "稍微更好",
+      about_same: "差不多",
+      worse: "更差",
+      not_applicable: "我目前不使用 AI 工具",
       no_personal_info: "请勿填写姓名、联系方式或敏感个人信息。",
+      open_answer_hint: "请按自己的理解回答，可以写“不知道”或“没有”；请勿填写个人信息。",
       would_use: "如果有可用版本，下周你还会使用吗？",
       choose_one: "请选择",
       definitely: "一定会",
       maybe: "可能会",
       unlikely: "不太可能",
-      beta_interest: "我愿意参加所选方案的限量 Beta 测试；本页面不会收集联系方式。",
+      beta_interest_question: "如果有限量 Beta 测试，你会申请吗？",
+      beta_yes: "会",
+      beta_maybe: "可能会",
+      beta_no: "不会",
+      beta_privacy_note: "这里只记录意愿，不收集联系方式。",
       safe_text_confirm: "我没有填写真实姓名、联系方式或敏感个人信息。",
-      generate_result: "生成匿名结果",
+      generate_result: "提交匿名结果",
       nav_today: "今天",
       nav_memory: "记忆",
       nav_timeline: "时间线",
       nav_update: "更新",
       privacy: "隐私与数据",
       research_test: "ATLAS 产品研究",
-      welcome_heading: "帮助测试关系连续性",
-      welcome_copy: "测试约需8–12分钟，全部使用虚构数据，也没有实时 AI。经你同意后，最终匿名结果会在问卷完成时自动提交。",
+      welcome_heading: "测试一段跨天的 AI 使用体验",
+      welcome_copy: "你将扮演 Alex：他已经连续多天使用 Atlas，昨天还在准备一次演示。今天 Alex 再次回来。请按你自然的方式使用这个虚构界面；它没有实时 AI。",
+      research_context: "我们测试的是界面能否在无人帮助时被理解，不是测试你。请按顺序完成四项任务；如果某项不清楚，请选择“我无法完成这项任务”。",
+      qa_mode_title: "技术联调模式",
+      qa_mode_copy: "本次提交只检查系统，会从正式参与者研究门槛中排除。",
       interface_language: "界面语言",
-      research_region: "研究地区",
+      research_region: "本次研究场景使用的市场",
+      choose_market: "请选择市场",
       region_us: "美国",
       region_cn: "中国大陆",
-      consent_fact_1: "结果只记录任务操作和时间。",
+      first_time_question: "这是你第一次完成这个原型吗？",
+      yes: "是",
+      no: "否",
+      ai_use_frequency: "你多久使用一次 AI 工具？",
+      daily: "每天",
+      several_weekly: "每周数次",
+      occasionally: "偶尔",
+      never: "从不",
+      current_ai_type: "你主要使用哪类 AI 工具？",
+      general_assistant: "通用 AI 助手",
+      ai_companion: "AI 陪伴产品",
+      other_ai: "其他 AI 工具",
+      no_ai_tool: "我不使用 AI 工具",
+      multi_day_use: "你多久会在不同日期回到同一个 AI 或同一段对话？",
+      often: "经常",
+      sometimes: "有时",
+      rarely: "很少",
+      consent_fact_1: "结果会记录任务操作、时间、上述选择和你的非敏感研究回答。",
       consent_fact_2: "Atlas 结果数据库不会持久保存 IP 地址、账号、邮箱、设备指纹、真实聊天或记忆输入内容。",
       consent_fact_3: "托管基础设施可能临时处理常规网络元数据；已存结果会在30天内删除。",
       adult_consent: "我已满18岁，并同意参加本次产品测试。",
@@ -377,7 +445,7 @@
       boundary_detail: "这件事说明了为什么今天的跟进很简短，而且在你跳过后不会重复。",
       done: "完成",
       privacy_heading: "最少数据自动提交",
-      privacy_copy: "经明确同意后，最终匿名结果会发送至 Atlas 原型数据接收端，并最多保存30天。应用数据库不会持久保存 IP 地址、账号、邮箱、设备指纹、真实聊天或记忆输入值；托管基础设施可能临时处理常规请求元数据。",
+      privacy_copy: "经明确同意后，任务操作、时间、研究选择和非敏感回答会发送至 Atlas 原型数据接收端，并最多保存30天。应用数据库不会持久保存 IP 地址、账号、邮箱、设备指纹、真实聊天或记忆输入值；托管基础设施可能临时处理常规请求元数据。",
       privacy_warning: "请勿输入真实姓名、联系方式、健康信息或其他敏感个人内容。上传成功后会提供删除凭证。",
       anonymous_result: "匿名结果",
       result_ready: "结果已生成",
@@ -417,6 +485,7 @@
       corrected_source: "你刚刚完成了纠正 · 旧内容已标记过期",
       toast_update: "已选择新版本，30天内仍可恢复旧版本。",
       toast_keep_old: "已保留1.4版本，记忆没有变化。",
+      toast_timeline_wrong: "这条事件解释了另一种行为，请继续寻找项目演示的来源。",
       toast_task_complete: "任务已完成，可以继续下一项。",
       toast_task_failed: "已记录为未完成，请继续下一项任务。",
       toast_all_tasks: "四项任务均已完成，请填写简短问卷。",
@@ -431,7 +500,10 @@
   const state = {
     sessionId: createSessionId(),
     locale: preferredLocale(),
-    market: "US",
+    market: "",
+    studyMode: STUDY_MODE,
+    firstTime: null,
+    baseline: null,
     startedAt: null,
     startedClock: null,
     events: [],
@@ -530,13 +602,20 @@
   }
 
   function setMarket(market, shouldRecord = true) {
-    state.market = market === "CN" ? "CN" : "US";
+    state.market = ["US", "CN"].includes(market) ? market : "";
     document.querySelector("#market-select").value = state.market;
     updatePrices();
-    if (shouldRecord) recordEvent("market_changed", { market: state.market });
+    if (shouldRecord && state.market) recordEvent("market_changed", { market: state.market });
   }
 
   function updatePrices() {
+    if (!state.market) {
+      for (const plan of ["none", "essential", "continuity", "portable"]) {
+        document.querySelector(`#price-${plan}`).textContent = "—";
+      }
+      document.querySelector("#price-note").textContent = t("choose_market");
+      return;
+    }
     const prices = state.market === "CN"
       ? { none: "¥0", essential: "¥39", continuity: "¥69", portable: "¥99" }
       : { none: "$0", essential: "$9.99", continuity: "$14.99", portable: "$19.99" };
@@ -589,9 +668,6 @@
     document.querySelector("#progress-fill").style.width = `${(completed / TASK_ORDER.length) * 100}%`;
     document.querySelector("#task-heading").textContent = t(`task_${task}_title`);
     document.querySelector("#task-instruction").textContent = t(`task_${task}_copy`);
-    const button = document.querySelector("#go-task-button");
-    button.dataset.target = task;
-    button.textContent = t(task === "results" ? "finish_test" : "go_to_task");
     document.querySelector("#cannot-complete-button").hidden = task === "results";
   }
 
@@ -642,7 +718,7 @@
     for (let index = 0; index < bytes.length; index += 8192) {
       binary += String.fromCharCode(...bytes.subarray(index, index + 8192));
     }
-    return `ATLAS-UT2-${btoa(binary).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "")}`;
+    return `ATLAS-UT3-${btoa(binary).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "")}`;
   }
 
   function buildResult(formData) {
@@ -653,6 +729,11 @@
       session_id: state.sessionId,
       locale: state.locale,
       market: state.market,
+      study: {
+        mode: state.studyMode,
+        first_time: state.firstTime,
+      },
+      baseline: { ...state.baseline },
       consent: { adult_confirmed: true, research_consent: true, automatic_upload: true },
       timing: {
         started_at: state.startedAt,
@@ -664,8 +745,11 @@
         price_choice: formData.get("price"),
         choice_reason: document.querySelector("#choice-reason").value.trim(),
         value_summary: document.querySelector("#value-summary").value.trim(),
+        same_ai_reason: document.querySelector("#same-ai-reason").value.trim(),
+        confusion_point: document.querySelector("#confusion-point").value.trim(),
+        comparison_current: document.querySelector("#comparison-current").value,
         would_use_next_week: document.querySelector("#would-use").value,
-        beta_interest: document.querySelector("#beta-interest").checked,
+        beta_interest: formData.get("beta-interest"),
         safe_text_confirmed: document.querySelector("#confirm-safe-text").checked,
       },
       events: state.events,
@@ -863,6 +947,12 @@
     event.preventDefault();
     setLocale(document.querySelector("#locale-select").value, false);
     setMarket(document.querySelector("#market-select").value, false);
+    state.firstTime = document.querySelector("#first-time-select").value === "yes";
+    state.baseline = {
+      ai_use_frequency: document.querySelector("#ai-use-frequency").value,
+      current_ai_type: document.querySelector("#current-ai-type").value,
+      multi_day_use: document.querySelector("#multi-day-use").value,
+    };
     state.uploadConsentAt = new Date().toISOString();
     state.startedAt = new Date().toISOString();
     state.startedClock = performance.now();
@@ -872,7 +962,6 @@
   });
   onboardingDialog.addEventListener("cancel", (event) => event.preventDefault());
 
-  document.querySelector("#go-task-button").addEventListener("click", (event) => navigate(event.currentTarget.dataset.target));
   document.querySelector("#cannot-complete-button").addEventListener("click", () => {
     const task = currentTask();
     if (task === "results") return;
@@ -983,7 +1072,12 @@
       document.querySelector("#detail-title").textContent = t(isBoundary ? "boundary_event" : "presentation_goal_began");
       document.querySelector("#detail-copy").textContent = t(isBoundary ? "boundary_detail" : "presentation_detail");
       detailDialog.showModal();
-      completeTask("timeline", isBoundary ? "opened_boundary_source" : "opened_goal_source");
+      if (isBoundary) {
+        recordEvent("timeline_source_attempted", { task: "timeline", outcome: "incorrect_boundary_source", event_id: "boundary" });
+        showToast(t("toast_timeline_wrong"));
+      } else {
+        completeTask("timeline", "opened_goal_source");
+      }
     });
   });
 
@@ -1021,8 +1115,9 @@
   document.querySelector("#delete-upload-button").addEventListener("click", deleteUploadedResult);
   document.querySelector("#reset-button").addEventListener("click", () => window.location.reload());
 
+  document.querySelector("#qa-mode-banner").hidden = STUDY_MODE !== "technical_qa";
   setLocale(state.locale, false);
-  setMarket("US", false);
+  setMarket("", false);
   navigate("followup", false);
   onboardingDialog.showModal();
 })();

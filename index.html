@@ -41,7 +41,6 @@
         <h2 id="task-heading">Choose what to do with yesterday’s unfinished topic.</h2>
         <p id="task-instruction">Use the prototype as you normally would. There is no single preferred choice.</p>
         <div class="button-row">
-          <button class="secondary-button compact-button" id="go-task-button" type="button" data-i18n="go_to_task">Go to task</button>
           <button class="text-button compact-button" id="cannot-complete-button" type="button" data-i18n="cannot_complete">I can’t complete this task</button>
         </div>
       </section>
@@ -258,6 +257,25 @@
         <p class="section-copy" data-i18n="survey_intro">These are research concepts, not a sales offer. Choose what you would do today.</p>
 
         <form id="survey-form">
+          <label for="value-summary" data-i18n="value_summary">In one sentence, what do you think Atlas is for?</label>
+          <textarea id="value-summary" rows="3" maxlength="500" required data-i18n-placeholder="open_answer_hint"></textarea>
+
+          <label for="same-ai-reason" data-i18n="same_ai_reason">What, if anything, made this feel like the same AI Alex used yesterday?</label>
+          <textarea id="same-ai-reason" rows="3" maxlength="500" required data-i18n-placeholder="open_answer_hint"></textarea>
+
+          <label for="confusion-point" data-i18n="confusion_point">Which part was most confusing or least useful?</label>
+          <textarea id="confusion-point" rows="3" maxlength="500" required data-i18n-placeholder="open_answer_hint"></textarea>
+
+          <label for="comparison-current" data-i18n="comparison_current">Compared with the AI tools you use now, how useful was this experience?</label>
+          <select id="comparison-current" required>
+            <option value="" data-i18n="choose_one">Choose one</option>
+            <option value="much_better" data-i18n="much_better">Much better</option>
+            <option value="somewhat_better" data-i18n="somewhat_better">Somewhat better</option>
+            <option value="about_same" data-i18n="about_same">About the same</option>
+            <option value="worse" data-i18n="worse">Worse</option>
+            <option value="not_applicable" data-i18n="not_applicable">I do not currently use AI tools</option>
+          </select>
+
           <fieldset>
             <legend data-i18n="price_question">Which option, if any, would you choose?</legend>
             <div class="price-grid">
@@ -270,10 +288,7 @@
           </fieldset>
 
           <label for="choice-reason" data-i18n="choice_reason">What is the main reason for your choice?</label>
-          <textarea id="choice-reason" rows="3" maxlength="500" required data-i18n-placeholder="no_personal_info"></textarea>
-
-          <label for="value-summary" data-i18n="value_summary">In one sentence, what do you think Atlas is for?</label>
-          <textarea id="value-summary" rows="3" maxlength="500" required data-i18n-placeholder="no_personal_info"></textarea>
+          <textarea id="choice-reason" rows="3" maxlength="500" required data-i18n-placeholder="open_answer_hint"></textarea>
 
           <label for="would-use" data-i18n="would_use">Would you use a working version again next week?</label>
           <select id="would-use" required>
@@ -283,9 +298,17 @@
             <option value="unlikely" data-i18n="unlikely">Unlikely</option>
           </select>
 
-          <label class="consent-row"><input type="checkbox" id="beta-interest" /><span data-i18n="beta_interest">I would join a limited beta for the option I selected. No contact information is collected here.</span></label>
+          <fieldset class="radio-question">
+            <legend data-i18n="beta_interest_question">If a limited beta were available, would you apply?</legend>
+            <div class="radio-options">
+              <label><input type="radio" name="beta-interest" value="yes" required /><span data-i18n="beta_yes">Yes</span></label>
+              <label><input type="radio" name="beta-interest" value="maybe" /><span data-i18n="beta_maybe">Maybe</span></label>
+              <label><input type="radio" name="beta-interest" value="no" /><span data-i18n="beta_no">No</span></label>
+            </div>
+            <p class="input-help" data-i18n="beta_privacy_note">This records interest only; no contact information is collected.</p>
+          </fieldset>
           <label class="consent-row"><input type="checkbox" id="confirm-safe-text" required /><span data-i18n="safe_text_confirm">I did not include real names, contact details or sensitive personal information.</span></label>
-          <button class="primary-button full-button" type="submit" data-i18n="generate_result">Generate anonymous result</button>
+          <button class="primary-button full-button" type="submit" data-i18n="generate_result">Submit anonymous result</button>
         </form>
       </section>
 
@@ -297,7 +320,7 @@
       </nav>
 
       <footer class="prototype-footer">
-        <span>continuity-web-prototype-v0.4</span>
+        <span>continuity-web-prototype-v0.5</span>
         <button class="text-button" id="privacy-button" type="button" data-i18n="privacy">Privacy & data</button>
       </footer>
     </main>
@@ -305,20 +328,37 @@
     <dialog id="onboarding-dialog">
       <form id="onboarding-form">
         <p class="eyebrow" data-i18n="research_test">ATLAS RESEARCH TEST</p>
-        <h2 data-i18n="welcome_heading">Help test relationship continuity</h2>
-        <p data-i18n="welcome_copy">This 8–12 minute prototype uses fictional data. It has no live AI. With your consent, the anonymous result is submitted automatically after the final survey.</p>
+        <h2 data-i18n="welcome_heading">Test a multi-day AI experience</h2>
+        <p data-i18n="welcome_copy">You will play Alex, who used Atlas on several days and worked on a presentation yesterday. Today Alex returns. Use the fictional interface as you naturally would; there is no live AI.</p>
+        <p class="research-context" data-i18n="research_context">We are testing whether the interface can be understood without help—not testing you. Complete four tasks in order. If a task is unclear, choose “I can’t complete this task.”</p>
+        <div class="qa-mode-banner" id="qa-mode-banner" hidden>
+          <strong data-i18n="qa_mode_title">TECHNICAL QA MODE</strong>
+          <span data-i18n="qa_mode_copy">This submission checks the system and will be excluded from participant research gates.</span>
+        </div>
 
         <div class="field-grid">
           <label><span data-i18n="interface_language">Interface language</span>
             <select id="locale-select"><option value="en-US">English</option><option value="zh-CN">简体中文</option></select>
           </label>
           <label><span data-i18n="research_region">Research region</span>
-            <select id="market-select"><option value="US" data-i18n="region_us">United States</option><option value="CN" data-i18n="region_cn">China mainland</option></select>
+            <select id="market-select" required><option value="" data-i18n="choose_market">Choose a market</option><option value="US" data-i18n="region_us">United States</option><option value="CN" data-i18n="region_cn">China mainland</option></select>
+          </label>
+          <label><span data-i18n="first_time_question">Is this your first time completing this prototype?</span>
+            <select id="first-time-select" required><option value="" data-i18n="choose_one">Choose one</option><option value="yes" data-i18n="yes">Yes</option><option value="no" data-i18n="no">No</option></select>
+          </label>
+          <label><span data-i18n="ai_use_frequency">How often do you use AI tools?</span>
+            <select id="ai-use-frequency" required><option value="" data-i18n="choose_one">Choose one</option><option value="daily" data-i18n="daily">Daily</option><option value="several_weekly" data-i18n="several_weekly">Several times a week</option><option value="occasionally" data-i18n="occasionally">Occasionally</option><option value="never" data-i18n="never">Never</option></select>
+          </label>
+          <label><span data-i18n="current_ai_type">What kind of AI tool do you mainly use?</span>
+            <select id="current-ai-type" required><option value="" data-i18n="choose_one">Choose one</option><option value="general_assistant" data-i18n="general_assistant">General AI assistant</option><option value="ai_companion" data-i18n="ai_companion">AI companion</option><option value="other_ai" data-i18n="other_ai">Another AI tool</option><option value="none" data-i18n="no_ai_tool">I do not use one</option></select>
+          </label>
+          <label><span data-i18n="multi_day_use">How often do you return to the same AI or conversation across different days?</span>
+            <select id="multi-day-use" required><option value="" data-i18n="choose_one">Choose one</option><option value="often" data-i18n="often">Often</option><option value="sometimes" data-i18n="sometimes">Sometimes</option><option value="rarely" data-i18n="rarely">Rarely</option><option value="never" data-i18n="never">Never</option></select>
           </label>
         </div>
 
         <ul class="consent-list">
-          <li data-i18n="consent_fact_1">Only task actions and time are recorded in the result.</li>
+          <li data-i18n="consent_fact_1">The result records task actions, time, the choices above and your non-sensitive research answers.</li>
           <li data-i18n="consent_fact_2">Atlas does not persist an IP address, account, email, device fingerprint, real chat or Memory input in the result database.</li>
           <li data-i18n="consent_fact_3">Hosting infrastructure may temporarily process standard network metadata. Stored results are deleted after 30 days.</li>
         </ul>

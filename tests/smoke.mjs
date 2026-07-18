@@ -23,6 +23,10 @@ for (const control of [
   "onboarding-dialog",
   "locale-select",
   "market-select",
+  "first-time-select",
+  "ai-use-frequency",
+  "current-ai-type",
+  "multi-day-use",
   "adult-consent",
   "upload-consent",
   "continue-button",
@@ -37,7 +41,9 @@ for (const control of [
   "restore-button",
   "cannot-complete-button",
   "survey-form",
-  "beta-interest",
+  "same-ai-reason",
+  "confusion-point",
+  "comparison-current",
   "result-dialog",
   "copy-result-button",
   "download-result-button",
@@ -68,11 +74,16 @@ for (const key of htmlKeys) {
 
 assert.match(html, /not a human or a live AI service/i, "missing English AI identity disclosure");
 assert.match(js, /不是真人/, "missing Chinese AI identity disclosure");
-assert.match(js, /ATLAS-UT2-/, "v2 anonymous result-code prefix missing");
+assert.match(js, /ATLAS-UT3-/, "v3 anonymous result-code prefix missing");
+assert.match(js, /atlas-unmoderated-v3/, "v3 result schema missing");
+assert.match(js, /technical_qa/, "technical QA separation missing");
+assert.match(js, /first_time/, "first-time participant marker missing");
 assert.match(js, /automatic_upload:\s*true/, "automatic-upload consent boundary missing");
 assert.match(js, /automatic_with_manual_fallback/, "automatic upload fallback mode missing");
 assert.match(js, /drafted_opening/, "draft follow-up interaction missing");
 assert.match(js, /marked_topic_complete/, "completed-topic interaction missing");
+assert.match(js, /incorrect_boundary_source/, "incorrect Timeline attempt handling missing");
+assert.doesNotMatch(html, /id="go-task-button"/, "task guide must not navigate participants directly to the answer");
 assert.match(js, /method:\s*"POST"/, "automatic result submission missing");
 assert.match(js, /method:\s*"DELETE"/, "participant deletion request missing");
 assert.match(js, /COLLECTOR_URLS/, "multiple collector endpoint support missing");
