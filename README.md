@@ -67,7 +67,13 @@ python3 -m http.server 4173 --bind 0.0.0.0 --directory /DATA/codex_ts/atlas_os/a
 - Founder / 工程自测：<https://atlas-continuity-cn-test.pages.dev/?mode=qa>
 - 公开镜像：<https://yuhaixin000.github.io/atlas-continuity-prototype/>
 
-v0.6 的研究提交 API 与结果兼容代码仍保留在 [`prototype-collector`](../prototype-collector/README.md)，但 v0.7 不调用它。当前部署提交与 Pages 版本在发布后补记。
+v0.6 的研究提交 API 与结果兼容代码仍保留在 [`prototype-collector`](../prototype-collector/README.md)，但 v0.7 不调用它。
+
+- v0.7 私有主仓库提交：`3e829e0722969375de991bb0b6dea8c826f3a8e0`；
+- v0.7 隔离公开提交：`17a50215ad8535045d8359df1fdaa27cf84b70a0`；
+- Cloudflare Pages 部署：<https://105f486f.atlas-continuity-cn-test.pages.dev>；
+- GitHub Pages 发布任务：`29646751896`（success）；
+- 发布校验：Cloudflare Pages 与 GitHub Pages 的 `index.html`、`app.js`、`domain.mjs`、`styles.css` SHA-256 均与本地提交一致。
 
 ## 自动验证
 
