@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5efe5" />
+    <title>Atlas Continuity Prototype</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="prototype-shell" aria-label="Atlas mobile web usability prototype">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">ATLAS · WEB PROTOTYPE</p>
+          <h1 id="screen-title">Good morning, Alex</h1>
+        </div>
+        <button class="icon-button" id="reset-button" type="button" aria-label="Reset prototype data" title="Reset prototype data">
+          <span aria-hidden="true">↻</span>
+        </button>
+      </header>
+
+      <p class="prototype-notice">
+        <span aria-hidden="true">◇</span>
+        This is an AI product concept using fictional data. It is not a human or a live AI service.
+      </p>
+
+      <section class="screen is-active" id="screen-followup" data-screen="followup" aria-labelledby="followup-heading">
+        <div class="relationship-strip">
+          <span>Relationship day 18</span>
+          <strong>Growing together</strong>
+        </div>
+
+        <article class="hero-card">
+          <p class="card-kicker">FROM YESTERDAY</p>
+          <h2 id="followup-heading">Ready to shape the opening?</h2>
+          <p>You were preparing a short project presentation. You wanted one concise check-in today—no repeated reminders.</p>
+          <div class="source-chip">Source: Yesterday’s conversation · 4:42 PM</div>
+          <div class="button-row">
+            <button class="primary-button" id="continue-button" type="button">Continue this</button>
+            <button class="secondary-button" id="skip-button" type="button">Not now</button>
+          </div>
+          <button class="text-button" data-go="memory" type="button">Review what Atlas remembered</button>
+        </article>
+
+        <article class="conversation-preview" id="conversation-preview" hidden>
+          <p class="card-kicker">CONVERSATION</p>
+          <div class="message assistant-message">Yesterday you wanted a concise opening. Would you like to draft the first two sentences now?</div>
+          <div class="quick-replies">
+            <button type="button">Draft with me</button>
+            <button type="button">I already finished it</button>
+          </div>
+        </article>
+
+        <article class="boundary-card">
+          <div>
+            <p class="card-kicker">YOUR BOUNDARY</p>
+            <h3>Proactive follow-ups</h3>
+            <p>Ask once about unfinished topics. Never repeat a skipped reminder.</p>
+          </div>
+          <label class="switch">
+            <input id="followup-toggle" type="checkbox" checked />
+            <span aria-hidden="true"></span>
+            <span class="sr-only">Allow proactive follow-ups</span>
+          </label>
+        </article>
+      </section>
+
+      <section class="screen" id="screen-memory" data-screen="memory" aria-labelledby="memory-heading" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">MEMORY LEDGER</p>
+            <h2 id="memory-heading">What Atlas may use</h2>
+          </div>
+          <span class="count-pill" id="memory-count">4 saved</span>
+        </div>
+        <p class="section-copy">You control every saved detail. Changes take effect in the next conversation.</p>
+
+        <div class="ledger" id="memory-list">
+          <article class="memory-card" data-memory-id="presentation">
+            <div class="memory-meta">
+              <span class="memory-type">CURRENT GOAL</span>
+              <span class="permission allowed">Allowed</span>
+            </div>
+            <h3>Project presentation</h3>
+            <p class="memory-value" id="presentation-value">Friday at 10:00 AM</p>
+            <p class="memory-source">From your conversation on July 16</p>
+            <div class="card-actions">
+              <button class="secondary-button edit-memory" type="button" data-memory="presentation">Correct</button>
+              <button class="danger-button delete-memory" type="button" data-memory="presentation">Delete</button>
+            </div>
+          </article>
+
+          <article class="memory-card" data-memory-id="dog">
+            <div class="memory-meta">
+              <span class="memory-type">PERSONAL CONTEXT</span>
+              <span class="permission allowed">Allowed</span>
+            </div>
+            <h3>Your dog</h3>
+            <p class="memory-value">Comet</p>
+            <p class="memory-source">Confirmed by you on July 16</p>
+            <div class="card-actions">
+              <button class="secondary-button edit-memory" type="button" data-memory="dog">Correct</button>
+              <button class="danger-button delete-memory" type="button" data-memory="dog">Delete</button>
+            </div>
+          </article>
+
+          <article class="memory-card" data-memory-id="style">
+            <div class="memory-meta">
+              <span class="memory-type">COMMUNICATION</span>
+              <span class="permission allowed">Allowed</span>
+            </div>
+            <h3>Check-in style</h3>
+            <p class="memory-value">Concise; no long motivational messages</p>
+            <p class="memory-source">Confirmed by you on July 16</p>
+            <div class="card-actions">
+              <button class="secondary-button edit-memory" type="button" data-memory="style">Correct</button>
+              <button class="danger-button delete-memory" type="button" data-memory="style">Delete</button>
+            </div>
+          </article>
+
+          <article class="memory-card" data-memory-id="followup">
+            <div class="memory-meta">
+              <span class="memory-type">INTERACTION BOUNDARY</span>
+              <span class="permission allowed">Allowed</span>
+            </div>
+            <h3>Follow-up preference</h3>
+            <p class="memory-value">Ask once the next day; do not repeat</p>
+            <p class="memory-source">Confirmed by you on July 16</p>
+            <div class="card-actions">
+              <button class="secondary-button edit-memory" type="button" data-memory="followup">Correct</button>
+              <button class="danger-button delete-memory" type="button" data-memory="followup">Delete</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-timeline" data-screen="timeline" aria-labelledby="timeline-heading" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">RELATIONSHIP TIMELINE</p>
+            <h2 id="timeline-heading">Our shared journey</h2>
+          </div>
+          <span class="count-pill">18 days</span>
+        </div>
+        <p class="section-copy">Meaningful moments—not a transcript of every message.</p>
+
+        <div class="filter-row" role="group" aria-label="Timeline filters">
+          <button class="filter-button is-selected" type="button" data-filter="all">All</button>
+          <button class="filter-button" type="button" data-filter="goal">Goals</button>
+          <button class="filter-button" type="button" data-filter="relationship">Relationship</button>
+        </div>
+
+        <div class="timeline-list">
+          <article class="timeline-event" data-kind="goal">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-card">
+              <p class="timeline-date">JUL 16 · DAY 17</p>
+              <h3>Presentation goal began</h3>
+              <p>You asked Atlas to help make the opening practical and concise.</p>
+              <button class="text-button event-detail" type="button" data-event="presentation">See why this matters</button>
+            </div>
+          </article>
+          <article class="timeline-event" data-kind="relationship">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-card">
+              <p class="timeline-date">JUL 10 · DAY 11</p>
+              <h3>You set a communication boundary</h3>
+              <p>Atlas should keep check-ins brief and avoid repeated reminders.</p>
+              <button class="text-button event-detail" type="button" data-event="boundary">View source and control</button>
+            </div>
+          </article>
+          <article class="timeline-event" data-kind="relationship">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-card">
+              <p class="timeline-date">JUN 29 · DAY 1</p>
+              <h3>Your first conversation</h3>
+              <p>You chose practical support and user-controlled memory.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-model" data-screen="model" aria-labelledby="model-heading" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">MODEL CHANGE</p>
+            <h2 id="model-heading">Review before switching</h2>
+          </div>
+          <span class="count-pill warning">Preview</span>
+        </div>
+        <p class="section-copy">An update may change tone or recall behavior. Your memories and timeline remain yours.</p>
+
+        <article class="change-card">
+          <div class="version-row">
+            <div>
+              <span class="version-label">CURRENT</span>
+              <strong>Atlas Core 1.4</strong>
+            </div>
+            <span aria-hidden="true">→</span>
+            <div>
+              <span class="version-label">AVAILABLE</span>
+              <strong>Atlas Core 1.5</strong>
+            </div>
+          </div>
+          <h3>What may feel different</h3>
+          <ul class="change-list">
+            <li>Shorter opening responses</li>
+            <li>Stricter confirmation before saving context</li>
+            <li>Existing memories remain visible and editable</li>
+          </ul>
+        </article>
+
+        <article class="comparison-card">
+          <p class="card-kicker">SAME MOMENT, TWO STYLES</p>
+          <p class="comparison-prompt">You say: “I’m nervous about the presentation.”</p>
+          <div class="response-option current-response">
+            <span>1.4 · CURRENT</span>
+            <p>That makes sense. Yesterday you wanted a concise opening—should we rehearse just those two lines?</p>
+          </div>
+          <div class="response-option new-response">
+            <span>1.5 · PREVIEW</span>
+            <p>Let’s focus on the opening you planned yesterday. Want to rehearse the first two lines?</p>
+          </div>
+        </article>
+
+        <div class="stacked-actions" id="model-actions">
+          <button class="primary-button" id="keep-update-button" type="button">Use the update</button>
+          <button class="secondary-button" id="restore-button" type="button">Keep version 1.4</button>
+          <p class="action-note">You can restore the prior version for 30 days. No memories are deleted.</p>
+        </div>
+      </section>
+
+      <nav class="bottom-nav" aria-label="Prototype screens">
+        <button class="nav-button is-active" data-go="followup" type="button">
+          <span class="nav-icon" aria-hidden="true">◌</span>
+          <span>Today</span>
+        </button>
+        <button class="nav-button" data-go="memory" type="button">
+          <span class="nav-icon" aria-hidden="true">▤</span>
+          <span>Memory</span>
+        </button>
+        <button class="nav-button" data-go="timeline" type="button">
+          <span class="nav-icon" aria-hidden="true">⌁</span>
+          <span>Timeline</span>
+        </button>
+        <button class="nav-button" data-go="model" type="button">
+          <span class="nav-icon" aria-hidden="true">◇</span>
+          <span>Update</span>
+        </button>
+      </nav>
+    </main>
+
+    <dialog id="memory-dialog">
+      <form method="dialog" id="memory-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">CORRECT MEMORY</p>
+            <h2 id="memory-dialog-title">Update saved detail</h2>
+          </div>
+          <button class="icon-button" value="cancel" aria-label="Close dialog">×</button>
+        </div>
+        <label for="memory-input">What should Atlas use next time?</label>
+        <input id="memory-input" name="memoryValue" autocomplete="off" />
+        <p class="input-help">The earlier value will be marked outdated, not silently merged.</p>
+        <div class="button-row">
+          <button class="primary-button" id="save-memory-button" value="default">Save correction</button>
+          <button class="secondary-button" value="cancel">Cancel</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="confirm-dialog">
+      <form method="dialog">
+        <p class="eyebrow">DELETE MEMORY</p>
+        <h2>Stop using this detail?</h2>
+        <p id="delete-description">Atlas will stop using it in future conversations. The fictional prototype data can be restored with Reset.</p>
+        <div class="button-row">
+          <button class="danger-filled" id="confirm-delete-button" value="delete">Delete</button>
+          <button class="secondary-button" value="cancel">Cancel</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="detail-dialog">
+      <form method="dialog">
+        <p class="eyebrow">TIMELINE SOURCE</p>
+        <h2 id="detail-title">Presentation goal began</h2>
+        <p id="detail-copy">This event came from a confirmed relationship event, not the full chat transcript.</p>
+        <div class="detail-source">Source · July 16 conversation · Confirmed by Alex</div>
+        <button class="primary-button" value="close">Done</button>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    <script src="app.js"></script>
+  </body>
+</html>
