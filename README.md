@@ -30,7 +30,7 @@ python3 -m http.server 4173 --bind 0.0.0.0 --directory /DATA/codex_ts/atlas_os/a
 
 ## 公开部署
 
-仓库工作流 [`.github/workflows/deploy-companion-prototype.yml`](../../../.github/workflows/deploy-companion-prototype.yml) 只把本目录作为 GitHub Pages Artifact，不发布私有仓库中的 `docs/`、`source/`、`evidence/` 或 `.git/`。部署 URL 和真实 HTTP 验证结果在工作流完成后登记。
+当前 GitHub 套餐不支持从私有 `atlas_os` 仓库直接发布 Pages。公开站点因此使用隔离仓库 `yuhaixin000/atlas-continuity-prototype`：只同步本目录，不发布私有仓库中的 `docs/`、`source/`、`evidence/`、其他应用代码或 `.git/` 历史。公开 URL 和真实 HTTP 验证结果在发布完成后登记。
 
 ## 无人测试执行
 
