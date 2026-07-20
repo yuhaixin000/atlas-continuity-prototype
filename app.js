@@ -30,10 +30,10 @@ const I18N = {
     confirmedUnderstanding: "Atlas 可以使用的已确认理解", contextControlCopy: "系统负责整理，你拥有查看、修改和删除的最终控制权。", noContext: "还没有确认过的 Context。", proactiveFollowups: "允许主动 Follow-up", followupSettingCopy: "只根据已确认且仍有效的 Context 生成。",
     profileTitle: "账号与数据控制", sandboxNotice: "当前是无账号、无云端存储的产品沙盒。所有输入只存在这个浏览器的 localStorage 中。", exportData: "导出本地数据 JSON", deleteAllData: "删除全部本地数据", buildVersion: "构建版本",
     navHome: "首页", navConversation: "对话", navTimeline: "旅程", navRelationship: "关系", navProfile: "我的",
-    selfTestConsole: "Sprint 1 自测试控制台", selfTestBoundary: "控制台只验证确定性的领域规则、状态迁移、异常降级和数据边界，不冒充真人的价值判断。", runAllTests: "运行全部自动测试", seedScenario: "装载完整首日场景", advanceDay: "推进到下一天", resetSandbox: "重置沙盒", faultInjection: "故障注入", modelFailure: "模型不可用", contextFailure: "Context 检索失败", networkFailure: "网络不可用", testResults: "自动测试结果", inspectState: "检查当前领域状态与 Analytics",
+    selfTestConsole: "Sprint 1 自测试控制台", selfTestBoundary: "控制台只验证确定性的领域规则、状态迁移、异常降级和数据边界，不冒充真人的价值判断。", runAllTests: "运行全部自动测试", seedScenario: "装载完整首日场景", advanceDay: "推进到下一天", resetSandbox: "重置沙盒", manualChecks: "可观察的手动功能检查", contextDeleteCheck: "Context 删除", contextDeleteCheckCopy: "装载已确认 Context，关闭控制台并直接打开 Relationship。", openRelationshipCheck: "打开 Relationship 检查", modelFailure: "模型不可用", modelFailureHow: "自动触发一次消息；应看到“暂时无法生成回复”，消息仍保留。", contextFailure: "Context 检索失败", contextFailureHow: "自动触发一次消息；应明确说明不知道，且不引用已确认 Context。", networkFailure: "网络不可用", networkFailureHow: "自动触发一次消息；应显示本地保留与可重试状态。", runScenario: "运行场景", advancedFaults: "高级：持续故障开关", advancedFaultsCopy: "开关保持生效，直到手动清除；用于连续输入和 Analytics 检查。", clearFaults: "清除故障", activeFault: "当前故障注入已开启", testResults: "自动测试结果", notRun: "未运行", notRunCopy: "点击“运行全部自动测试”后才会产生 PASS/FAIL；页面加载不会自动执行。", inspectState: "检查当前领域状态与 Analytics",
     onboardingTitle: "先建立关系边界，再开始聊天", onboardingCopy: "这是本地功能沙盒，不是真人，也没有连接线上 AI。你输入的内容不会上传。", displayName: "希望 Atlas 如何称呼你？", namePlaceholder: "例如：小宇", styleLegend: "你更希望 Atlas 怎样回应？", styleBalanced: "平衡：理解与行动并重", styleDirect: "直接：尽快进入重点", styleGentle: "温和：先理解感受", createRelationship: "建立 Relationship",
     sourceTrace: "来源追溯", whyFollowup: "为什么 Atlas 今天提起这件事？", close: "关闭", editUnderstanding: "修改 Atlas 的理解", saveChange: "保存修改", cancel: "取消", deleteContextTitle: "删除这项 Context？", deleteContextCopy: "删除后，未来回复和 Follow-up 都不能再引用它。", confirmDelete: "确认删除",
-    greetingMorning: "早上好", greetingAfternoon: "下午好", greetingEvening: "晚上好", day: "第 {n} 天", noLatestEvent: "从一次有意义的 Conversation 开始。", followupTitle: "继续上次真正重要的方向", followupCopy: "Atlas 使用的是你亲自确认的 Context，而不是猜测或随机提醒。", contextGoal: "目标", contextPreference: "互动偏好", contextIdentity: "个人背景", edit: "修改", delete: "删除", confirmed: "已确认", sourceConversation: "来源 Conversation", sourceEvent: "来源 Event", sourceContext: "引用 Context", sourceDay: "发生日期", testPassed: "{pass}/{total} 通过", saved: "已保存在本机", contextConfirmed: "Context 已确认", contextRejected: "候选理解未保存", conversationCompleted: "Conversation 已完成，并按规则生成 Relationship Event", noCandidateWarning: "仍有候选 Context 未处理；它不会进入长期背景。", advanced: "测试时钟已推进一天", seeded: "首日闭环场景已装载", resetDone: "沙盒已重置", contextDeleted: "Context 已删除，后续不可引用", contextUpdated: "Context 已更新", followupsOn: "主动 Follow-up 已开启", followupsOff: "主动 Follow-up 已关闭", exported: "本地数据已导出", userYou: "你", localEngine: "Atlas · 本地规则引擎", currentGoalPrompt: "我想在这个月完成第一版产品，并把最小闭环真正跑起来。", reflectionPrompt: "我今天有些焦虑，想先理清为什么。", preferencePrompt: "请直接一些，但不要反复提醒我。", notUploaded: "没有任何研究问卷或自动上传。",
+    greetingMorning: "早上好", greetingAfternoon: "下午好", greetingEvening: "晚上好", day: "第 {n} 天", noLatestEvent: "从一次有意义的 Conversation 开始。", followupTitle: "继续上次真正重要的方向", followupCopy: "Atlas 使用的是你亲自确认的 Context，而不是猜测或随机提醒。", contextGoal: "目标", contextPreference: "互动偏好", contextIdentity: "个人背景", edit: "修改", delete: "删除", confirmed: "已确认", sourceConversation: "来源 Conversation", sourceEvent: "来源 Event", sourceContext: "引用 Context", sourceDay: "发生日期", testPassed: "{pass}/{total} 通过", saved: "已保存在本机", contextConfirmed: "Context 已确认", contextRejected: "候选理解未保存", conversationCompleted: "Conversation 已完成，并按规则生成 Relationship Event", noCandidateWarning: "仍有候选 Context 未处理；它不会进入长期背景。", advanced: "测试时钟已推进一天", seeded: "首日闭环场景已装载", resetDone: "沙盒已重置", contextDeleted: "Context 已删除，后续不可引用", contextUpdated: "Context 已更新", followupsOn: "主动 Follow-up 已开启", followupsOff: "主动 Follow-up 已关闭", exported: "本地数据已导出", userYou: "你", localEngine: "Atlas · 本地规则引擎", currentGoalPrompt: "我想在这个月完成第一版产品，并把最小闭环真正跑起来。", reflectionPrompt: "我今天有些焦虑，想先理清为什么。", preferencePrompt: "请直接一些，但不要反复提醒我。", faultTestPrompt: "请根据我已经确认的目标，帮我继续推进下一步。", faultScenarioReady: "故障场景已触发；查看 Conversation 中的可观察结果。", allFaultsCleared: "故障注入已全部清除", notUploaded: "没有任何研究问卷或自动上传。",
   },
   "en-US": {
     productSandbox: "Relationship product sandbox", localOnly: "Stored on this device", qaMode: "Engineering self-test mode", qaModeCopy: "Test clock, fault injection, and state inspection are isolated from the product UI.", openConsole: "Open console",
@@ -45,10 +45,10 @@ const I18N = {
     confirmedUnderstanding: "Confirmed understanding Atlas may use", contextControlCopy: "The system organizes it; you retain final control to view, edit, or delete.", noContext: "No confirmed Context yet.", proactiveFollowups: "Allow proactive Follow-ups", followupSettingCopy: "Generated only from confirmed Context that remains active.",
     profileTitle: "Account and data control", sandboxNotice: "This sandbox has no account or cloud storage. All input remains in this browser’s localStorage.", exportData: "Export local data JSON", deleteAllData: "Delete all local data", buildVersion: "Build version",
     navHome: "Home", navConversation: "Talk", navTimeline: "Journey", navRelationship: "Relationship", navProfile: "Me",
-    selfTestConsole: "Sprint 1 self-test console", selfTestBoundary: "The console verifies deterministic domain rules, state transitions, graceful failure, and data boundaries. It does not impersonate human value judgment.", runAllTests: "Run all automated tests", seedScenario: "Seed completed Day 1", advanceDay: "Advance one day", resetSandbox: "Reset sandbox", faultInjection: "Fault injection", modelFailure: "Model unavailable", contextFailure: "Context retrieval failure", networkFailure: "Network unavailable", testResults: "Automated test results", inspectState: "Inspect current domain state and Analytics",
+    selfTestConsole: "Sprint 1 self-test console", selfTestBoundary: "The console verifies deterministic domain rules, state transitions, graceful failure, and data boundaries. It does not impersonate human value judgment.", runAllTests: "Run all automated tests", seedScenario: "Seed completed Day 1", advanceDay: "Advance one day", resetSandbox: "Reset sandbox", manualChecks: "Observable manual function checks", contextDeleteCheck: "Context deletion", contextDeleteCheckCopy: "Seed confirmed Context, close the console, and open Relationship directly.", openRelationshipCheck: "Open Relationship check", modelFailure: "Model unavailable", modelFailureHow: "Triggers one message; expect a visible unavailable response while the message remains.", contextFailure: "Context retrieval failure", contextFailureHow: "Triggers one message; expect an explicit no-context response with no confirmed Context used.", networkFailure: "Network unavailable", networkFailureHow: "Triggers one message; expect a local retention and retry state.", runScenario: "Run scenario", advancedFaults: "Advanced: persistent fault switches", advancedFaultsCopy: "A switch stays active until cleared, for repeated input and Analytics inspection.", clearFaults: "Clear faults", activeFault: "Fault injection is active", testResults: "Automated test results", notRun: "Not run", notRunCopy: "PASS/FAIL appears only after you click “Run all automated tests”; loading the page does not execute tests.", inspectState: "Inspect current domain state and Analytics",
     onboardingTitle: "Set relationship boundaries before talking", onboardingCopy: "This is a local feature sandbox, not a person or a live AI. Nothing you type is uploaded.", displayName: "What should Atlas call you?", namePlaceholder: "For example: Alex", styleLegend: "How would you like Atlas to respond?", styleBalanced: "Balanced: understanding and action", styleDirect: "Direct: get to the point", styleGentle: "Gentle: understand feelings first", createRelationship: "Create Relationship",
     sourceTrace: "SOURCE TRACE", whyFollowup: "Why did Atlas bring this up today?", close: "Close", editUnderstanding: "Edit Atlas’s understanding", saveChange: "Save change", cancel: "Cancel", deleteContextTitle: "Delete this Context?", deleteContextCopy: "Future replies and Follow-ups will no longer be allowed to use it.", confirmDelete: "Confirm delete",
-    greetingMorning: "Good morning", greetingAfternoon: "Good afternoon", greetingEvening: "Good evening", day: "Day {n}", noLatestEvent: "Begin with one meaningful Conversation.", followupTitle: "Continue the direction that genuinely mattered", followupCopy: "Atlas is using Context you confirmed yourself—not a guess or random reminder.", contextGoal: "Goal", contextPreference: "Interaction preference", contextIdentity: "Personal background", edit: "Edit", delete: "Delete", confirmed: "Confirmed", sourceConversation: "Source Conversation", sourceEvent: "Source Event", sourceContext: "Referenced Context", sourceDay: "Event day", testPassed: "{pass}/{total} passed", saved: "Saved on this device", contextConfirmed: "Context confirmed", contextRejected: "Candidate understanding was not saved", conversationCompleted: "Conversation completed and a Relationship Event was created according to the rules", noCandidateWarning: "A candidate Context is still unresolved; it will not enter lasting background.", advanced: "Test clock advanced one day", seeded: "Completed Day 1 scenario loaded", resetDone: "Sandbox reset", contextDeleted: "Context deleted and blocked from future use", contextUpdated: "Context updated", followupsOn: "Proactive Follow-ups enabled", followupsOff: "Proactive Follow-ups disabled", exported: "Local data exported", userYou: "You", localEngine: "Atlas · local rule engine", currentGoalPrompt: "I want to finish the first product slice this month and make the core loop genuinely work.", reflectionPrompt: "I feel anxious today and want to understand why first.", preferencePrompt: "Please be direct, but do not remind me repeatedly.", notUploaded: "No research survey or automatic upload is present.",
+    greetingMorning: "Good morning", greetingAfternoon: "Good afternoon", greetingEvening: "Good evening", day: "Day {n}", noLatestEvent: "Begin with one meaningful Conversation.", followupTitle: "Continue the direction that genuinely mattered", followupCopy: "Atlas is using Context you confirmed yourself—not a guess or random reminder.", contextGoal: "Goal", contextPreference: "Interaction preference", contextIdentity: "Personal background", edit: "Edit", delete: "Delete", confirmed: "Confirmed", sourceConversation: "Source Conversation", sourceEvent: "Source Event", sourceContext: "Referenced Context", sourceDay: "Event day", testPassed: "{pass}/{total} passed", saved: "Saved on this device", contextConfirmed: "Context confirmed", contextRejected: "Candidate understanding was not saved", conversationCompleted: "Conversation completed and a Relationship Event was created according to the rules", noCandidateWarning: "A candidate Context is still unresolved; it will not enter lasting background.", advanced: "Test clock advanced one day", seeded: "Completed Day 1 scenario loaded", resetDone: "Sandbox reset", contextDeleted: "Context deleted and blocked from future use", contextUpdated: "Context updated", followupsOn: "Proactive Follow-ups enabled", followupsOff: "Proactive Follow-ups disabled", exported: "Local data exported", userYou: "You", localEngine: "Atlas · local rule engine", currentGoalPrompt: "I want to finish the first product slice this month and make the core loop genuinely work.", reflectionPrompt: "I feel anxious today and want to understand why first.", preferencePrompt: "Please be direct, but do not remind me repeatedly.", faultTestPrompt: "Use my confirmed goal and help me move to the next step.", faultScenarioReady: "Fault scenario triggered; inspect the observable result in Conversation.", allFaultsCleared: "All fault injection cleared", notUploaded: "No research survey or automatic upload is present.",
   },
 };
 
@@ -57,6 +57,7 @@ const QA_MODE = params.get("qa") === "1" || params.get("mode") === "qa";
 let screen = "home";
 let pendingDeleteContextId = null;
 let toastTimer = null;
+let automatedTestResults = null;
 
 function loadState() {
   try {
@@ -133,6 +134,9 @@ function renderHome(view) {
 function renderConversation(view) {
   document.querySelector("#conversation-day").textContent = state.relationship ? t("day", { n: view.relationshipDays }) : "";
   document.querySelector("#conversation-stage").textContent = state.relationship ? view.relationshipStage : "";
+  const enabledFaults = Object.entries(state.faults).filter(([, enabled]) => enabled).map(([name]) => t(`${name}Failure`));
+  document.querySelector("#fault-status").hidden = enabledFaults.length === 0;
+  document.querySelector("#fault-status-copy").textContent = enabledFaults.join(" · ");
   const thread = document.querySelector("#conversation-thread");
   thread.replaceChildren();
   const messages = view.activeConversation?.messages || [];
@@ -185,7 +189,7 @@ function renderRelationship(view) {
     const source = document.createElement("small"); source.textContent = `${t("sourceConversation")}: ${context.sourceConversationId}`;
     const actions = document.createElement("div"); actions.className = "action-row";
     const edit = document.createElement("button"); edit.className = "quiet-button"; edit.type = "button"; edit.dataset.editContext = context.id; edit.textContent = t("edit");
-    const remove = document.createElement("button"); remove.className = "danger-text-button"; remove.type = "button"; remove.dataset.deleteContext = context.id; remove.textContent = t("delete");
+    const remove = document.createElement("button"); remove.className = "danger-button compact-action"; remove.type = "button"; remove.dataset.deleteContext = context.id; remove.textContent = t("delete");
     actions.append(edit, remove); article.append(heading, value, source, actions); list.append(article);
   });
 }
@@ -194,6 +198,7 @@ function renderQa() {
   document.querySelector("#qa-banner").hidden = !QA_MODE;
   document.querySelectorAll("[data-fault]").forEach((input) => { input.checked = Boolean(state.faults[input.dataset.fault]); });
   document.querySelector("#state-inspector").textContent = JSON.stringify(state, null, 2);
+  renderTestResults();
 }
 
 function renderAll() {
@@ -214,17 +219,67 @@ function showSource() {
   document.querySelector("#source-dialog").showModal();
 }
 
-function runTests() {
-  const results = runDomainSelfTests();
+function renderTestResults() {
   const list = document.querySelector("#test-results"); list.replaceChildren();
-  results.forEach((result) => {
+  const note = document.querySelector("#not-run-note");
+  if (!automatedTestResults) {
+    document.querySelector("#test-summary").textContent = t("notRun");
+    note.hidden = false;
+    return;
+  }
+  note.hidden = true;
+  automatedTestResults.forEach((result) => {
     const item = document.createElement("li"); item.className = result.status;
     const name = document.createElement("span"); name.textContent = result.name;
     const status = document.createElement("strong"); status.textContent = result.status === "pass" ? "PASS" : `FAIL · ${result.detail}`;
     item.append(name, status); list.append(item);
   });
-  const pass = results.filter((result) => result.status === "pass").length;
-  document.querySelector("#test-summary").textContent = t("testPassed", { pass, total: results.length });
+  const pass = automatedTestResults.filter((result) => result.status === "pass").length;
+  document.querySelector("#test-summary").textContent = t("testPassed", { pass, total: automatedTestResults.length });
+}
+
+function runTests() {
+  automatedTestResults = runDomainSelfTests();
+  renderTestResults();
+}
+
+function closeQaConsole() {
+  document.querySelector("#qa-console").hidden = true;
+}
+
+function clearAllFaults(input = state) {
+  return ["model", "context", "network"].reduce((current, fault) => setFault(current, fault, false), input);
+}
+
+function buildConfirmedScenario() {
+  if (state.relationship && getProductView(state).contexts.length > 0) return clearAllFaults(state);
+  let prepared = createRelationship(createInitialState({ locale: state.locale, today: state.clock.today }), { name: state.locale === "zh-CN" ? "测试用户" : "Test user" });
+  const sent = sendMessage(prepared, t("currentGoalPrompt"));
+  prepared = confirmContext(sent.state, sent.candidate.id);
+  return completeConversation(prepared);
+}
+
+function openContextCheck() {
+  persist(buildConfirmedScenario());
+  closeQaConsole();
+  navigate("relationship");
+}
+
+function runFaultScenario(fault) {
+  let prepared = buildConfirmedScenario();
+  prepared = clearAllFaults(prepared);
+  prepared = setFault(prepared, fault, true);
+  prepared = startConversation(prepared);
+  const result = sendMessage(prepared, t("faultTestPrompt"));
+  persist(result.state);
+  closeQaConsole();
+  navigate("conversation");
+  showToast(t("faultScenarioReady"));
+}
+
+function clearFaults() {
+  persist(clearAllFaults());
+  showToast(t("allFaultsCleared"));
 }
 
 function resetSandbox() {
@@ -308,18 +363,21 @@ document.querySelector("#export-state").addEventListener("click", () => {
 });
 document.querySelector("#delete-state").addEventListener("click", resetSandbox);
 document.querySelector("#toggle-qa").addEventListener("click", () => { document.querySelector("#qa-console").hidden = false; renderQa(); });
-document.querySelector("#close-qa").addEventListener("click", () => { document.querySelector("#qa-console").hidden = true; });
+document.querySelector("#close-qa").addEventListener("click", closeQaConsole);
 document.querySelector("#run-self-tests").addEventListener("click", runTests);
 document.querySelector("#reset-sandbox").addEventListener("click", resetSandbox);
 document.querySelector("#seed-scenario").addEventListener("click", () => {
   let seeded = createRelationship(createInitialState({ locale: state.locale, today: state.clock.today }), { name: state.locale === "zh-CN" ? "测试用户" : "Test user" });
-  const sent = sendMessage(seeded, t("currentGoalPrompt")); seeded = confirmContext(sent.state, sent.candidate.id); seeded = completeConversation(seeded); persist(seeded); navigate("home"); showToast(t("seeded"));
+  const sent = sendMessage(seeded, t("currentGoalPrompt")); seeded = confirmContext(sent.state, sent.candidate.id); seeded = completeConversation(seeded); persist(seeded); closeQaConsole(); navigate("home"); showToast(t("seeded"));
 });
-document.querySelector("#advance-day").addEventListener("click", () => { persist(advanceDay(state)); navigate("home"); showToast(t("advanced")); });
+document.querySelector("#advance-day").addEventListener("click", () => { persist(advanceDay(state)); closeQaConsole(); navigate("home"); showToast(t("advanced")); });
+document.querySelector("#open-context-test").addEventListener("click", openContextCheck);
+document.querySelectorAll("[data-run-fault]").forEach((button) => button.addEventListener("click", () => runFaultScenario(button.dataset.runFault)));
+document.querySelector("#clear-faults").addEventListener("click", clearFaults);
+document.querySelector("#clear-faults-inline").addEventListener("click", clearFaults);
 document.querySelectorAll("[data-fault]").forEach((input) => input.addEventListener("change", () => persist(setFault(state, input.dataset.fault, input.checked))));
 
 document.querySelector("#qa-banner").hidden = !QA_MODE;
 renderAll();
 if (!state.relationship && !QA_MODE) document.querySelector("#onboarding-dialog").showModal();
-if (QA_MODE) runTests();
 console.info(`${PRODUCT_VERSION}: ${t("notUploaded")}`);

@@ -1,6 +1,6 @@
 # Atlas Companion · Sprint 1 产品沙盒与自测工具
 
-Version: `continuity-product-slice-v0.7`
+Version: `continuity-product-slice-v0.7.1`
 
 本目录不再是混合式“调研原型”。它由两个隔离界面组成：
 
@@ -48,6 +48,13 @@ Timeline / Relationship / Context Control
 
 这些测试不需要新的真人，也不计入研究样本。
 
+控制台加载时保持“未运行”，不会预先显示 PASS。点击“运行全部自动测试”后才计算结果。手动检查使用独立入口：
+
+- “打开 Relationship 检查”会自动准备已确认 Context、关闭控制台并进入可修改/删除页面；
+- 三个“运行场景”按钮会分别触发一次模型、Context 或网络故障，关闭控制台并在 Conversation 中显示预期降级；
+- Conversation 顶部会显示当前故障，点击“清除故障”恢复正常；
+- “高级：持续故障开关”用于需要连续输入或检查 Analytics 的场景。
+
 ## 以后仍需真人回答什么
 
 自动化不能判断回复是否自然、关系是否真实、Timeline 是否让人感到共同成长、用户是否会跨真实自然日主动回来，以及完整体验后是否愿意付费。这些问题将在核心产品闭环通过后合并成一次真人测试包，而不是为每个组件重复招募。边界和原因见 [`DEC-003`](../../../decisions/DEC-003-separate-product-sandbox-and-human-validation.md)。
@@ -67,7 +74,7 @@ python3 -m http.server 4173 --bind 0.0.0.0 --directory /DATA/codex_ts/atlas_os/a
 - Founder / 工程自测：<https://atlas-continuity-cn-test.pages.dev/?mode=qa>
 - 公开镜像：<https://yuhaixin000.github.io/atlas-continuity-prototype/>
 
-v0.6 的研究提交 API 与结果兼容代码仍保留在 [`prototype-collector`](../prototype-collector/README.md)，但 v0.7 不调用它。
+v0.6 的研究提交 API 与结果兼容代码仍保留在 [`prototype-collector`](../prototype-collector/README.md)，但 v0.7.x 不调用它。
 
 - v0.7 私有主仓库提交：`3e829e0722969375de991bb0b6dea8c826f3a8e0`；
 - v0.7 隔离公开提交：`17a50215ad8535045d8359df1fdaa27cf84b70a0`；
@@ -80,6 +87,7 @@ v0.6 的研究提交 API 与结果兼容代码仍保留在 [`prototype-collector
 ```bash
 node atlas_os/apps/companion/prototype/tests/domain.test.mjs
 node atlas_os/apps/companion/prototype/tests/smoke.mjs
+node atlas_os/apps/companion/prototype/tests/ui.test.mjs
 bash atlas_os/evidence/interviews/validation/tools/validate_validation.sh
 bash atlas_os/tools/validate_recovery.sh
 ```

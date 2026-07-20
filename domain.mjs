@@ -1,4 +1,4 @@
-export const PRODUCT_VERSION = "continuity-product-slice-v0.7";
+export const PRODUCT_VERSION = "continuity-product-slice-v0.7.1";
 export const STATE_SCHEMA = "atlas-product-sandbox-v1";
 export const STORAGE_KEY = "atlas.product-sandbox.v1";
 
@@ -15,6 +15,7 @@ const COPY = {
     followupPrefix: "上次我们一起留下了这个方向：",
     followupSuffix: "今天你想继续推进哪一部分？",
     noContext: "我没有足够的已确认背景，不会假装记得。你愿意从今天最重要的事情开始吗？",
+    networkReply: "当前无法连接 Atlas。你的消息仍保存在本机；恢复连接后可以重试，我不会假装已经回复。",
     eventGoal: "共同目标开始形成",
     eventPreference: "互动方式得到确认",
     eventIdentity: "一项个人背景得到确认",
@@ -35,6 +36,7 @@ const COPY = {
     followupPrefix: "Last time, we kept this direction together:",
     followupSuffix: "Which part would you like to move forward today?",
     noContext: "I do not have enough confirmed background, so I will not pretend to remember. Would you like to begin with what matters most today?",
+    networkReply: "Atlas cannot be reached right now. Your message remains on this device so you can retry after the connection recovers; I will not pretend a response was completed.",
     eventGoal: "A shared goal began to take shape",
     eventPreference: "An interaction preference was confirmed",
     eventIdentity: "A piece of personal background was confirmed",
@@ -185,8 +187,10 @@ export function sendMessage(input, rawText) {
   conversation.messages.push({ id: nextId(state, "message"), role: "user", text });
 
   if (state.faults.network) {
+    const response = { id: nextId(state, "message"), role: "assistant", text: COPY[state.locale].networkReply, error: "network_unavailable" };
+    conversation.messages.push(response);
     record(state, "conversation.message_failed", { reason: "network_unavailable" });
-    return { state, response: null, candidate: null, error: "network_unavailable" };
+    return { state, response, candidate: null, error: "network_unavailable" };
   }
   if (state.faults.model) {
     conversation.messages.push({ id: nextId(state, "message"), role: "assistant", text: state.locale === "zh-CN" ? "我暂时无法生成回复。你的消息仍保留在本地，可以重试。" : "I can’t generate a response right now. Your message remains local so you can retry." });
@@ -450,6 +454,11 @@ export function runDomainSelfTests() {
     const before = getProductView(local).activeConversation.messages.length;
     const sent = sendMessage(local, "这条消息需要保留");
     assert(sent.error === "model_unavailable" && getProductView(sent.state).activeConversation.messages.length === before + 2, "model fallback failed");
+  });
+  test("网络故障显示可观察的本地降级回复", () => {
+    let local = setFault(state, "network", true);
+    const sent = sendMessage(local, "测试网络故障");
+    assert(sent.error === "network_unavailable" && sent.response?.error === "network_unavailable", "network fallback was not visible");
   });
   test("状态契约可持久化往返", () => {
     const restored = JSON.parse(JSON.stringify(state));

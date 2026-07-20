@@ -33,4 +33,4 @@ const continued = sendMessage(state, "What did I want to ship?");
 assert.deepEqual(continued.response.usedContextIds, []);
 assert.equal(state.version, PRODUCT_VERSION);
 
-console.log(`Atlas v0.7 domain tests passed: ${builtIn.length} built-in rules plus English source/deletion scenario.`);
+console.log(`Atlas v0.7.1 domain tests passed: ${builtIn.length} built-in rules plus English source/deletion scenario.`);

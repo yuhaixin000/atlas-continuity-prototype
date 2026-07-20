@@ -78,6 +78,10 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus
 .companion-heading { display: flex; align-items: center; gap: 12px; padding: 25px 0 14px; }
 .companion-heading h1 { font-size: 24px; }
 .companion-heading p { margin: 3px 0 0; color: var(--muted); font-size: 12px; line-height: 1.4; }
+.fault-status { margin: 0 0 14px; padding: 11px 12px; border: 1px solid #c79b72; border-radius: 13px; background: #f5e5d5; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.fault-status > div { display: grid; gap: 3px; }
+.fault-status strong { color: #7f442b; font-size: 11px; }
+.fault-status span { color: #8b614c; font-size: 10px; }
 .conversation-thread { display: grid; gap: 15px; padding: 8px 0 20px; }
 .message { max-width: 88%; display: grid; gap: 5px; }
 .message small { color: var(--muted); font-size: 10px; }
@@ -131,6 +135,7 @@ textarea, input { width: 100%; border: 1px solid var(--line); background: #fff; 
 .context-item { padding: 15px; border-radius: 15px; background: #f7f4ed; border: 1px solid #e7dfd2; }
 .context-item p { margin: 12px 0 9px; line-height: 1.55; font-size: 13px; }
 .context-item > small, .context-heading small { color: var(--muted); font-size: 10px; }
+.compact-action { min-height: 36px; padding: 7px 12px; }
 .setting-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
 .setting-row h3 { margin: 0 0 4px; font-size: 14px; }
 .setting-row p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
@@ -163,6 +168,14 @@ textarea, input { width: 100%; border: 1px solid var(--line); background: #fff; 
 .qa-console .secondary-button, .qa-console .quiet-button { background: #303a35; border-color: #4c5b53; color: #e6eee9; }
 .qa-section { border-top: 1px solid #39453f; padding-top: 16px; margin-top: 17px; }
 .qa-section h3 { margin: 0 0 11px; font-size: 13px; }
+.manual-checks { display: grid; gap: 8px; }
+.manual-checks article { display: grid; gap: 10px; padding: 11px; border: 1px solid #3e4b44; border-radius: 12px; background: #2b342f; }
+.manual-checks article > div { display: grid; gap: 4px; }
+.manual-checks strong { color: #eff5f1; font-size: 12px; }
+.manual-checks small { color: #aebdb5; font-size: 10px; line-height: 1.45; }
+.manual-checks button { width: 100%; min-height: 37px; padding: 7px 10px; }
+.compact-control { min-height: 31px; padding: 5px 9px; font-size: 10px; }
+.not-run-note { margin: 10px 0 0; padding: 9px 10px; border-radius: 9px; background: #2b342f; }
 .fault-grid { display: grid; grid-template-columns: 1fr; gap: 7px; }
 .fault-grid label { display: flex; align-items: center; gap: 9px; background: #2b342f; border-radius: 10px; padding: 10px; font-size: 12px; }
 .fault-grid input { width: auto; }

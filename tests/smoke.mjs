@@ -22,10 +22,11 @@ for (const control of [
   "confirm-candidate", "reject-candidate", "complete-conversation", "followup-card",
   "continue-followup", "view-followup-source", "timeline-list", "context-list",
   "followup-switch", "export-state", "delete-state", "qa-console", "run-self-tests",
-  "seed-scenario", "advance-day", "state-inspector",
+  "seed-scenario", "advance-day", "state-inspector", "open-context-test", "clear-faults",
+  "clear-faults-inline", "fault-status", "not-run-note",
 ]) assert.match(html, new RegExp(`id="${control}"`), `missing ${control}`);
 
-assert.match(domain, /continuity-product-slice-v0\.7/, "v0.7 version missing");
+assert.match(domain, /continuity-product-slice-v0\.7\.1/, "v0.7.1 version missing");
 assert.match(domain, /atlas-product-sandbox-v1/, "product state contract missing");
 assert.match(domain, /context\.candidate_created/, "candidate Context lifecycle missing");
 assert.match(domain, /context\.confirmed/, "Context confirmation missing");
@@ -36,12 +37,15 @@ assert.match(domain, /status === "deleted"|status = "deleted"/, "Context deletio
 assert.match(domain, /context\.retrieval_failed/, "Context failure fallback missing");
 assert.match(domain, /model_unavailable/, "model failure fallback missing");
 assert.match(domain, /network_unavailable/, "network failure fallback missing");
+assert.match(domain, /networkReply/, "visible network fallback copy missing");
 assert.match(domain, /runDomainSelfTests/, "domain self-test suite missing");
 assert.match(app, /localStorage\.setItem/, "local product persistence missing");
 assert.match(app, /mode"\) === "qa"/, "isolated QA mode missing");
 assert.doesNotMatch(app, /\/v1\/results|ATLAS-UT|submitResult|automatic_upload/, "product sandbox must not contain research submission");
 assert.doesNotMatch(html, /survey-form|test-guide|current_task|plan_choice/, "research tasks or survey leaked into product UI");
 assert.doesNotMatch(html, /https?:\/\//, "product sandbox must not load third-party resources");
+assert.doesNotMatch(app, /if \(QA_MODE\) runTests\(\)/, "QA page must not claim PASS before an explicit test run");
+for (const fault of ["model", "context", "network"]) assert.match(html, new RegExp(`data-run-fault="${fault}"`), `missing guided ${fault} failure scenario`);
 assert.match(css, /width:\s*min\(100%,\s*500px\)/, "mobile product frame missing");
 
 const zhStart = app.indexOf('"zh-CN": {');
@@ -59,4 +63,4 @@ for (const key of translationKeys) {
   assert.match(en, pattern, `English translation missing: ${key}`);
 }
 
-console.log(`Atlas v0.7 product sandbox smoke test passed: 5 product screens, ${translationKeys.size} bilingual UI keys, isolated QA console, and no research survey/upload.`);
+console.log(`Atlas v0.7.1 product sandbox smoke test passed: 5 product screens, ${translationKeys.size} bilingual UI keys, isolated QA console, and no research survey/upload.`);

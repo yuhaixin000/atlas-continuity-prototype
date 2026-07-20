@@ -2,8 +2,11 @@
   "name": "atlas-continuity-product-sandbox",
   "private": true,
   "type": "module",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "scripts": {
-    "test": "node tests/domain.test.mjs && node tests/smoke.mjs"
+    "test": "node tests/domain.test.mjs && node tests/smoke.mjs && node tests/ui.test.mjs"
+  },
+  "devDependencies": {
+    "linkedom": "^0.18.12"
   }
 }

@@ -74,6 +74,7 @@
         <section class="product-screen" data-screen="conversation" id="screen-conversation" hidden>
           <div class="relationship-strip"><span id="conversation-day"></span><strong id="conversation-stage"></strong></div>
           <div class="companion-heading"><span class="brand-mark small" aria-hidden="true">A</span><div><h1>Atlas</h1><p data-t="conversationIdentity">与你共同理解和推进，而不是等待下一条提醒</p></div></div>
+          <div class="fault-status" id="fault-status" hidden><div><strong data-t="activeFault">当前故障注入已开启</strong><span id="fault-status-copy"></span></div><button class="quiet-button" id="clear-faults-inline" type="button" data-t="clearFaults">清除故障</button></div>
           <div class="conversation-thread" id="conversation-thread" aria-live="polite"></div>
           <div class="conversation-empty" id="conversation-empty">
             <h2 data-t="conversationPrompt">今天什么事情最值得我们认真聊一会儿？</h2>
@@ -130,7 +131,7 @@
             <button class="secondary-button" id="export-state" type="button" data-t="exportData">导出本地数据 JSON</button>
             <button class="danger-button" id="delete-state" type="button" data-t="deleteAllData">删除全部本地数据</button>
           </div>
-          <div class="version-card"><span data-t="buildVersion">构建版本</span><code>continuity-product-slice-v0.7</code></div>
+          <div class="version-card"><span data-t="buildVersion">构建版本</span><code>continuity-product-slice-v0.7.1</code></div>
         </section>
       </main>
 
@@ -152,12 +153,21 @@
         <button class="secondary-button" id="advance-day" type="button" data-t="advanceDay">推进到下一天</button>
         <button class="quiet-button" id="reset-sandbox" type="button" data-t="resetSandbox">重置沙盒</button>
       </div>
-      <section class="qa-section"><h3 data-t="faultInjection">故障注入</h3><div class="fault-grid">
+      <section class="qa-section">
+        <h3 data-t="manualChecks">可观察的手动功能检查</h3>
+        <div class="manual-checks">
+          <article><div><strong data-t="contextDeleteCheck">Context 删除</strong><small data-t="contextDeleteCheckCopy">装载已确认 Context，关闭控制台并直接打开 Relationship。</small></div><button class="secondary-button" id="open-context-test" type="button" data-t="openRelationshipCheck">打开 Relationship 检查</button></article>
+          <article><div><strong data-t="modelFailure">模型不可用</strong><small data-t="modelFailureHow">自动触发一次消息；应看到“暂时无法生成回复”，消息仍保留。</small></div><button class="secondary-button" data-run-fault="model" type="button" data-t="runScenario">运行场景</button></article>
+          <article><div><strong data-t="contextFailure">Context 检索失败</strong><small data-t="contextFailureHow">自动触发一次消息；应明确说明不知道，且不引用已确认 Context。</small></div><button class="secondary-button" data-run-fault="context" type="button" data-t="runScenario">运行场景</button></article>
+          <article><div><strong data-t="networkFailure">网络不可用</strong><small data-t="networkFailureHow">自动触发一次消息；应显示本地保留与可重试状态。</small></div><button class="secondary-button" data-run-fault="network" type="button" data-t="runScenario">运行场景</button></article>
+        </div>
+      </section>
+      <section class="qa-section"><div class="section-title"><h3 data-t="advancedFaults">高级：持续故障开关</h3><button class="quiet-button compact-control" id="clear-faults" type="button" data-t="clearFaults">清除故障</button></div><p data-t="advancedFaultsCopy">开关保持生效，直到手动清除；用于连续输入和 Analytics 检查。</p><div class="fault-grid">
         <label><input type="checkbox" data-fault="model" /><span data-t="modelFailure">模型不可用</span></label>
         <label><input type="checkbox" data-fault="context" /><span data-t="contextFailure">Context 检索失败</span></label>
         <label><input type="checkbox" data-fault="network" /><span data-t="networkFailure">网络不可用</span></label>
       </div></section>
-      <section class="qa-section"><div class="section-title"><h3 data-t="testResults">自动测试结果</h3><span class="count-pill" id="test-summary">—</span></div><ol class="test-results" id="test-results"></ol></section>
+      <section class="qa-section"><div class="section-title"><h3 data-t="testResults">自动测试结果</h3><span class="count-pill" id="test-summary" data-t="notRun">未运行</span></div><p class="not-run-note" id="not-run-note" data-t="notRunCopy">点击“运行全部自动测试”后才会产生 PASS/FAIL；页面加载不会自动执行。</p><ol class="test-results" id="test-results"></ol></section>
       <section class="qa-section"><details><summary data-t="inspectState">检查当前领域状态与 Analytics</summary><pre id="state-inspector"></pre></details></section>
     </aside>
 
